@@ -1,0 +1,18 @@
+# ignore node_modules
+node_modules
+
+# ignore env
+.env
+env
+
+# ignore build
+build
+
+# ignore dist
+dist
+
+# ignore .next
+.next
+
+# ignore .env.local
+.env.local

@@ -1,0 +1,46 @@
+@import '../../style/default.less';
+
+.booking-page {
+  margin-bottom: 40px;
+  .ant-row.ant-form-item {
+    align-items: center;
+    .ant-form-item-label label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .user-grp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: 700;
+
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid @primary-color;
+    }
+  }
+
+  .question-bl {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: @light-blue;
+    border-radius: 12px;
+
+    .question {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .answer {
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+}
