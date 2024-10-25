@@ -193,13 +193,13 @@ class PerformerUpdate extends PureComponent<IProps> {
                   phoneCodes={phoneCodes}
                 />
               </Tabs.TabPane>
-              <Tabs.TabPane tab={<span>ID Documents</span>} key="document">
+              {/* <Tabs.TabPane tab={<span>ID Documents</span>} key="document">
                 <PerformerDocument
                   submiting={updating}
                   onFinish={this.submit.bind(this)}
                   performer={performer}
                 />
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
               {/* <Tabs.TabPane tab={<span>Pricing</span>} key="subscription">
                 <SubscriptionForm
                   submiting={updating}
@@ -207,13 +207,13 @@ class PerformerUpdate extends PureComponent<IProps> {
                   performer={performer}
                 />
               </Tabs.TabPane> */}
-              <Tabs.TabPane tab={<span>Commission</span>} key="commission">
+              {/* <Tabs.TabPane tab={<span>Commission</span>} key="commission">
                 <CommissionSettingForm
                   submiting={settingUpdating}
                   onFinish={this.updateCommissionSetting.bind(this)}
                   performer={performer}
                 />
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
               {/* <Tabs.TabPane tab={<span>CCbill</span>} key="ccbill">
                 <CCbillSettingForm
                   submiting={settingUpdating}
@@ -221,21 +221,21 @@ class PerformerUpdate extends PureComponent<IProps> {
                   ccbillSetting={performer.ccbillSetting}
                 />
               </Tabs.TabPane> */}
-              <Tabs.TabPane tab={<span>Banking</span>} key="banking">
+              {/* <Tabs.TabPane tab={<span>Banking</span>} key="banking">
                 <BankingForm
                   submiting={settingUpdating}
                   onFinish={this.updateBankingSetting.bind(this)}
                   bankingInformation={performer.bankingInformation || null}
                   countries={countries}
                 />
-              </Tabs.TabPane>
-              <Tabs.TabPane tab={<span>Paypal</span>} key="paypal">
+              </Tabs.TabPane> */}
+              {/* <Tabs.TabPane tab={<span>Paypal</span>} key="paypal">
                 <PerformerPaypalForm
                   updating={settingUpdating}
                   onFinish={this.updatePaymentGatewaySetting.bind(this, 'paypal')}
                   user={performer}
                 />
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
               <Tabs.TabPane tab={<span>Change password</span>} key="password">
                 <UpdatePaswordForm onFinish={this.updatePassword.bind(this)} updating={pwUpdating} />
               </Tabs.TabPane>

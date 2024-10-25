@@ -598,7 +598,7 @@ export class AccountForm extends PureComponent<IProps> {
               <Switch />
             </Form.Item>
           </Col>
-          <Col xs={8} md={8}>
+          {/* <Col xs={8} md={8}>
             <Form.Item
               name="verifiedDocument"
               label="Verified ID Documents?"
@@ -607,8 +607,8 @@ export class AccountForm extends PureComponent<IProps> {
             >
               <Switch />
             </Form.Item>
-          </Col>
-          <Col xs={8} md={8}>
+          </Col> */}
+          {/* <Col xs={8} md={8}>
             <Form.Item
               name="verifiedAccount"
               label="Verified Account?"
@@ -617,7 +617,7 @@ export class AccountForm extends PureComponent<IProps> {
             >
               <Switch />
             </Form.Item>
-          </Col>
+          </Col> */}
           <Col xs={24} md={24}>
             <Form.Item
               name="status"

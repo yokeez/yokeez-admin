@@ -7,7 +7,7 @@ interface IProps {
   onSubmit: Function;
   defaultValue?: {
     status?: string,
-    verifiedDocument?: string
+    // verifiedDocument?: string
   };
 }
 
@@ -16,7 +16,7 @@ export class SearchFilter extends PureComponent<IProps> {
     q: '',
     status: '',
     verifiedEmail: '',
-    verifiedDocument: '',
+    // verifiedDocument: '',
     verifiedAccount: ''
   }
 
@@ -28,7 +28,8 @@ export class SearchFilter extends PureComponent<IProps> {
   render() {
     const { onSubmit, defaultValue } = this.props;
     const {
-      status = '', verifiedDocument = ''
+      status = '', 
+      // verifiedDocument = ''
     } = defaultValue;
 
     return (
@@ -51,7 +52,7 @@ export class SearchFilter extends PureComponent<IProps> {
             <Select.Option value="inactive">Inactive</Select.Option>
           </Select>
         </Col>
-        <Col lg={4} xs={12}>
+        {/* <Col lg={4} xs={12}>
           <Select
             defaultValue={verifiedDocument}
             style={{ width: '100%' }}
@@ -65,7 +66,7 @@ export class SearchFilter extends PureComponent<IProps> {
               Not Verified Email
             </Select.Option>
           </Select>
-        </Col>
+        </Col> */}
         <Col lg={4} xs={12}>
           <Select
             defaultValue=""
