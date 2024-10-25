@@ -44,14 +44,14 @@ const reportTableList = ({
       )
     },
 
-    {
-      title: 'Object',
-      dataIndex: 'target',
-      key: 'target',
-      render: (target) => (
-        <Tag color="blue" style={{ textTransform: 'capitalize' }}>{target}</Tag>
-      )
-    },
+    // {
+    //   title: 'Object',
+    //   dataIndex: 'target',
+    //   key: 'target',
+    //   render: (target) => (
+    //     <Tag color="blue" style={{ textTransform: 'capitalize' }}>{target}</Tag>
+    //   )
+    // },
     {
       title: 'Reason',
       key: 'description',
