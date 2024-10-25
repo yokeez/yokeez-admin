@@ -16,3 +16,4 @@ dist
 
 # ignore .env.local
 .env.local
+.vercel
