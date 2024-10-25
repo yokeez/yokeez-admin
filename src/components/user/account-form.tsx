@@ -138,12 +138,12 @@ export class AccountForm extends PureComponent<IProps> {
               <Input />
             </Form.Item>
           </Col>
-          <Col xs={12} md={12}>
+          {/* <Col xs={12} md={12}>
             <Form.Item name="balance" label="Wallet Balance">
               <InputNumber style={{ width: '100%' }} />
             </Form.Item>
-          </Col>
-          <Col xs={12} md={12}>
+          </Col> */}
+          {/* <Col xs={12} md={12}>
             <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
               <Select>
                 <Select.Option key="male" value="male">
@@ -157,7 +157,7 @@ export class AccountForm extends PureComponent<IProps> {
                 </Select.Option>
               </Select>
             </Form.Item>
-          </Col>
+          </Col> */}
           {!user && [
             <Col xs={12} md={12}>
               <Form.Item
@@ -190,7 +190,7 @@ export class AccountForm extends PureComponent<IProps> {
               </Form.Item>
             </Col>
           ]}
-          <Col xs={12} md={12}>
+          {/* <Col xs={12} md={12}>
             <Form.Item name="roles" label="Roles" rules={[{ required: true }]}>
               <Select mode="multiple">
                 <Select.Option key="user" value="user">
@@ -201,7 +201,7 @@ export class AccountForm extends PureComponent<IProps> {
                 </Select.Option>
               </Select>
             </Form.Item>
-          </Col>
+          </Col> */}
           <Col xs={12} md={12}>
             <Form.Item name="status" label="Status" rules={[{ required: true }]}>
               <Select>
