@@ -478,7 +478,7 @@ export default class FormFeed extends PureComponent<IProps> {
           </Form.Item>
           )}
           <div style={{ margin: '15px 0' }}>
-            {['video', 'photo'].includes(feed?.type || type) && [
+            {['video'].includes(feed?.type || type) && [
               <Upload
                 key="upload_thumb"
                 customRequest={() => true}
@@ -496,7 +496,7 @@ export default class FormFeed extends PureComponent<IProps> {
                 </Button>
               </Upload>
             ]}
-            {['video'].includes(feed?.type || type) && [
+            {/* {['video'].includes(feed?.type || type) && [
               <Upload
                 key="upload_teaser"
                 customRequest={() => true}
@@ -513,7 +513,7 @@ export default class FormFeed extends PureComponent<IProps> {
                   Add Teaser
                 </Button>
               </Upload>
-            ]}
+            ]} */}
             <Button disabled={addPoll || (!!(feed && feed._id))} type="primary" style={{ marginLeft: '15px' }} onClick={this.onAddPoll.bind(this)}>
               <BarChartOutlined style={{ transform: 'rotate(90deg)' }} />
               {' '}

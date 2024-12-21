@@ -51,9 +51,9 @@ class UserCreate extends PureComponent<IProps> {
       }
       Router.push(
         {
-          pathname: '/users'
+          pathname: '/fans'
         },
-        '/users'
+        '/fans'
       );
     } catch (e) {
       const err = (await Promise.resolve(e)) || {};

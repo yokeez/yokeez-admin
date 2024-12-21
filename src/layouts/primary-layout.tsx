@@ -117,23 +117,23 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //     }
       //   ]
       // },
-      {
-        id: "posts",
-        name: "Posts",
-        icon: <ContainerOutlined />,
-        children: [
-          {
-            id: "post-page",
-            name: "All posts",
-            route: "/posts?type=page",
-          },
-          {
-            id: "page-create",
-            name: "Create new",
-            route: "/posts/create?type=page",
-          },
-        ],
-      },
+      // {
+      //   id: "posts",
+      //   name: "Posts",
+      //   icon: <ContainerOutlined />,
+      //   children: [
+      //     {
+      //       id: "post-page",
+      //       name: "All posts",
+      //       route: "/posts?type=page",
+      //     },
+      //     {
+      //       id: "page-create",
+      //       name: "Create new",
+      //       route: "/posts/create?type=page",
+      //     },
+      //   ],
+      // },
       // {
       //   id: 'menu',
       //   name: 'Existing Menu Options',
@@ -187,18 +187,18 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       // },
       {
         id: "accounts",
-        name: "Users",
+        name: "Fan",
         icon: <UserOutlined />,
         children: [
           {
-            name: "All users",
-            id: "users",
-            route: "/users",
+            name: "All Fan",
+            id: "fans",
+            route: "/fans",
           },
           {
-            name: "Create new",
-            id: "users-create",
-            route: "/users/create",
+            name: "Create new Fan",
+            id: "fans-create",
+            route: "/fans/create",
           },
         ],
       },

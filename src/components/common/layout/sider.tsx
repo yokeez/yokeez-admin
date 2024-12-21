@@ -58,8 +58,8 @@ class Sider extends PureComponent<ISiderProps> {
           </ScrollBar>
         </div>
         {!collapsed && (
-          <div className="switchTheme">
-            <span>
+          <div className={`switchTheme ${theme === 'dark' ? 'dark' : 'light'}`}>
+            <span style={{color: ''}}>
               v
               {getGlobalConfig().NEXT_PUBLIC_BUILD_VERSION}
             </span>

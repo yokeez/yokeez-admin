@@ -170,10 +170,10 @@ export default class Performers extends PureComponent<IProps> {
                   children: (
                     <Link
                       href={{
-                        pathname: '/users/update',
+                        pathname: '/fans/update',
                         query: { id }
                       }}
-                      as={`/users/update?id=${id}`}
+                      as={`/fans/update?id=${id}`}
                     >
                       <a>
                         <EditOutlined />
