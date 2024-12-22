@@ -122,6 +122,7 @@ export class SiderMenu extends PureComponent<IProps> {
         // selectedKeys={this.state.selectedKeys}
         openKeys={openKeys}
         onOpenChange={this.onOpenChange.bind(this)}
+        style={{height: '100%'}}
         // onClick={
         //   isMobile
         //     ? () => {

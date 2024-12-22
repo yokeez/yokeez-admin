@@ -11,7 +11,8 @@ import {
   Upload,
   Checkbox,
   Progress,
-  Modal
+  Modal,
+  DatePicker
 } from 'antd'
 import {
   IPerformer,
@@ -63,6 +64,8 @@ interface IProps {
   phoneCodes: IPhoneCodes[];
   bodyInfo: IBody
 }
+
+const genders = [{text: 'Male', value: 'male'}, {text: 'Female', value: 'female'}]
 
 export class AccountForm extends PureComponent<IProps> {
   state = {
@@ -278,7 +281,7 @@ export class AccountForm extends PureComponent<IProps> {
               <Input placeholder="Email address" />
             </Form.Item>
           </Col>
-          {/* <Col md={12} xs={12}>
+          <Col md={12} xs={12}>
             <Form.Item
               label="Date of Birth"
               name="dateOfBirth"
@@ -298,11 +301,11 @@ export class AccountForm extends PureComponent<IProps> {
               />
             </Form.Item>
           </Col>
-          <Col md={12} xs={12}>
+          {/* <Col md={12} xs={12}>
             <Form.Item label="Wallet Balance" name="balance">
               <InputNumber min={0} style={{ width: '100%' }} />
             </Form.Item>
-          </Col>
+          </Col> */}
           <Col xs={12} md={12}>
             <Form.Item name="gender" label="Gender" required>
               <Select>
@@ -314,7 +317,7 @@ export class AccountForm extends PureComponent<IProps> {
               </Select>
             </Form.Item>
           </Col>
-          <Col xs={12} md={12}>
+          {/* <Col xs={12} md={12}>
             <Form.Item name="sexualOrientation" label="Sexual orientation">
               <Select>
                 {sexualOrientations.map((s) => (
@@ -626,7 +629,7 @@ export class AccountForm extends PureComponent<IProps> {
               </Select>
             </Form.Item>
           </Col>
-          {performer && (
+          {/* {performer && (
             <Col md={12} xs={12}>
               <Form.Item label="Intro Video">
                 <Upload
@@ -673,7 +676,7 @@ export class AccountForm extends PureComponent<IProps> {
                 <Checkbox>Activate intro video</Checkbox>
               </Form.Item>
             </Col>
-          )}
+          )} */}
           <Col xs={24} md={24}>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
               <Button
