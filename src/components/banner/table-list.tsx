@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
-import { Table, Tag, Image } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import Link from 'next/link';
-import { DropdownAction } from '@components/common/dropdown-action';
+import { PureComponent } from 'react'
+import { Table, Tag, Image } from 'antd'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import Link from 'next/link'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -16,13 +16,13 @@ interface IProps {
 
 export class TableListBanner extends PureComponent<IProps> {
   render() {
-    const { deleteBanner } = this.props;
+    const { deleteBanner } = this.props
     const columns = [
       {
         title: '',
         dataIndex: 'thumbnail',
-        render(data, record) {
-          return <Image src={record?.photo?.url || './banner-image.jpg'} alt="thumb" width="100px" />;
+        render(data: any, record: any) {
+          return <Image src={record?.photo?.url || './banner-image.jpg'} alt="thumb" width="100px" />
         }
       },
       {
@@ -39,10 +39,10 @@ export class TableListBanner extends PureComponent<IProps> {
         render(display: string) {
           switch (display) {
             case 'desktop':
-              return <Tag color="cyan">Desktop</Tag>;
+              return <Tag color="cyan">Desktop</Tag>
             case 'mobile':
-              return <Tag color="purple">Mobile</Tag>;
-            default: return <Tag color="default">{display}</Tag>;
+              return <Tag color="purple">Mobile</Tag>
+            default: return <Tag color="default">{display}</Tag>
           }
         }
       },
@@ -52,10 +52,10 @@ export class TableListBanner extends PureComponent<IProps> {
         render(status: string) {
           switch (status) {
             case 'active':
-              return <Tag color="green">Active</Tag>;
+              return <Tag color="green">Active</Tag>
             case 'inactive':
-              return <Tag color="red">Inactive</Tag>;
-            default: return <Tag color="default">{status}</Tag>;
+              return <Tag color="red">Inactive</Tag>
+            default: return <Tag color="default">{status}</Tag>
           }
         }
       },
@@ -64,7 +64,7 @@ export class TableListBanner extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
@@ -84,11 +84,9 @@ export class TableListBanner extends PureComponent<IProps> {
                     }}
                     as={`/banners/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -108,10 +106,10 @@ export class TableListBanner extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <div className="table-responsive">
         <Table
@@ -123,6 +121,6 @@ export class TableListBanner extends PureComponent<IProps> {
           onChange={onChange.bind(this)}
         />
       </div>
-    );
+    )
   }
 }

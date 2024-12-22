@@ -1,11 +1,13 @@
-import React from 'react';
-import { Spin } from 'antd';
-import './loader.less';
+import React from 'react'
+import { Spin } from 'antd'
+import './loader.less'
 
-const Loader = () => (
-  <div className="loader">
-    <Spin size="large" />
-  </div>
-);
+function Loader() {
+  return (
+    <div className="loader">
+      <Spin size="large" />
+    </div>
+  )
+}
 
-export default Loader;
+export default Loader

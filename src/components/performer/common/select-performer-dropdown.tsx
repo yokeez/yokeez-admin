@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
-import { Select, message, Avatar } from 'antd';
-import { debounce } from 'lodash';
-import { performerService } from '@services/performer.service';
+import { PureComponent } from 'react'
+import { Select, message, Avatar } from 'antd'
+import { debounce } from 'lodash'
+import { performerService } from '@services/performer.service'
 
 interface IProps {
   placeholder?: string;
@@ -17,35 +17,35 @@ export class SelectPerformerDropdown extends PureComponent<IProps> {
     loading: false,
     data: [],
     isFirstLoaded: false
-  };
+  }
 
   loadPerformers = debounce(async (q) => {
     try {
-      await this.setState({ loading: true });
-      const resp = await (await performerService.search({ q, limit: 99, role: 'performer' })).data;
+      await this.setState({ loading: true })
+      const resp = await (await performerService.search({ q, limit: 99, role: 'performer' })).data
       this.setState({
         data: resp.data,
         loading: false,
         isFirstLoaded: true
-      });
+      })
     } catch (e) {
-      const err = await e;
-      message.error(err?.message || 'Error occured');
-      this.setState({ loading: false, isFirstLoaded: true });
+      const err:any = await e
+      message.error(err?.message || 'Error occured')
+      this.setState({ loading: false, isFirstLoaded: true })
     }
-  }, 500);
+  }, 500)
 
   componentDidMount() {
-    this.loadPerformers('');
+    this.loadPerformers('')
   }
 
   render() {
     const {
       style, onSelect, defaultValue, disabled, showAll
-    } = this.props;
-    const { data, loading, isFirstLoaded } = this.state;
+    } = this.props
+    const { data, loading, isFirstLoaded } = this.state
     return (
-      <>
+      <div>
         {isFirstLoaded && (
         <Select
           showSearch
@@ -61,7 +61,7 @@ export class SelectPerformerDropdown extends PureComponent<IProps> {
           <Select.Option value="" key="default" disabled={showAll}>
             {showAll ? 'Select a creator' : 'All creators'}
           </Select.Option>
-          {data && data.length > 0 && data.map((u) => (
+          {data && data.length > 0 && data.map((u:any) => (
             <Select.Option value={u._id} key={u._id} style={{ textTransform: 'capitalize' }}>
               <Avatar size={28} src={u?.avatar || '/no-avatar.png'} />
               {' '}
@@ -70,7 +70,7 @@ export class SelectPerformerDropdown extends PureComponent<IProps> {
           ))}
         </Select>
         )}
-      </>
-    );
+      </div>
+    )
   }
 }

@@ -1,71 +1,71 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
 
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
 import {
   Form, Input, Select, Button, Breadcrumb, message
-} from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import Loader from '@components/common/base/loader';
-import { emailTemplateService } from '@services/email-template.service';
+} from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
+import Loader from '@components/common/base/loader'
+import { emailTemplateService } from '@services/email-template.service'
 
 const WYSIWYG = dynamic(() => import('@components/wysiwyg'), {
   ssr: false
-});
+})
 
 class EmailTemplateUpdate extends PureComponent<any, any> {
-  private _content: string = '';
+  private _content: string = ''
 
   state = {
     submiting: false,
     fetching: true,
     template: null
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    const { query } = ctx;
-    return query;
+  static async getInitialProps({ ctx }:any) {
+    const { query } = ctx
+    return query
   }
 
   async componentDidMount() {
     try {
-      const { id } = this.props;
-      const resp = await emailTemplateService.findById(id);
-      this._content = resp.data.content;
-      this.setState({ template: resp.data });
+      const { id } = this.props
+      const resp = await emailTemplateService.findById(id)
+      this._content = resp.data.content
+      this.setState({ template: resp.data })
     } catch (e) {
-      message.error('Email template not found!');
+      message.error('Email template not found!')
     } finally {
-      this.setState({ fetching: false });
+      this.setState({ fetching: false })
     }
   }
 
   async submit(data: any) {
     try {
-      this.setState({ submiting: true });
-      const { id } = this.props;
+      this.setState({ submiting: true })
+      const { id } = this.props
 
       const submitData = {
         ...data,
         content: this._content
-      };
-      await emailTemplateService.update(id, submitData);
-      message.success('Updated successfully');
-      this.setState({ submiting: false });
+      }
+      await emailTemplateService.update(id, submitData)
+      message.success('Updated successfully')
+      this.setState({ submiting: false })
     } catch (e) {
       // TODO - check and show error here
-      message.error('Something went wrong, please try again!');
-      this.setState({ submiting: false });
+      message.error('Something went wrong, please try again!')
+      this.setState({ submiting: false })
     }
   }
 
   contentChange(content: string) {
-    this._content = content;
+    this._content = content
   }
 
   render() {
-    const { template, fetching, submiting } = this.state;
+    const { template, fetching, submiting }:any = this.state
     return (
       <>
         <Head>
@@ -133,8 +133,8 @@ class EmailTemplateUpdate extends PureComponent<any, any> {
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default EmailTemplateUpdate;
+export default EmailTemplateUpdate

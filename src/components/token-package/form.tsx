@@ -1,21 +1,21 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Input, Button, InputNumber, Switch
-} from 'antd';
-import { ITokenPackage } from 'src/interfaces/token-package';
+} from 'antd'
+import { ITokenPackage } from 'src/interfaces/token-package'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 interface IProps {
-  packageToken: ITokenPackage;
+  packageToken: ITokenPackage | any;
   onFinish: Function;
   submiting?: boolean;
 }
 export default class FormTokenPackage extends PureComponent<IProps> {
   render() {
-    const { submiting, onFinish, packageToken } = this.props;
+    const { submiting, onFinish, packageToken } = this.props
     return (
       <Form
         {...layout}
@@ -59,6 +59,6 @@ export default class FormTokenPackage extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

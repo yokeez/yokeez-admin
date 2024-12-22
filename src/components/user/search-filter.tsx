@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 import {
   Button, Input, Row, Col, Select
-} from 'antd';
+} from 'antd'
 
 interface IProps {
   onSubmit: Function;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export class SearchFilter extends PureComponent<IProps> {
-  state ={
+  state = {
     q: '',
     role: '',
     status: '',
@@ -18,7 +18,7 @@ export class SearchFilter extends PureComponent<IProps> {
   }
 
   render() {
-    const { onSubmit, defaultStatus, defaultEmailStatus } = this.props;
+    const { onSubmit, defaultStatus, defaultEmailStatus } = this.props
     return (
       <Row gutter={24}>
         <Col md={5} xs={12}>
@@ -70,6 +70,6 @@ export class SearchFilter extends PureComponent<IProps> {
           </Button>
         </Col>
       </Row>
-    );
+    )
   }
 }

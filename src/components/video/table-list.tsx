@@ -1,10 +1,10 @@
-import { PureComponent } from 'react';
-import { Table, Tag, Tooltip } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { formatDate, formatDateWithTimezone } from '@lib/date';
-import Link from 'next/link';
-import { ThumbnailVideo } from '@components/video/thumbnail-video';
-import { DropdownAction } from '@components/common/dropdown-action';
+import { PureComponent } from 'react'
+import { Table, Tag, Tooltip } from 'antd'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { formatDate, formatDateWithTimezone } from '@lib/date'
+import Link from 'next/link'
+import { ThumbnailVideo } from '@components/video/thumbnail-video'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -19,27 +19,27 @@ export class TableListVideo extends PureComponent<IProps> {
   render() {
     const {
       dataSource, rowKey, loading, pagination, onChange, deleteVideo
-    } = this.props;
+    } = this.props
 
     const columns = [
       {
         title: 'Thumbnail',
         dataIndex: 'thumbnail',
-        render(data, record) {
-          return <ThumbnailVideo video={record} />;
+        render(data: any, record: any) {
+          return <ThumbnailVideo video={record} />
         }
       },
       {
         title: 'Creator',
         dataIndex: 'performer',
-        render(data, record) {
-          return <span>{record?.performer?.name || record?.performer?.username || 'N/A'}</span>;
+        render(data: any, record: any) {
+          return <span>{record?.performer?.name || record?.performer?.username || 'N/A'}</span>
         }
       },
       {
         title: 'Title',
         dataIndex: 'title',
-        render(title) {
+        render(title: any) {
           return (
             <Tooltip title={title}>
               <div style={{
@@ -49,7 +49,7 @@ export class TableListVideo extends PureComponent<IProps> {
                 {title}
               </div>
             </Tooltip>
-          );
+          )
         }
       },
       {
@@ -58,10 +58,10 @@ export class TableListVideo extends PureComponent<IProps> {
         render(isSale: boolean) {
           switch (isSale) {
             case true:
-              return <Tag color="green">Y</Tag>;
+              return <Tag color="green">Y</Tag>
             case false:
-              return <Tag color="red">N</Tag>;
-            default: return <Tag color="default">{isSale}</Tag>;
+              return <Tag color="red">N</Tag>
+            default: return <Tag color="default">{isSale}</Tag>
           }
         }
       },
@@ -71,10 +71,10 @@ export class TableListVideo extends PureComponent<IProps> {
         render(isSchedule: boolean) {
           switch (isSchedule) {
             case true:
-              return <Tag color="green">Y</Tag>;
+              return <Tag color="green">Y</Tag>
             case false:
-              return <Tag color="red">N</Tag>;
-            default: return <Tag color="default">{isSchedule}</Tag>;
+              return <Tag color="red">N</Tag>
+            default: return <Tag color="default">{isSchedule}</Tag>
           }
         }
       },
@@ -84,10 +84,10 @@ export class TableListVideo extends PureComponent<IProps> {
         render(status: string) {
           switch (status) {
             case 'active':
-              return <Tag color="green">Active</Tag>;
+              return <Tag color="green">Active</Tag>
             case 'inactive':
-              return <Tag color="red">Inactive</Tag>;
-            default: return <Tag color="default">{status}</Tag>;
+              return <Tag color="red">Inactive</Tag>
+            default: return <Tag color="default">{status}</Tag>
           }
         }
       },
@@ -96,7 +96,7 @@ export class TableListVideo extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date, record: any) {
-          return <span>{record?.timezone ? formatDateWithTimezone(date, 'MMMM D, YYYY [at] h:mm A z', record?.timezone) : formatDate(date, 'MMMM D, YYYY [at] h:mm A')}</span>;
+          return <span>{record?.timezone ? formatDateWithTimezone(date, 'MMMM D, YYYY [at] h:mm A z', record?.timezone) : formatDate(date, 'MMMM D, YYYY [at] h:mm A')}</span>
         }
       },
       {
@@ -116,11 +116,9 @@ export class TableListVideo extends PureComponent<IProps> {
                     }}
                     as={`/video/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -140,7 +138,7 @@ export class TableListVideo extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     return (
       <Table
         dataSource={dataSource}
@@ -150,6 +148,6 @@ export class TableListVideo extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

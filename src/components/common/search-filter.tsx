@@ -1,11 +1,12 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Input, Row, Col, Select, DatePicker
-} from 'antd';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { SelectGalleryDropdown } from '@components/gallery/common/select-gallery-dropdown';
+} from 'antd'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { SelectGalleryDropdown } from '@components/gallery/common/select-gallery-dropdown'
 
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
+
 interface IProps {
   keyword?: boolean;
   onSubmit?: Function;
@@ -59,7 +60,7 @@ export class SearchFilter extends PureComponent<IProps> {
       type,
       defaultType,
       defaultStatus
-    } = this.props;
+    }:any = this.props
     return (
       <Row gutter={24}>
         {keyword ? (
@@ -75,13 +76,13 @@ export class SearchFilter extends PureComponent<IProps> {
           <Col lg={6} md={8}>
             <Select
               onChange={(val) => {
-                this.setState({ status: val }, () => onSubmit(this.state));
+                this.setState({ status: val }, () => onSubmit(this.state))
               }}
               style={{ width: '100%' }}
               placeholder="Select status"
               defaultValue={defaultStatus}
             >
-              {statuses.map((s) => (
+              {statuses.map((s:any) => (
                 <Select.Option key={s.key} value={s.key}>
                   {s.text || s.key}
                 </Select.Option>
@@ -93,13 +94,13 @@ export class SearchFilter extends PureComponent<IProps> {
           <Col lg={6} md={8}>
             <Select
               onChange={(val) => {
-                this.setState({ type: val }, () => onSubmit(this.state));
+                this.setState({ type: val }, () => onSubmit(this.state))
               }}
               style={{ width: '100%' }}
               placeholder="Select type"
               defaultValue={defaultType || ''}
             >
-              {type.map((s) => (
+              {type.map((s:any) => (
                 <Select.Option key={s.key} value={s.key}>
                   {s.text || s.key}
                 </Select.Option>
@@ -111,13 +112,13 @@ export class SearchFilter extends PureComponent<IProps> {
           <Col lg={6} md={8}>
             <Select
               onChange={(val) => {
-                this.setState({ sourceType: val }, () => onSubmit(this.state));
+                this.setState({ sourceType: val }, () => onSubmit(this.state))
               }}
               style={{ width: '100%' }}
               placeholder="Select type"
               defaultValue=""
             >
-              {sourceType.map((s) => (
+              {sourceType.map((s:any) => (
                 <Select.Option key={s.key} value={s.key}>
                   {s.text || s.key}
                 </Select.Option>
@@ -130,7 +131,7 @@ export class SearchFilter extends PureComponent<IProps> {
             <SelectPerformerDropdown
               placeholder="Search performer"
               style={{ width: '100%' }}
-              onSelect={(val) => this.setState({ performerId: val || '' }, () => onSubmit(this.state))}
+              onSelect={(val:any) => this.setState({ performerId: val || '' }, () => onSubmit(this.state))}
               defaultValue={performerId || ''}
             />
           </Col>
@@ -140,7 +141,7 @@ export class SearchFilter extends PureComponent<IProps> {
             <SelectGalleryDropdown
               placeholder="Type to search gallery here"
               style={{ width: '100%' }}
-              onSelect={(val) => this.setState({ galleryId: val || '' }, () => onSubmit(this.state))}
+              onSelect={(val:any) => this.setState({ galleryId: val || '' }, () => onSubmit(this.state))}
               defaultValue={galleryId || ''}
             />
           </Col>
@@ -148,11 +149,29 @@ export class SearchFilter extends PureComponent<IProps> {
         {dateRange && (
           <Col lg={6} md={8}>
             <RangePicker
-              onChange={(dates: [any, any], dateStrings: [string, string]) => this.setState({ fromDate: dateStrings[0], toDate: dateStrings[1] }, () => onSubmit(this.state))}
+              onChange={(dates: any, dateStrings: [string, string]) => {
+                if (dates) {
+                  this.setState(
+                    {
+                      fromDate: dateStrings[0],
+                      toDate: dateStrings[1]
+                    },
+                    () => onSubmit?.(this.state)
+                  )
+                } else {
+                  this.setState(
+                    {
+                      fromDate: '',
+                      toDate: ''
+                    },
+                    () => onSubmit?.(this.state)
+                  )
+                }
+              }}
             />
           </Col>
         )}
       </Row>
-    );
+    )
   }
 }

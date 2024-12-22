@@ -1,21 +1,21 @@
 import {
   Form, Layout, Tag, Input
-} from 'antd';
-import Head from 'next/head';
-import { bookingCameoService } from '@services/booking-cameo.service';
-import { IBooking } from 'src/interfaces';
-import { BreadcrumbComponent } from '@components/common';
-import { formatDate } from '@lib/date';
-import './index.less';
-import { renderQuestion, renderBookingStatus } from '@lib/cameo';
+} from 'antd'
+import Head from 'next/head'
+import { bookingCameoService } from '@services/booking-cameo.service'
+import { IBooking } from 'src/interfaces'
+import { BreadcrumbComponent } from '@components/common'
+import { formatDate } from '@lib/date'
+import './index.less'
+import { renderQuestion, renderBookingStatus } from '@lib/cameo'
 
 interface IProps {
   booking: IBooking;
 }
 
 function BookingDetailPage({ booking }: IProps) {
-  const recipient = booking?.recipient || { name: '', pronouns: '' };
-  const sender = booking?.sender || { name: '', pronouns: '' };
+  const recipient = booking?.recipient || { name: '', pronouns: '' }
+  const sender = booking?.sender || { name: '', pronouns: '' }
 
   return (
     <Layout>
@@ -77,17 +77,17 @@ function BookingDetailPage({ booking }: IProps) {
         </Form.Item>
       </div>
     </Layout>
-  );
+  )
 }
 
-BookingDetailPage.getInitialProps = async ({ ctx }) => {
-  const { query } = ctx;
+BookingDetailPage.getInitialProps = async ({ ctx }:any) => {
+  const { query } = ctx
   const resp = await bookingCameoService.findById(query?.id, {
     Authorization: ctx.token || ''
-  });
+  })
   return {
     booking: resp?.data
-  };
-};
+  }
+}
 
-export default BookingDetailPage;
+export default BookingDetailPage

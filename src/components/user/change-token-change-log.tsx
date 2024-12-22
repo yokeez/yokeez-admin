@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
-import { message, Table } from 'antd';
-import { formatDate } from '@lib/date';
-import { userService } from '@services/user.service';
+import { PureComponent } from 'react'
+import { message, Table } from 'antd'
+import { formatDate } from '@lib/date'
+import { userService } from '@services/user.service'
 
 interface IProps {
   sourceId: string;
@@ -20,34 +20,34 @@ export class TableTokenChangeLogs extends PureComponent<IProps> {
   }
 
   componentDidMount() {
-    this.searchLogs();
+    this.searchLogs()
   }
 
-  async handleTableChange(pagination) {
-    const { pagination: pager } = this.state;
+  async handleTableChange(pagination:any) {
+    const { pagination: pager } = this.state
     await this.setState({
       offset: (pagination.current - 1) * pager.pageSize
-    });
-    this.searchLogs();
+    })
+    this.searchLogs()
   }
 
   async searchLogs() {
-    const { sourceId, source } = this.props;
-    const { offset, pagination } = this.state;
+    const { sourceId, source } = this.props
+    const { offset, pagination } = this.state
     try {
-      await this.setState({ searching: true });
+      await this.setState({ searching: true })
       const resp = await userService.changeTokenLogs({
         source,
         sourceId,
         offset,
         limit: pagination.pageSize
-      });
-      this.setState({ items: resp.data });
+      })
+      this.setState({ items: resp.data })
     } catch (e) {
-      const err = await e;
-      message.error(err?.message || 'Error occured');
+      const err:any = await e
+      message.error(err?.message || 'Error occured')
     } finally {
-      this.setState({ searching: false });
+      this.setState({ searching: false })
     }
   }
 
@@ -62,7 +62,7 @@ export class TableTokenChangeLogs extends PureComponent<IProps> {
               <img alt="gem" src="/coin-ico.png" width="20px" />
               {token.toFixed(2)}
             </span>
-          );
+          )
         }
       },
       {
@@ -70,13 +70,13 @@ export class TableTokenChangeLogs extends PureComponent<IProps> {
         dataIndex: 'createdAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       }
-    ];
+    ]
     const {
       searching, items, pagination
-    } = this.state;
+    } = this.state
     return (
       <Table
         dataSource={items}
@@ -86,6 +86,6 @@ export class TableTokenChangeLogs extends PureComponent<IProps> {
         pagination={pagination}
         onChange={this.handleTableChange.bind(this)}
       />
-    );
+    )
   }
 }

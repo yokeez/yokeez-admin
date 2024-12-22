@@ -1,16 +1,16 @@
 /* eslint-disable no-template-curly-in-string */
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
-  Form, Input, Button, Select, Switch, Row, Col, InputNumber
-} from 'antd';
-import { IUser, ICountry } from 'src/interfaces';
-import { AvatarUpload } from '@components/user/avatar-upload';
-import { getGlobalConfig } from '@services/config';
+  Form, Input, Button, Select, Switch, Row, Col
+} from 'antd'
+import { IUser, ICountry } from 'src/interfaces'
+import { AvatarUpload } from '@components/user/avatar-upload'
+import { getGlobalConfig } from '@services/config'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!',
@@ -21,7 +21,7 @@ const validateMessages = {
   number: {
     range: 'Must be between ${min} and ${max}'
   }
-};
+}
 
 interface IProps {
   onFinish: Function;
@@ -41,11 +41,11 @@ export class AccountForm extends PureComponent<IProps> {
   render() {
     const {
       onFinish, user, updating, options
-    } = this.props;
+    } = this.props
     const {
       uploadHeaders, avatarUploadUrl, beforeUpload, onAvatarUploaded
-    } = options;
-    const config = getGlobalConfig();
+    }:any = options
+    const config = getGlobalConfig()
     return (
       <Form
         {...layout}
@@ -69,9 +69,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true, message: 'Please input your first name!' },
                 {
-                  pattern: new RegExp(
-                    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
-                  ),
+                  pattern: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
                   message:
                     'First name can not contain number and special character'
                 }
@@ -88,9 +86,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true, message: 'Please input your last name!' },
                 {
-                  pattern: new RegExp(
-                    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
-                  ),
+                  pattern: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
                   message:
                     'Last name can not contain number and special character'
                 }
@@ -104,7 +100,7 @@ export class AccountForm extends PureComponent<IProps> {
               name="username"
               label="Username"
               rules={[{ required: true }, {
-                pattern: new RegExp(/^[a-zA-Z0-9]+$/g),
+                pattern: /^[a-zA-Z0-9]+$/g,
                 message: 'Username must contain lowercase alphanumerics only'
               }, { min: 3 }]}
             >
@@ -119,7 +115,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true, message: 'Please input your display name!' },
                 {
-                  pattern: new RegExp(/^(?=.*\S).+$/g),
+                  pattern: /^(?=.*\S).+$/g,
                   message:
                     'Display name can not contain only whitespace'
                 },
@@ -165,7 +161,7 @@ export class AccountForm extends PureComponent<IProps> {
                 label="Password"
                 rules={[
                   {
-                    pattern: new RegExp(/^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g),
+                    pattern: /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g,
                     message: 'Password must have minimum 8 characters, at least 1 number, 1 uppercase letter, 1 lowercase letter & 1 special character'
                   },
                   { required: true, message: 'Please enter your password!' }
@@ -180,7 +176,7 @@ export class AccountForm extends PureComponent<IProps> {
                 label="Confirm password"
                 rules={[
                   {
-                    pattern: new RegExp(/^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g),
+                    pattern: /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g,
                     message: 'Password must have minimum 8 characters, at least 1 number, 1 uppercase letter, 1 lowercase letter & 1 special character'
                   },
                   { required: true, message: 'Please confirm your password!' }
@@ -249,6 +245,6 @@ export class AccountForm extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

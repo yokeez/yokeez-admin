@@ -1,6 +1,6 @@
-import { PureComponent } from 'react';
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Button, Menu } from 'antd';
+import { PureComponent } from 'react'
+import { DownOutlined } from '@ant-design/icons'
+import { Dropdown, Button, Menu } from 'antd'
 
 interface IMenuOption {
   key: string;
@@ -23,12 +23,12 @@ export class DropdownAction extends PureComponent<IProps> {
       buttonStyle,
       dropdownProps,
       nameButtonMain
-    } = this.props;
+    } = this.props
     const menu = menuOptions.map((item) => (
       <Menu.Item key={item.key} onClick={() => item.onClick && item.onClick()}>
         {item.children || item.name}
       </Menu.Item>
-    ));
+    ))
     return (
       <Dropdown overlay={<Menu>{menu}</Menu>} {...dropdownProps}>
         <Button style={{ ...buttonStyle }}>
@@ -36,6 +36,6 @@ export class DropdownAction extends PureComponent<IProps> {
           <DownOutlined />
         </Button>
       </Dropdown>
-    );
+    )
   }
 }

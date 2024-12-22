@@ -1,12 +1,12 @@
-import { PureComponent } from 'react';
-import { Table, Tag } from 'antd';
+import { PureComponent } from 'react'
+import { Table, Tag } from 'antd'
 import {
   DeleteOutlined, EditOutlined, PlusOutlined, EyeOutlined
-} from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import Link from 'next/link';
-import { CoverGallery } from '@components/gallery/cover-gallery';
-import { DropdownAction } from '@components/common/dropdown-action';
+} from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import Link from 'next/link'
+import { CoverGallery } from '@components/gallery/cover-gallery'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -19,19 +19,19 @@ interface IProps {
 
 export class TableListGallery extends PureComponent<IProps> {
   render() {
-    const { deleteGallery } = this.props;
+    const { deleteGallery } = this.props
     const columns = [
       {
         title: '',
-        render(data, record) {
-          return <CoverGallery gallery={record} />;
+        render(data: any, record: any) {
+          return <CoverGallery gallery={record} />
         }
       },
       {
         title: 'Creator',
         dataIndex: 'performer',
-        render(data, record) {
-          return <span>{record?.performer?.name || record?.performer?.username || 'N/A'}</span>;
+        render(data: any, record: any) {
+          return <span>{record?.performer?.name || record?.performer?.username || 'N/A'}</span>
         }
       },
       {
@@ -47,7 +47,7 @@ export class TableListGallery extends PureComponent<IProps> {
               $
               {token.toFixed(2)}
             </span>
-          );
+          )
         }
       },
       {
@@ -60,10 +60,10 @@ export class TableListGallery extends PureComponent<IProps> {
         render(status: string) {
           switch (status) {
             case 'active':
-              return <Tag color="green">Active</Tag>;
+              return <Tag color="green">Active</Tag>
             case 'inactive':
-              return <Tag color="red">Inactive</Tag>;
-            default: return <Tag color="default">{status}</Tag>;
+              return <Tag color="red">Inactive</Tag>
+            default: return <Tag color="default">{status}</Tag>
           }
         }
       },
@@ -72,13 +72,13 @@ export class TableListGallery extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
         title: 'Action',
         dataIndex: '_id',
-        render: (data, record) => (
+        render: (data: any, record: any) => (
           <DropdownAction
             menuOptions={[
               {
@@ -95,11 +95,9 @@ export class TableListGallery extends PureComponent<IProps> {
                     }}
                     as={`/photos?galleryId=${record._id}`}
                   >
-                    <a>
-                      <EyeOutlined />
-                      {' '}
-                      View photos
-                    </a>
+                    <EyeOutlined />
+                    {' '}
+                    View photos
                   </Link>
                 )
               },
@@ -117,11 +115,9 @@ export class TableListGallery extends PureComponent<IProps> {
                     }}
                     as={`/photos/bulk-upload?galleryId=${record._id}&performerId=${record.performerId}`}
                   >
-                    <a>
-                      <PlusOutlined />
-                      {' '}
-                      Add Photos
-                    </a>
+                    <PlusOutlined />
+                    {' '}
+                    Add Photos
                   </Link>
                 )
               },
@@ -136,11 +132,9 @@ export class TableListGallery extends PureComponent<IProps> {
                     }}
                     as={`/gallery/update?id=${record._id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -160,10 +154,10 @@ export class TableListGallery extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <Table
         dataSource={dataSource}
@@ -173,6 +167,6 @@ export class TableListGallery extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

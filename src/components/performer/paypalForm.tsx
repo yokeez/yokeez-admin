@@ -1,13 +1,13 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Button, Input, Row, Col
-} from 'antd';
-import { IPerformer } from 'src/interfaces';
+} from 'antd'
+import { IPerformer } from 'src/interfaces'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!',
@@ -15,7 +15,7 @@ const validateMessages = {
     email: 'Not a validate email!',
     number: 'Not a validate number!'
   }
-};
+}
 
 interface IProps {
   onFinish: Function;
@@ -25,7 +25,7 @@ interface IProps {
 
 export class PerformerPaypalForm extends PureComponent<IProps> {
   render() {
-    const { onFinish, user, updating } = this.props;
+    const { onFinish, user, updating } = this.props
     return (
       <Form
         {...layout}
@@ -72,6 +72,6 @@ export class PerformerPaypalForm extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

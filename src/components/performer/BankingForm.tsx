@@ -1,14 +1,14 @@
 /* eslint-disable no-template-curly-in-string */
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Input, Button, Select, message, Row, Col
-} from 'antd';
-import { IBankingSetting, ICountry } from 'src/interfaces';
+} from 'antd'
+import { IBankingSetting, ICountry } from 'src/interfaces'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!',
@@ -19,7 +19,7 @@ const validateMessages = {
   number: {
     range: 'Must be between ${min} and ${max}'
   }
-};
+}
 
 interface IProps {
   onFinish: Function;
@@ -32,7 +32,7 @@ export class BankingForm extends PureComponent<IProps> {
   render() {
     const {
       bankingInformation, onFinish, submiting, countries
-    } = this.props;
+    } = this.props
 
     return (
       <Form
@@ -132,6 +132,6 @@ export class BankingForm extends PureComponent<IProps> {
           </Col>
         </Row>
       </Form>
-    );
+    )
   }
 }

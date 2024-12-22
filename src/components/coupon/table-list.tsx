@@ -1,11 +1,11 @@
-import { PureComponent } from 'react';
-import { Table, Tag } from 'antd';
+import { PureComponent } from 'react'
+import { Table, Tag } from 'antd'
 import {
   DeleteOutlined, EditOutlined
-} from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import Link from 'next/link';
-import { DropdownAction } from '@components/common/dropdown-action';
+} from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import Link from 'next/link'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -18,7 +18,7 @@ interface IProps {
 
 export class TableListCoupon extends PureComponent<IProps> {
   render() {
-    const { deleteCoupon } = this.props;
+    const { deleteCoupon } = this.props
     const columns = [
       {
         title: 'Name',
@@ -30,7 +30,7 @@ export class TableListCoupon extends PureComponent<IProps> {
         dataIndex: 'code',
         sorter: true,
         render(code: string) {
-          return <span>{code}</span>;
+          return <span>{code}</span>
         }
       },
       {
@@ -43,7 +43,7 @@ export class TableListCoupon extends PureComponent<IProps> {
               {value * 100}
               %
             </span>
-          );
+          )
         }
       },
       {
@@ -55,7 +55,7 @@ export class TableListCoupon extends PureComponent<IProps> {
             <span>
               {numberOfUses}
             </span>
-          );
+          )
         }
       },
       {
@@ -65,10 +65,10 @@ export class TableListCoupon extends PureComponent<IProps> {
         render(status: string) {
           switch (status) {
             case 'active':
-              return <Tag color="green">Active</Tag>;
+              return <Tag color="green">Active</Tag>
             case 'inactive':
-              return <Tag color="red">Inactive</Tag>;
-            default: return <Tag color="default">{status}</Tag>;
+              return <Tag color="red">Inactive</Tag>
+            default: return <Tag color="default">{status}</Tag>
           }
         }
       },
@@ -77,7 +77,7 @@ export class TableListCoupon extends PureComponent<IProps> {
         dataIndex: 'expiredDate',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date, 'YYYY-MM-DD')}</span>;
+          return <span>{formatDate(date, 'YYYY-MM-DD')}</span>
         }
       },
       {
@@ -85,13 +85,13 @@ export class TableListCoupon extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
         title: 'Action',
         dataIndex: '_id',
-        render: (data, record) => (
+        render: (data: any, record: any) => (
           <DropdownAction
             menuOptions={[
               {
@@ -105,11 +105,9 @@ export class TableListCoupon extends PureComponent<IProps> {
                     }}
                     as={`/coupon/update?id=${record._id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -129,10 +127,10 @@ export class TableListCoupon extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <Table
         dataSource={dataSource}
@@ -142,6 +140,6 @@ export class TableListCoupon extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

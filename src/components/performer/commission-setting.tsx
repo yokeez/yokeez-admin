@@ -1,17 +1,17 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Button, message, InputNumber
-} from 'antd';
-import { IPerformer } from 'src/interfaces';
+} from 'antd'
+import { IPerformer } from 'src/interfaces'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
 interface IProps {
   onFinish: Function;
@@ -21,7 +21,7 @@ interface IProps {
 
 export class CommissionSettingForm extends PureComponent<IProps> {
   render() {
-    const { performer, onFinish, submiting } = this.props;
+    const { performer, onFinish, submiting } = this.props
     return (
       <Form
         layout="vertical"
@@ -42,6 +42,6 @@ export class CommissionSettingForm extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

@@ -1,14 +1,14 @@
 /* eslint-disable no-nested-ternary */
-import Head from 'next/head';
-import { PureComponent } from 'react';
+import Head from 'next/head'
+import { PureComponent } from 'react'
 import {
   message, Statistic, Row, Col
-} from 'antd';
-import Page from '@components/common/layout/page';
-import { earningService } from '@services/earning.service';
-import { SearchFilter } from '@components/common/search-filter';
-import { TableListEarning } from '@components/earning/table-list-earning';
-import { BreadcrumbComponent } from '@components/common';
+} from 'antd'
+import Page from '@components/common/layout/page'
+import { earningService } from '@services/earning.service'
+import { SearchFilter } from '@components/common/search-filter'
+import { TableListEarning } from '@components/earning/table-list-earning'
+import { BreadcrumbComponent } from '@components/common'
 
 interface IEarningStatResponse {
   totalSiteCommission: number;
@@ -22,8 +22,8 @@ interface IProps {
 }
 
 class Earning extends PureComponent<IProps> {
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   state = {
@@ -39,82 +39,82 @@ class Earning extends PureComponent<IProps> {
       totalSiteCommission: 0,
       totalNetPrice: 0
     } as IEarningStatResponse
-  };
-
-  async componentDidMount() {
-    this.search();
-    this.stats();
   }
 
-  handleTableChange = async (pagi, filters, sorter) => {
-    const { pagination } = this.state;
-    const pager = { ...pagination };
-    pager.current = pagi.current;
+  async componentDidMount() {
+    this.search()
+    this.stats()
+  }
+
+  handleTableChange = async (pagi:any, filters:any, sorter:any) => {
+    const { pagination } = this.state
+    const pager = { ...pagination }
+    pager.current = pagi.current
     await this.setState({
       pagination: pager,
       sortBy: sorter.field || 'updatedAt',
       sort: sorter.order ? (sorter.order === 'descend' ? 'desc' : 'asc') : 'desc'
-    });
-    this.search(pager.current);
-  };
+    })
+    this.search(pager.current)
+  }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.search();
-    this.stats();
+  async handleFilter(values:any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.search()
+    this.stats()
   }
 
   async search(page = 1) {
     const {
       filter, limit, sort, sortBy, pagination
-    } = this.state;
+    } = this.state
     try {
-      this.setState({ searching: true });
+      this.setState({ searching: true })
       const resp = await earningService.search({
         ...filter,
         limit,
         offset: (page - 1) * limit,
         sort,
         sortBy
-      });
+      })
       this.setState({
         searching: false,
-        list: resp.data.data.map((item) => {
-          const obj = item;
-          obj.siteEarning = (item.grossPrice - item.netPrice);
-          return obj;
+        list: resp.data.data.map((item:any) => {
+          const obj = item
+          obj.siteEarning = (item.grossPrice - item.netPrice)
+          return obj
         }),
         pagination: {
           ...pagination,
           total: resp.data.total,
           pageSize: limit
         }
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ searching: false })
     }
   }
 
   async stats() {
-    const { filter } = this.state;
+    const { filter } = this.state
     try {
       const resp = await earningService.stats({
         ...filter
-      });
+      })
       this.setState({
         stats: resp.data
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
+      message.error('An error occurred, please try again!')
     }
   }
 
   render() {
     const {
       list, searching, pagination, stats
-    } = this.state;
+    } = this.state
     const type = [
       {
         key: '',
@@ -135,7 +135,7 @@ class Earning extends PureComponent<IProps> {
         key: 'yearly_subscription',
         text: 'Yearly Subscription'
       }
-    ];
+    ]
 
     return (
       <>
@@ -173,8 +173,8 @@ class Earning extends PureComponent<IProps> {
           </div>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default Earning;
+export default Earning

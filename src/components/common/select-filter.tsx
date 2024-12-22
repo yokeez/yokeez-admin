@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Select
-} from 'antd';
+} from 'antd'
 
 interface IITemsFilter {
   key: string;
@@ -22,7 +22,7 @@ interface IProps {
 
 export class SelectFilter extends PureComponent<IProps> {
   render() {
-    const { itemsFilter, onSelect, options } = this.props;
+    const { itemsFilter, onSelect, options }:any = this.props
     return (
       <Select
         onChange={(val) => onSelect(options.keyFilter, val)}
@@ -30,12 +30,12 @@ export class SelectFilter extends PureComponent<IProps> {
         placeholder={`Select${options.keyFilter}`}
         defaultValue=""
       >
-        {itemsFilter.map((s) => (
+        {itemsFilter.map((s:any) => (
           <Select.Option key={s.key} value={s.value}>
             {s.text}
           </Select.Option>
         ))}
       </Select>
-    );
+    )
   }
 }

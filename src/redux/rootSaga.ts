@@ -1,13 +1,13 @@
-import { all, spawn } from 'redux-saga/effects';
+import { all, spawn } from 'redux-saga/effects'
 
-import userSagas from './user/sagas';
-import authSagas from './auth/sagas';
+import userSagas from './user/sagas'
+import authSagas from './auth/sagas'
 
 function* rootSaga() {
   yield all([
     ...authSagas,
     ...userSagas
-  ].map(spawn));
+  ].map(spawn))
 }
 
-export default rootSaga;
+export default rootSaga

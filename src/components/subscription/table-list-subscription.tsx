@@ -1,21 +1,21 @@
 import {
   Table, Tag, Button, Avatar
-} from 'antd';
-import { StopOutlined, RightCircleOutlined } from '@ant-design/icons';
-import { ISubscription } from 'src/interfaces';
-import { formatDate, nowIsBefore } from '@lib/date';
+} from 'antd'
+import { StopOutlined, RightCircleOutlined } from '@ant-design/icons'
+import { ISubscription } from 'src/interfaces'
+import { formatDate, nowIsBefore } from '@lib/date'
 
 interface IProps {
   dataSource: ISubscription[];
   pagination: {};
   rowKey: string;
-  onChange(): Function;
+  onChange: any;
   loading: boolean;
   onCancelSubscription: Function;
   onRenewSubscription: Function;
 }
 
-export const TableListSubscription = ({
+export function TableListSubscription({
   dataSource,
   pagination,
   rowKey,
@@ -23,7 +23,7 @@ export const TableListSubscription = ({
   loading,
   onCancelSubscription,
   onRenewSubscription
-}: IProps) => {
+}: IProps) {
   const columns = [
     {
       title: 'ID',
@@ -32,27 +32,27 @@ export const TableListSubscription = ({
     {
       title: 'User',
       dataIndex: 'userInfo',
-      render(data, records) {
+      render(data:any, records:any) {
         return (
           <span>
             <Avatar src={records?.userInfo?.avatar || '/no-avatar.png'} />
             {' '}
             {`${records?.userInfo?.name || records?.userInfo?.username || 'N/A'}`}
           </span>
-        );
+        )
       }
     },
     {
       title: 'Creator',
       dataIndex: 'performerInfo',
-      render(data, records) {
+      render(data:any, records:any) {
         return (
           <span>
             <Avatar src={records?.performerInfo?.avatar || '/no-avatar.png'} />
             {' '}
             {`${records?.performerInfo?.name || records?.performerInfo?.username || 'N/A'}`}
           </span>
-        );
+        )
       }
     },
     {
@@ -61,12 +61,12 @@ export const TableListSubscription = ({
       render(subscriptionType: string) {
         switch (subscriptionType) {
           case 'monthly':
-            return <Tag color="orange">Monthly</Tag>;
+            return <Tag color="orange">Monthly</Tag>
           case 'yearly':
-            return <Tag color="purple">Yearly</Tag>;
+            return <Tag color="purple">Yearly</Tag>
           case 'free':
-            return <Tag color="red">Free</Tag>;
-          default: return <Tag color="orange">{subscriptionType}</Tag>;
+            return <Tag color="red">Free</Tag>
+          default: return <Tag color="orange">{subscriptionType}</Tag>
         }
       }
     },
@@ -75,7 +75,7 @@ export const TableListSubscription = ({
       dataIndex: 'createdAt',
       sorter: true,
       render(date: Date) {
-        return <span>{formatDate(date, 'LL')}</span>;
+        return <span>{formatDate(date, 'LL')}</span>
       }
     },
     {
@@ -83,7 +83,7 @@ export const TableListSubscription = ({
       dataIndex: 'expiredAt',
       sorter: true,
       render(date: Date, record: ISubscription) {
-        return <span>{record.status !== 'active' ? formatDate(date, 'LL') : ''}</span>;
+        return <span>{record.status !== 'active' ? formatDate(date, 'LL') : ''}</span>
       }
     },
     {
@@ -91,7 +91,7 @@ export const TableListSubscription = ({
       dataIndex: 'nextRecurringDate',
       sorter: true,
       render(date: Date, record: ISubscription) {
-        return <span>{record.status === 'active' && record.subscriptionId && record.subscriptionType !== 'free' && record.subscriptionId && formatDate(date, 'LL')}</span>;
+        return <span>{record.status === 'active' && record.subscriptionId && record.subscriptionType !== 'free' && record.subscriptionId && formatDate(date, 'LL')}</span>
       }
     },
     {
@@ -100,27 +100,27 @@ export const TableListSubscription = ({
       render(paymentGateway: string) {
         switch (paymentGateway) {
           case 'stripe':
-            return <Tag color="blue">Stripe</Tag>;
+            return <Tag color="blue">Stripe</Tag>
           case 'ccbill':
-            return <Tag color="orange">CCbill</Tag>;
+            return <Tag color="orange">CCbill</Tag>
           default:
-            return <Tag color="default">{paymentGateway}</Tag>;
+            return <Tag color="default">{paymentGateway}</Tag>
         }
       }
     },
     {
       title: 'Status',
       dataIndex: 'status',
-      render(status: string, record: ISubscription) {
+      render(status: string, record: ISubscription | any) {
         if (!nowIsBefore(record.expiredAt)) {
-          return <Tag color="red">Suspended</Tag>;
+          return <Tag color="red">Suspended</Tag>
         }
         switch (status) {
           case 'active':
-            return <Tag color="green">Active</Tag>;
+            return <Tag color="green">Active</Tag>
           case 'deactivated':
-            return <Tag color="red">Inactive</Tag>;
-          default: return <Tag color="red">Inactive</Tag>;
+            return <Tag color="red">Inactive</Tag>
+          default: return <Tag color="red">Inactive</Tag>
         }
       }
     },
@@ -129,13 +129,13 @@ export const TableListSubscription = ({
       dataIndex: 'updatedAt',
       sorter: true,
       render(date: Date) {
-        return <span>{formatDate(date)}</span>;
+        return <span>{formatDate(date)}</span>
       }
     },
     {
       title: 'Action',
       dataIndex: 'status',
-      render(data, records: ISubscription) {
+      render(data:any, records: ISubscription | any) {
         return (
           <span>
             {records?.status === 'active' && nowIsBefore(records.expiredAt) ? (
@@ -152,10 +152,10 @@ export const TableListSubscription = ({
               </Button>
             )}
           </span>
-        );
+        )
       }
     }
-  ];
+  ]
   return (
     <Table
       columns={columns}
@@ -165,5 +165,5 @@ export const TableListSubscription = ({
       onChange={onChange}
       loading={loading}
     />
-  );
-};
+  )
+}

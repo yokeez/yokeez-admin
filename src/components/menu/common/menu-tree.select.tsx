@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
-import { TreeSelect } from 'antd';
-import { sortBy } from 'lodash';
-import { menuService } from '@services/menu.service';
-import { IMenu } from 'src/interfaces';
-import * as _ from 'lodash';
+import { PureComponent } from 'react'
+import { TreeSelect } from 'antd'
+import { sortBy } from 'lodash'
+import { menuService } from '@services/menu.service'
+import { IMenu } from 'src/interfaces'
+import * as _ from 'lodash'
 
 interface IProps {
   placeholder?: string;
@@ -15,48 +15,48 @@ interface IProps {
 }
 
 export class SelectMenuTreeDropdown extends PureComponent<IProps> {
-  _initalData = [];
+  _initalData:any = []
 
   state = {
     data: [] as any,
     value: undefined
-  };
-
-  componentDidMount() {
-    this.loadMenus();
   }
 
-  handleSearch = (value) => {
-    const q = value.toLowerCase();
-    const filtered = this._initalData.filter((p) => p.title.includes(q) || (p.title || '').toLowerCase().includes(q));
-    this.setState({ data: this.mapDataNode(filtered) });
-  };
+  componentDidMount() {
+    this.loadMenus()
+  }
+
+  handleSearch = (value:any) => {
+    const q = value.toLowerCase()
+    const filtered = this._initalData.filter((p:any) => p.title.includes(q) || (p.title || '').toLowerCase().includes(q))
+    this.setState({ data: this.mapDataNode(filtered) })
+  }
 
   buildTree(data = [], parent?: any, tree?: any) {
-    let a = tree;
-    a = typeof a !== 'undefined' ? a : [];
-    let b = parent;
-    b = typeof b !== 'undefined' ? b : { _id: '' };
-    const children = _.filter(data, (child) => (child.parentId || '') === b._id);
+    let a = tree
+    a = typeof a !== 'undefined' ? a : []
+    let b = parent
+    b = typeof b !== 'undefined' ? b : { _id: '' }
+    const children = _.filter(data, (child:any) => (child.parentId || '') === b._id)
     if (!_.isEmpty(children)) {
       if (!b._id) {
-        a = children;
+        a = children
       } else {
-        b.children = children;
+        b.children = children
       }
-      _.each(children, (child) => this.buildTree(data, child));
+      _.each(children, (child) => this.buildTree(data, child))
     }
-    return this.mapDataNode(a);
+    return this.mapDataNode(a)
   }
 
   async mapDataNode(data: any) {
-    const { menu } = this.props;
+    const { menu } = this.props
     if (data && data.length > 0) {
       return Promise.all(
-        data.map(async (item) => {
-          let children = [];
+        data.map(async (item:any) => {
+          let children:any = []
           if (item.children) {
-            children = await this.mapDataNode(item.children);
+            children = await this.mapDataNode(item.children)
           }
           return {
             title: item.title,
@@ -64,27 +64,27 @@ export class SelectMenuTreeDropdown extends PureComponent<IProps> {
             ordering: item.ordering,
             children: children.length > 0 ? _.orderBy(children, 'ordering', 'asc') : [],
             disabled: !!(menu && menu._id === item._id)
-          };
+          }
         })
-      );
+      )
     }
-    return undefined;
+    return undefined
   }
 
   async loadMenus() {
     // TODO - should check for better option?
-    const resp = await menuService.search({ limit: 1000, sortBy: 'ordering', sort: 'asc' });
-    this._initalData = sortBy(resp.data.data, (i) => i.title);
+    const resp = await menuService.search({ limit: 1000, sortBy: 'ordering', sort: 'asc' })
+    this._initalData = sortBy(resp.data.data, (i) => i.title)
     this.setState({
       data: await this.buildTree(this._initalData)
-    });
+    })
   }
 
   render() {
     const {
       disabled, style, defaultValue, placeholder, onSelect
-    } = this.props;
-    const { data, value } = this.state;
+    } = this.props
+    const { data, value } = this.state
     return (
       <TreeSelect
         showSearch
@@ -95,12 +95,12 @@ export class SelectMenuTreeDropdown extends PureComponent<IProps> {
         placeholder={placeholder || 'Please select'}
         treeDefaultExpandAll
         onChange={(values) => {
-          this.setState({ value: values }, () => onSelect(value));
+          this.setState({ value: values }, () => onSelect(value))
         }}
         onSearch={this.handleSearch}
         disabled={disabled}
         allowClear
       />
-    );
+    )
   }
 }

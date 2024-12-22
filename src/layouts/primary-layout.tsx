@@ -1,33 +1,28 @@
-import { PureComponent } from "react";
-import { Layout, Drawer, BackTop } from "antd";
-import { enquireScreen, unenquireScreen } from "enquire-js";
-import { connect } from "react-redux";
-import { updateUIValue, loadUIValue } from "src/redux/ui/actions";
-import Sider from "@components/common/layout/sider";
-import { IUIConfig } from "src/interfaces/ui-config";
+import { PureComponent } from 'react'
+import { Layout, Drawer, BackTop } from 'antd'
+// import enquireJs from 'enquire-js'
+// import { enquireScreen, unenquireScreen } from 'enquire-js'
+import { connect } from 'react-redux'
+import { updateUIValue, loadUIValue } from 'src/redux/ui/actions'
+import Sider from '@components/common/layout/sider'
+import { IUIConfig } from 'src/interfaces/ui-config'
 import {
   PieChartOutlined,
   ContainerOutlined,
   UserOutlined,
   WomanOutlined,
-  VideoCameraOutlined,
-  CameraOutlined,
   StopOutlined,
-  FileImageOutlined,
-  SkinOutlined,
   DollarOutlined,
   HeartOutlined,
-  MenuOutlined,
   FireOutlined,
-  MailOutlined,
-  LinkOutlined,
-  NotificationOutlined,
-  FormOutlined,
-} from "@ant-design/icons";
-import Header from "@components/common/layout/header";
-import { Router } from "next/router";
-import Loader from "@components/common/base/loader";
-import "./primary-layout.less";
+  NotificationOutlined
+} from '@ant-design/icons'
+import Header from '@components/common/layout/header'
+import { Router } from 'next/router'
+import Loader from '@components/common/base/loader'
+import './primary-layout.less'
+
+// const { enquireScreen, unenquireScreen } = enquireJs
 
 interface DefaultProps extends IUIConfig {
   children: any;
@@ -39,71 +34,68 @@ interface DefaultProps extends IUIConfig {
 class PrimaryLayout extends PureComponent<DefaultProps> {
   state = {
     isMobile: false,
-    routerChange: false,
-  };
+    routerChange: false
+  }
 
-  enquireHandler: any;
+  // enquireHandler:any
 
   componentDidMount() {
-    const { loadUIValue: handleLoadUI } = this.props;
-    handleLoadUI();
-    this.enquireHandler = enquireScreen((mobile) => {
-      const { isMobile } = this.state;
-      if (isMobile !== mobile) {
-        this.setState({
-          isMobile: mobile,
-        });
-      }
-    });
+    const { loadUIValue: handleLoadUI } = this.props
+    handleLoadUI()
+    // this.enquireHandler = enquireJs.enquireScreen((mobile:any) => {
+    //   const { isMobile } = this.state
+    //   if (isMobile !== mobile) {
+    //     this.setState({
+    //       isMobile: mobile
+    //     })
+    //   }
+    // })
 
-    process.browser && this.handleStateChange();
+    process.browser && this.handleStateChange()
   }
 
-  componentWillUnmount() {
-    unenquireScreen(this.enquireHandler);
-  }
+  // componentWillUnmount() {
+  //   enquireJs.unenquireScreen(this.enquireHandler)
+  // }
 
   handleStateChange() {
-    Router.events.on("routeChangeStart", async () =>
-      this.setState({ routerChange: true })
-    );
-    Router.events.on("routeChangeComplete", async () =>
-      this.setState({ routerChange: false })
-    );
+    Router.events.on('routeChangeStart', async () => this.setState({ routerChange: true }))
+    Router.events.on('routeChangeComplete', async () => this.setState({ routerChange: false }))
   }
 
-  onCollapseChange = (collapsed) => {
-    const { updateUIValue: handleUpdateUI } = this.props;
-    handleUpdateUI({ collapsed });
-  };
+  onCollapseChange = (collapsed:any) => {
+    const { updateUIValue: handleUpdateUI } = this.props
+    handleUpdateUI({ collapsed })
+  }
 
   onThemeChange = (theme: string) => {
-    const { updateUIValue: handleUpdateUI } = this.props;
-    handleUpdateUI({ theme });
-  };
+    const { updateUIValue: handleUpdateUI } = this.props
+    handleUpdateUI({ theme })
+  }
 
   render() {
-    const { children, collapsed, fixedHeader, logo, siteName, theme } =
-      this.props;
-    const { isMobile, routerChange } = this.state;
+    const {
+      children, collapsed, fixedHeader, logo, siteName, theme
+    } = this.props
+    const { isMobile, routerChange } = this.state
     const headerProps = {
       collapsed,
       theme,
-      onCollapseChange: this.onCollapseChange,
-    };
+      onCollapseChange: this.onCollapseChange
+    }
 
     const sliderMenus = [
       {
-        id: "blockCountry",
-        name: "Block Countries",
+        id: 'blockCountry',
+        name: 'Block Countries',
         icon: <StopOutlined />,
         children: [
           {
-            id: "blockCountry",
-            name: "List countries",
-            route: "/block-countries",
-          },
-        ],
+            id: 'blockCountry',
+            name: 'List countries',
+            route: '/block-countries'
+          }
+        ]
       },
       // {
       //   id: 'email-template',
@@ -118,21 +110,21 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //   ]
       // },
       {
-        id: "posts",
-        name: "Posts",
+        id: 'posts',
+        name: 'Posts',
         icon: <ContainerOutlined />,
         children: [
           {
-            id: "post-page",
-            name: "All posts",
-            route: "/posts?type=page",
+            id: 'post-page',
+            name: 'All posts',
+            route: '/posts?type=page'
           },
           {
-            id: "page-create",
-            name: "Create new",
-            route: "/posts/create?type=page",
-          },
-        ],
+            id: 'page-create',
+            name: 'Create new',
+            route: '/posts/create?type=page'
+          }
+        ]
       },
       // {
       //   id: 'menu',
@@ -186,38 +178,38 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //   ]
       // },
       {
-        id: "accounts",
-        name: "Users",
+        id: 'accounts',
+        name: 'Users',
         icon: <UserOutlined />,
         children: [
           {
-            name: "All users",
-            id: "users",
-            route: "/users",
+            name: 'All users',
+            id: 'users',
+            route: '/users'
           },
           {
-            name: "Create new",
-            id: "users-create",
-            route: "/users/create",
-          },
-        ],
+            name: 'Create new',
+            id: 'users-create',
+            route: '/users/create'
+          }
+        ]
       },
       {
-        id: "performers",
-        name: "Creators",
+        id: 'performers',
+        name: 'Creators',
         icon: <WomanOutlined />,
         children: [
           {
-            name: "All creators",
-            id: "performers",
-            route: "/creator",
+            name: 'All creators',
+            id: 'performers',
+            route: '/creator'
           },
           {
-            name: "Create new",
-            id: "create-performers",
-            route: "/creator/create",
-          },
-        ],
+            name: 'Create new',
+            id: 'create-performers',
+            route: '/creator/create'
+          }
+        ]
       },
       // {
       //   id: 'booking',
@@ -232,14 +224,14 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //   ]
       // },
       {
-        id: "feed",
-        name: "Feed Posts",
+        id: 'feed',
+        name: 'Feed Posts',
         icon: <FireOutlined />,
         children: [
           {
-            id: "posts",
-            name: "All posts",
-            route: "/feed",
+            id: 'posts',
+            name: 'All posts',
+            route: '/feed'
           },
           // {
           //   id: 'video_posts',
@@ -252,11 +244,11 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
           //   route: '/feed?type=photo'
           // },
           {
-            id: "create_post",
-            name: "Create new",
-            route: "/feed/create",
-          },
-        ],
+            id: 'create_post',
+            name: 'Create new',
+            route: '/feed/create'
+          }
+        ]
       },
       // {
       //   id: 'videos',
@@ -330,16 +322,16 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //   ]
       // },
       {
-        id: "report",
-        name: "Reports",
+        id: 'report',
+        name: 'Reports',
         icon: <NotificationOutlined />,
         children: [
           {
-            id: "Report",
-            name: "All reports",
-            route: "/report",
-          },
-        ],
+            id: 'Report',
+            name: 'All reports',
+            route: '/report'
+          }
+        ]
       },
       // {
       //   id: 'token-package',
@@ -371,33 +363,33 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //   ]
       // },
       {
-        id: "earning",
-        name: "Earning History",
+        id: 'earning',
+        name: 'Earning History',
         icon: <DollarOutlined />,
         children: [
           {
-            id: "earning-money",
-            name: "Earnings",
-            route: "/earnings",
-          },
-        ],
+            id: 'earning-money',
+            name: 'Earnings',
+            route: '/earnings'
+          }
+        ]
       },
       {
-        id: "subscription",
-        name: "Subscriptions",
+        id: 'subscription',
+        name: 'Subscriptions',
         icon: <HeartOutlined />,
         children: [
           {
-            name: "All subscriptions",
-            id: "subscription",
-            route: "/subscription",
+            name: 'All subscriptions',
+            id: 'subscription',
+            route: '/subscription'
           },
           {
-            name: "Create new",
-            id: "create-subscription",
-            route: "/subscription/create",
-          },
-        ],
+            name: 'Create new',
+            id: 'create-subscription',
+            route: '/subscription/create'
+          }
+        ]
       },
       // {
       //   id: 'payments',
@@ -436,19 +428,19 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       //   ]
       // },
       {
-        id: "settings",
-        name: "Settings",
+        id: 'settings',
+        name: 'Settings',
         icon: <PieChartOutlined />,
         children: [
           {
-            id: "system-settings",
-            route: "/settings",
-            as: "/settings",
-            name: "Settings",
-          },
-        ],
-      },
-    ];
+            id: 'system-settings',
+            route: '/settings',
+            as: '/settings',
+            name: 'Settings'
+          }
+        ]
+      }
+    ]
     const siderProps = {
       collapsed,
       isMobile,
@@ -457,8 +449,8 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
       theme,
       menus: sliderMenus,
       onCollapseChange: this.onCollapseChange,
-      onThemeChange: this.onThemeChange,
-    };
+      onThemeChange: this.onThemeChange
+    }
 
     return (
       <Layout>
@@ -472,7 +464,7 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
             width={257}
             style={{
               padding: 0,
-              height: "100vh",
+              height: '100vh'
             }}
           >
             <Sider {...siderProps} />
@@ -486,25 +478,25 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
           id="primaryLayout"
         >
           <Header {...headerProps} />
-          <Layout.Content className="content" style={{ position: "relative" }}>
+          <Layout.Content className="content" style={{ position: 'relative' }}>
             {routerChange && <Loader />}
             {/* <Bread routeList={newRouteList} /> */}
             {children}
           </Layout.Content>
           <BackTop
             className="backTop"
-            target={() => document.querySelector("#primaryLayout") as any}
+            target={() => document.querySelector('#primaryLayout') as any}
           />
         </div>
       </Layout>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state: any) => ({
   ...state.ui,
-  auth: state.auth,
-});
-const mapDispatchToProps = { updateUIValue, loadUIValue };
+  auth: state.auth
+})
+const mapDispatchToProps = { updateUIValue, loadUIValue }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PrimaryLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(PrimaryLayout)

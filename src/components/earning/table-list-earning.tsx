@@ -1,8 +1,8 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Table, Tag, Avatar, Statistic
-} from 'antd';
-import { formatDate } from '@lib/date';
+} from 'antd'
+import { formatDate } from '@lib/date'
 
 interface IProps {
   dataSource: [];
@@ -19,34 +19,34 @@ export class TableListEarning extends PureComponent<IProps> {
         title: 'Creator',
         dataIndex: 'performerInfo',
         key: 'performer',
-        render(performerInfo) {
+        render(performerInfo:any) {
           return (
             <div>
               <Avatar src={performerInfo?.avatar || '/no-avatar.png'} />
               {' '}
               {performerInfo?.name || performerInfo?.username || 'N/A'}
             </div>
-          );
+          )
         }
       },
       {
         title: 'User',
         dataIndex: 'userInfo',
         key: 'user',
-        render(userInfo) {
+        render(userInfo:any) {
           return (
             <div>
               <Avatar src={userInfo?.avatar || '/no-avatar.png'} />
               {' '}
               {userInfo?.name || userInfo?.username || 'N/A'}
             </div>
-          );
+          )
         }
       },
       {
         title: 'GROSS',
         dataIndex: 'grossPrice',
-        render(grossPrice) {
+        render(grossPrice:any) {
           return (
             <span>
               <Statistic
@@ -56,25 +56,25 @@ export class TableListEarning extends PureComponent<IProps> {
                 precision={2}
               />
             </span>
-          );
+          )
         }
       },
       {
         title: 'Platform Commission %',
         dataIndex: 'siteCommission',
-        render(commission) {
+        render(commission:any) {
           return (
             <span>
               {(commission || 0) * 100}
               %
             </span>
-          );
+          )
         }
       },
       {
         title: 'Platform Earning',
         dataIndex: 'siteEarning',
-        render(siteEarning) {
+        render(siteEarning:any) {
           return (
             <span>
               <Statistic
@@ -84,13 +84,13 @@ export class TableListEarning extends PureComponent<IProps> {
                 precision={2}
               />
             </span>
-          );
+          )
         }
       },
       {
         title: 'Creator Earnings',
         dataIndex: 'netPrice',
-        render(netPrice) {
+        render(netPrice:any) {
           return (
             <span>
               <Statistic
@@ -100,7 +100,7 @@ export class TableListEarning extends PureComponent<IProps> {
                 precision={2}
               />
             </span>
-          );
+          )
         }
       },
       {
@@ -109,24 +109,24 @@ export class TableListEarning extends PureComponent<IProps> {
         render(type: string) {
           switch (type) {
             case 'product':
-              return <Tag color="#FFCF00">Product</Tag>;
+              return <Tag color="#FFCF00">Product</Tag>
             case 'gallery':
-              return <Tag color="#FFCF00">Gallery</Tag>;
+              return <Tag color="#FFCF00">Gallery</Tag>
             case 'feed':
-              return <Tag color="green">Post</Tag>;
+              return <Tag color="green">Post</Tag>
             case 'tip':
-              return <Tag color="#00dcff">Tip</Tag>;
+              return <Tag color="#00dcff">Tip</Tag>
             case 'video':
-              return <Tag color="blue">Video</Tag>;
+              return <Tag color="blue">Video</Tag>
             case 'stream_tip':
-              return <Tag color="violet">Streaming Tip</Tag>;
+              return <Tag color="violet">Streaming Tip</Tag>
             case 'public_chat':
-              return <Tag color="pink">Paid Streaming</Tag>;
+              return <Tag color="pink">Paid Streaming</Tag>
             case 'monthly_subscription':
-              return <Tag color="red">Monthly Sub</Tag>;
+              return <Tag color="red">Monthly Sub</Tag>
             case 'yearly_subscription':
-              return <Tag color="red">Yearly Sub</Tag>;
-            default: return <Tag color="#00dcff">{type}</Tag>;
+              return <Tag color="red">Yearly Sub</Tag>
+            default: return <Tag color="#00dcff">{type}</Tag>
           }
         }
       },
@@ -135,13 +135,13 @@ export class TableListEarning extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorted: true,
         render(createdAt: Date) {
-          return <span>{formatDate(createdAt)}</span>;
+          return <span>{formatDate(createdAt)}</span>
         }
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <Table
         dataSource={dataSource}
@@ -151,6 +151,6 @@ export class TableListEarning extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

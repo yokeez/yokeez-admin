@@ -1,71 +1,71 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
 
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
 import {
   Form, Input, Select, Button, Breadcrumb, message
-} from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import { postService } from '@services/post.service';
-import Loader from '@components/common/base/loader';
+} from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
+import { postService } from '@services/post.service'
+import Loader from '@components/common/base/loader'
 
 const WYSIWYG = dynamic(() => import('@components/wysiwyg'), {
   ssr: false
-});
+})
 
 class PostUpdate extends PureComponent<any> {
-  private _content: string = '';
+  private _content: string = ''
 
   state = {
     submiting: false,
     post: null
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    const { query } = ctx;
+  static async getInitialProps({ ctx }:any) {
+    const { query } = ctx
     if (!query.type) {
-      query.type = 'post';
+      query.type = 'post'
     }
-    return query;
+    return query
   }
 
   async componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const resp = await postService.findById(id);
-      this._content = resp.data.content;
-      this.setState({ post: resp.data });
+      const resp = await postService.findById(id)
+      this._content = resp.data.content
+      this.setState({ post: resp.data })
     } catch (e) {
-      message.error('Post not found!');
+      message.error('Post not found!')
     }
   }
 
   async submit(data: any) {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      this.setState({ submiting: true });
+      this.setState({ submiting: true })
 
       const submitData = {
         ...data,
         content: this._content
-      };
-      await postService.update(id, submitData);
-      message.success('Updated successfully');
+      }
+      await postService.update(id, submitData)
+      message.success('Updated successfully')
     } catch (e) {
       // TODO - check and show error here
-      message.error('Something went wrong, please try again!');
+      message.error('Something went wrong, please try again!')
     } finally {
-      this.setState({ submiting: false });
+      this.setState({ submiting: false })
     }
   }
 
   contentChange(content: string) {
-    this._content = content;
+    this._content = content
   }
 
   render() {
-    const { post, submiting } = this.state;
+    const { post, submiting }:any = this.state
     return (
       <>
         <Head>
@@ -126,8 +126,8 @@ class PostUpdate extends PureComponent<any> {
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default PostUpdate;
+export default PostUpdate

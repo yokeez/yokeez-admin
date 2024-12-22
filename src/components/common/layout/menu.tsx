@@ -1,8 +1,8 @@
 /* eslint-disable no-multiple-empty-lines */
-import { PureComponent } from 'react';
-import { Menu } from 'antd';
-import Link from 'next/link';
-import Router from 'next/router';
+import { PureComponent } from 'react'
+import { Menu } from 'antd'
+import Link from 'next/link'
+import Router from 'next/router'
 
 interface IProps {
   theme?: string;
@@ -14,61 +14,61 @@ interface IProps {
 export class SiderMenu extends PureComponent<IProps> {
   state = {
     openKeys: []
-  };
+  }
 
   componentDidMount() {
     // Router.events.on('routeChangeStart', this.routerChange.bind(this));
-    const { menus } = this.props;
-    const openKeys = this.getOpenKeys(menus);
-    this.setState({ openKeys });
+    const { menus } = this.props
+    const openKeys = this.getOpenKeys(menus)
+    this.setState({ openKeys })
   }
 
-  onOpenChange = (openKeys) => {
-    const { menus } = this.props;
-    const rootSubmenuKeys = menus.filter((_) => !_.menuParentId).map((_) => _.id);
+  onOpenChange = (openKeys:any) => {
+    const { menus } = this.props
+    const rootSubmenuKeys = menus.filter((_:any) => !_.menuParentId).map((_:any) => _.id)
 
     const latestOpenKey = openKeys.find(
-      (key) => openKeys.indexOf(key) === -1
-    );
+      (key:any) => openKeys.indexOf(key) === -1
+    )
 
-    let newOpenKeys = openKeys;
+    let newOpenKeys = openKeys
     if (rootSubmenuKeys.indexOf(latestOpenKey) !== -1) {
-      newOpenKeys = latestOpenKey ? [latestOpenKey] : [];
+      newOpenKeys = latestOpenKey ? [latestOpenKey] : []
     }
     this.setState({
       openKeys: newOpenKeys
-    });
+    })
   }
 
   getOpenKeys(menus: any) {
-    const pathname = process.browser ? Router.pathname : '';
-    const withoutQuery = pathname.split('?')[0];
-    let found = false;
-    let results = [];
+    const pathname = process.browser ? Router.pathname : ''
+    const withoutQuery = pathname.split('?')[0]
+    let found = false
+    let results:any = []
     // TODO - optimize me if needed or more level
-    menus.forEach((menu) => {
-      if (found) return;
-      const menuRoute = menu.route ? menu.route.split('?')[0] : '';
+    menus.forEach((menu:any) => {
+      if (found) return
+      const menuRoute = menu.route ? menu.route.split('?')[0] : ''
       if (menu.route === pathname || menuRoute === withoutQuery) {
-        found = true;
-        results = [menu.id];
-        return;
+        found = true
+        results = [menu.id]
+        return
       }
       if (menu.children) {
-        menu.children.forEach((cmenu) => {
-          if (found) return;
-          const menuRoutes = cmenu.route ? cmenu.route.split('?')[0] : '';
+        menu.children.forEach((cmenu:any) => {
+          if (found) return
+          const menuRoutes = cmenu.route ? cmenu.route.split('?')[0] : ''
           if (cmenu.route === pathname || menuRoutes === withoutQuery) {
-            found = true;
-            results = [menu.id];
+            found = true
+            results = [menu.id]
           }
-        });
+        })
       }
-    });
-    return results;
+    })
+    return results
   }
 
-  generateMenus = (data) => data.map((item) => {
+  generateMenus = (data:any) => data.map((item:any) => {
     if (item.children) {
       return (
         <Menu.SubMenu
@@ -82,39 +82,39 @@ export class SiderMenu extends PureComponent<IProps> {
         >
           {this.generateMenus(item.children)}
         </Menu.SubMenu>
-      );
+      )
     }
     return (
       <Menu.Item key={item.id}>
         {item.icon}
         <Link href={item.route} as={item.as || item.route}>
-          <a>{item.name}</a>
+          {item.name}
         </Link>
       </Menu.Item>
-    );
+    )
   })
 
-  flatten(menus, flattenMenus = []) {
-    menus.forEach((m) => {
+  flatten(menus:any, flattenMenus:any = []) {
+    menus.forEach((m:any) => {
       if (m.children) {
-        this.flatten(m.children, flattenMenus);
+        this.flatten(m.children, flattenMenus)
       }
-      const tmp = { ...m };
-      delete tmp.children;
-      flattenMenus.push(tmp);
-    });
+      const tmp:any = { ...m }
+      delete tmp.children
+      flattenMenus.push(tmp)
+    })
 
-    return flattenMenus;
+    return flattenMenus
   }
 
   render() {
-    const { theme, menus, collapsed } = this.props;
-    const { openKeys } = this.state;
+    const { theme, menus, collapsed } = this.props
+    const { openKeys } = this.state
     const menuProps = collapsed
       ? {}
       : {
         openKeys
-      };
+      }
     return (
       <Menu
         mode="inline"
@@ -133,6 +133,6 @@ export class SiderMenu extends PureComponent<IProps> {
       >
         {this.generateMenus(menus)}
       </Menu>
-    );
+    )
   }
 }

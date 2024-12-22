@@ -1,15 +1,15 @@
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable no-nested-ternary */
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { message } from 'antd';
-import Page from '@components/common/layout/page';
-import { feedService } from '@services/feed.service';
-import { SearchFilter } from '@components/common/search-filter';
-import { TableListFeed } from '@components/feed/table-list';
-import { BreadcrumbComponent } from '@components/common';
-import { withRouter } from 'next/router';
-import { IFeed } from 'src/interfaces';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { message } from 'antd'
+import Page from '@components/common/layout/page'
+import { feedService } from '@services/feed.service'
+import { SearchFilter } from '@components/common/search-filter'
+import { TableListFeed } from '@components/feed/table-list'
+import { BreadcrumbComponent } from '@components/common'
+import { withRouter } from 'next/router'
+import { IFeed } from 'src/interfaces'
 
 interface IProps {
   router: any;
@@ -17,10 +17,10 @@ interface IProps {
 }
 
 class Feeds extends PureComponent<IProps> {
-  type = '';
+  type = ''
 
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   state = {
@@ -31,34 +31,34 @@ class Feeds extends PureComponent<IProps> {
     filter: {} as any,
     sortBy: 'createdAt',
     sort: 'desc'
-  };
+  }
 
   async componentDidMount() {
-    const { performerId, router } = this.props;
-    const { filter } = this.state;
-    await this.setState({ filter: { type: router?.query?.type || '' } });
+    const { performerId, router } = this.props
+    const { filter } = this.state
+    await this.setState({ filter: { type: router?.query?.type || '' } })
     if (performerId) {
-      await this.setState({ filter: { ...filter, performerId } });
+      await this.setState({ filter: { ...filter, performerId } })
     }
-    this.search();
+    this.search()
   }
 
-  async componentDidUpdate(prevProps) {
-    const { performerId, router } = this.props;
+  async componentDidUpdate(prevProps:any) {
+    const { performerId, router } = this.props
     if (prevProps.router.query.type !== router.query.type) {
-      const { filter } = this.state;
-      await this.setState({ filter: { type: router?.query?.type || '' } });
+      const { filter } = this.state
+      await this.setState({ filter: { type: router?.query?.type || '' } })
       if (performerId) {
-        await this.setState({ filter: { ...filter, performerId } });
+        await this.setState({ filter: { ...filter, performerId } })
       }
-      this.search();
+      this.search()
     }
   }
 
-  handleTableChange = async (pagi, filters, sorter) => {
-    const { pagination } = this.state;
-    const pager = { ...pagination };
-    pager.current = pagi.current;
+  handleTableChange = async (pagi:any, filters:any, sorter:any) => {
+    const { pagination } = this.state
+    const pager = { ...pagination }
+    pager.current = pagi.current
     await this.setState({
       pagination: pager,
       sortBy: sorter.field || 'createdAt',
@@ -67,22 +67,22 @@ class Feeds extends PureComponent<IProps> {
           ? 'desc'
           : 'asc'
         : 'desc'
-    });
-    this.search(pager.current);
-  };
+    })
+    this.search(pager.current)
+  }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.search();
+  async handleFilter(values:any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.search()
   }
 
   search = async (page = 1) => {
     const {
       filter, limit, sort, sortBy, pagination
-    } = this.state;
+    } = this.state
     try {
-      this.setState({ searching: true });
+      this.setState({ searching: true })
       const resp = await feedService.search({
         ...filter,
         limit,
@@ -90,7 +90,7 @@ class Feeds extends PureComponent<IProps> {
         sort,
         sortBy
 
-      });
+      })
       this.setState({
         searching: false,
         list: resp.data.data,
@@ -99,54 +99,54 @@ class Feeds extends PureComponent<IProps> {
           total: resp.data.total,
           pageSize: limit
         }
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ searching: false })
     }
   }
 
   deleteFeed = async (id: string) => {
-    const { pagination } = this.state;
+    const { pagination } = this.state
     if (!window.confirm('Are you sure you want to remove it?')) {
-      return;
+      return
     }
     try {
-      await feedService.delete(id);
-      message.success('Post deleted successfully');
-      this.search(pagination.current);
+      await feedService.delete(id)
+      message.success('Post deleted successfully')
+      this.search(pagination.current)
     } catch (e) {
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
+      const err:any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
     }
   }
 
   onPin = async (feed: IFeed) => {
     if (!window.confirm(feed.isPinned ? 'Unpin this post from model\'s profile?' : 'Pin this post to model\'s profile')) {
-      return;
+      return
     }
     const {
       pagination
-    } = this.state;
+    } = this.state
     try {
-      await feedService.pinFeedProfile(feed._id);
-      message.success(`${feed.isPinned ? 'Unpinned' : 'Pinned'} post successfully`);
-      this.search(pagination.current);
+      await feedService.pinFeedProfile(feed._id)
+      message.success(`${feed.isPinned ? 'Unpinned' : 'Pinned'} post successfully`)
+      this.search(pagination.current)
     } catch (e) {
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
+      const err:any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
     }
   }
 
   render() {
-    const { list, searching, pagination } = this.state;
-    const { performerId } = this.props;
+    const { list, searching, pagination } = this.state
+    const { performerId } = this.props
     const type = !this.type ? [
       { key: '', text: 'All Posts' },
       { key: 'video', text: 'Video Posts' },
       { key: 'photo', text: 'Photo Posts' },
       { key: 'text', text: 'Text Posts' }
-    ] : [];
+    ] : []
 
     return (
       <>
@@ -177,8 +177,8 @@ class Feeds extends PureComponent<IProps> {
           </div>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default withRouter(Feeds as any);
+export default withRouter(Feeds as any)

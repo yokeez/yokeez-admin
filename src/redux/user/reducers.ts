@@ -1,6 +1,6 @@
-import { merge } from 'lodash';
-import { createReducers } from '@lib/redux';
-import { IReduxAction, IUser, IReducerFieldUpdate } from 'src/interfaces';
+import { merge } from 'lodash'
+import { createReducers } from '@lib/redux'
+import { IReduxAction, IUser, IReducerFieldUpdate } from 'src/interfaces'
 import {
   updateCurrentUser,
   updateUserSuccess,
@@ -9,7 +9,7 @@ import {
   setReducer,
   setUpdateStatus,
   resetUser
-} from './actions';
+} from './actions'
 
 const initialState = {
   current: {
@@ -20,7 +20,7 @@ const initialState = {
   },
   updating: false,
   updateSuccess: false
-};
+}
 
 const userReducers = [
   {
@@ -29,7 +29,7 @@ const userReducers = [
       return {
         ...state,
         current: data.payload
-      };
+      }
     }
   },
   {
@@ -41,7 +41,7 @@ const userReducers = [
           ...state.current,
           avatar: data.payload
         }
-      };
+      }
     }
   },
   {
@@ -50,7 +50,7 @@ const userReducers = [
       return {
         ...state,
         updatedUser: data.payload
-      };
+      }
     }
   },
   {
@@ -59,7 +59,7 @@ const userReducers = [
       return {
         ...state,
         updating: data.payload
-      };
+      }
     }
   },
   {
@@ -68,7 +68,7 @@ const userReducers = [
       return {
         ...state,
         updateSuccess: data.payload
-      };
+      }
     }
   },
   {
@@ -77,7 +77,7 @@ const userReducers = [
       return {
         ...state,
         [data.payload.field]: data.payload.data
-      };
+      }
     }
   },
   {
@@ -93,9 +93,9 @@ const userReducers = [
         },
         updating: false,
         updateSuccess: false
-      };
+      }
     }
   }
-];
+]
 
-export default merge({}, createReducers('user', [userReducers], initialState));
+export default merge({}, createReducers('user', [userReducers], initialState))

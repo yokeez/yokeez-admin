@@ -1,10 +1,10 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { message, Layout } from 'antd';
-import Page from '@components/common/layout/page';
-import { tokenService } from '@services/index';
-import { TableListToken } from '@components/token-package/list-token-package';
-import { BreadcrumbComponent } from '@components/common';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { message, Layout } from 'antd'
+import Page from '@components/common/layout/page'
+import { tokenService } from '@services/index'
+import { TableListToken } from '@components/token-package/list-token-package'
+import { BreadcrumbComponent } from '@components/common'
 
 interface IProps { }
 
@@ -17,15 +17,15 @@ class Tokens extends PureComponent<IProps> {
     filter: {} as any,
     sortBy: 'ordering',
     sort: 'asc'
-  };
-
-  async componentDidMount() {
-    this.search();
   }
 
-  handleTableChange = async (pagination, filters, sorter) => {
-    const pager = { ...pagination };
-    pager.current = pagination.current;
+  async componentDidMount() {
+    this.search()
+  }
+
+  handleTableChange = async (pagination:any, filters:any, sorter:any) => {
+    const pager = { ...pagination }
+    pager.current = pagination.current
     await this.setState({
       pagination: pager,
       sortBy: sorter.field || 'ordering',
@@ -35,29 +35,29 @@ class Tokens extends PureComponent<IProps> {
           ? 'desc'
           : 'asc'
         : 'asc'
-    });
-    this.search(pager.current);
-  };
-
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.search();
+    })
+    this.search(pager.current)
   }
+
+  // async handleFilter(values:any) {
+  //   const { filter } = this.state
+  //   await this.setState({ filter: { ...filter, ...values } })
+  //   this.search()
+  // }
 
   async search(page = 1) {
     try {
-      await this.setState({ searching: true });
+      await this.setState({ searching: true })
       const {
         filter, limit, sort, sortBy, pagination
-      } = this.state;
+      } = this.state
       const resp = await tokenService.search({
         ...filter,
         limit,
         offset: (page - 1) * limit,
         sort,
         sortBy
-      });
+      })
       await this.setState({
         searching: false,
         list: resp.data.data,
@@ -66,30 +66,30 @@ class Tokens extends PureComponent<IProps> {
           total: resp.data.total,
           pageSize: limit
         }
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ searching: false })
     }
   }
 
   async deleteToken(id: string) {
-    const { pagination } = this.state;
+    const { pagination } = this.state
     if (!window.confirm('Are you sure you want to delete this token package?')) {
-      return;
+      return
     }
     try {
-      await tokenService.delete(id);
-      message.success('Deleted successfully');
-      await this.search(pagination.current);
+      await tokenService.delete(id)
+      message.success('Deleted successfully')
+      await this.search(pagination.current)
     } catch (e) {
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
+      const err:any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
     }
   }
 
   render() {
-    const { list, searching, pagination } = this.state;
+    const { list, searching, pagination } = this.state
 
     return (
       <Layout>
@@ -110,8 +110,8 @@ class Tokens extends PureComponent<IProps> {
           </div>
         </Page>
       </Layout>
-    );
+    )
   }
 }
 
-export default Tokens;
+export default Tokens

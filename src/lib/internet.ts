@@ -1,4 +1,4 @@
-const INTERNET_CHECK_URL = 'https://google.com';
+const INTERNET_CHECK_URL = 'https://google.com'
 
 export const isHasInternetConnection = async (): Promise<boolean> => {
   try {
@@ -8,7 +8,7 @@ export const isHasInternetConnection = async (): Promise<boolean> => {
         Pragma: 'no-cache',
         Expires: 0
       } as any
-    });
+    })
     if (
       res.status === 404
       || res.status === 401
@@ -16,10 +16,10 @@ export const isHasInternetConnection = async (): Promise<boolean> => {
       || res.status === 500
       || (res.status >= 200 && res.status <= 300)
     ) {
-      return true;
+      return true
     }
-  } catch (exception) {
-    return exception;
+  } catch (exception:any) {
+    return exception
   }
-  return false;
-};
+  return false
+}

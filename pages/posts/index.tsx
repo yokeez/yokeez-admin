@@ -1,19 +1,19 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import { PureComponent } from 'react';
+import Head from 'next/head'
+import Link from 'next/link'
+import { PureComponent } from 'react'
 import {
   Table, message, Tag, Breadcrumb, Dropdown, Menu, Button
-} from 'antd';
+} from 'antd'
 import {
   HomeOutlined, DownOutlined, EditOutlined, DeleteOutlined
-} from '@ant-design/icons';
-import Page from '@components/common/layout/page';
-import { postService } from '@services/post.service';
-import { formatDate } from '@lib/date';
-import { SearchFilter } from '@components/common/search-filter';
-import { getGlobalConfig } from '@services/config';
+} from '@ant-design/icons'
+import Page from '@components/common/layout/page'
+import { postService } from '@services/post.service'
+import { formatDate } from '@lib/date'
+import { SearchFilter } from '@components/common/search-filter'
+import { getGlobalConfig } from '@services/config'
 
-interface IProps {}
+interface IProps { }
 
 class Posts extends PureComponent<IProps> {
   state = {
@@ -24,45 +24,45 @@ class Posts extends PureComponent<IProps> {
     filter: {} as any,
     sortBy: 'ordering',
     sort: 'asc'
-  };
-
-  componentDidMount() {
-    this.search();
   }
 
-  handleTableChange = async (pagination, filters, sorter) => {
-    const pager = { ...pagination };
-    pager.current = pagination.current;
+  componentDidMount() {
+    this.search()
+  }
+
+  handleTableChange = async (pagination: any, filters: any, sorter: any) => {
+    const pager = { ...pagination }
+    pager.current = pagination.current
     await this.setState({
       pagination: pager,
       sortBy: sorter.field || '',
       // eslint-disable-next-line no-nested-ternary
       sort: sorter.order ? (sorter.order === 'descend' ? 'desc' : 'asc') : ''
-    });
-    this.search(pager.current);
-  };
+    })
+    this.search(pager.current)
+  }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.search();
+  async handleFilter(values: any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.search()
   }
 
   async search(page = 1) {
     const {
       filter, limit, sortBy, pagination,
       sort
-    } = this.state;
+    } = this.state
 
     try {
-      await this.setState({ searching: true });
+      await this.setState({ searching: true })
       const resp = await postService.search({
         ...filter,
         limit,
         offset: (page - 1) * limit,
         sortBy,
         sort
-      });
+      })
       this.setState({
         searching: false,
         list: resp.data.data,
@@ -70,62 +70,59 @@ class Posts extends PureComponent<IProps> {
           ...pagination,
           total: resp.data.total
         }
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ searching: false })
     }
   }
 
   async deletePost(id: string) {
-    const { pagination } = this.state;
+    const { pagination } = this.state
     if (!window.confirm('Are you sure you want to delete this post?')) {
-      return;
+      return
     }
     try {
-      await postService.delete(id);
-      await this.search(pagination.current);
+      await postService.delete(id)
+      await this.search(pagination.current)
     } catch (e) {
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
+      const err: any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
     }
   }
 
   render() {
-    const { list, searching, pagination } = this.state;
+    const { list, searching, pagination } = this.state
     const columns = [
       {
         title: 'Title',
         dataIndex: 'title',
-        render(data, record) {
+        render(data: any, record: any) {
           return (
-            <>
-              <Link
-                href={{
-                  pathname: '/posts/update',
-                  query: {
-                    id: record._id
-                  }
-                }}
-              >
-                <a style={{ fontWeight: 'bold' }}>{record.title}</a>
-              </Link>
-            </>
-          );
+            <Link
+              href={{
+                pathname: '/posts/update',
+                query: {
+                  id: record._id
+                }
+              }}
+              style={{ fontWeight: 'bold' }}
+            >
+              {record.title}
+            </Link>
+          )
         }
       },
       {
         title: 'Link',
         dataIndex: 'link',
-        render(data, record) {
-          const config = getGlobalConfig();
+        render(data: any, record: any) {
+          const config = getGlobalConfig()
           return (
-            <>
-              <a href={`${config.NEXT_PUBLIC_SITE_URL}/page/${record.slug}`} target="_blank" rel="noreferrer">
-                {`${config.NEXT_PUBLIC_SITE_URL}/page/${record.slug}`}
-              </a>
-            </>
-          );
+            <a href={`${config.NEXT_PUBLIC_SITE_URL}/page/${record.slug}`} target="_blank" rel="noreferrer">
+              {`${config.NEXT_PUBLIC_SITE_URL}/page/${record.slug}`}
+            </a>
+          )
         }
       },
       // {
@@ -144,7 +141,7 @@ class Posts extends PureComponent<IProps> {
             <Tag color={status === 'published' ? 'green' : 'default'} key={status}>
               {status === 'published' ? 'Active' : 'Inactive'}
             </Tag>
-          );
+          )
         }
       },
       {
@@ -152,7 +149,7 @@ class Posts extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
@@ -170,11 +167,9 @@ class Posts extends PureComponent<IProps> {
                     }}
                     as={`/posts/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="delete" onClick={this.deletePost.bind(this, id)}>
@@ -185,7 +180,7 @@ class Posts extends PureComponent<IProps> {
                   </span>
                 </Menu.Item>
               </Menu>
-              )}
+            )}
           >
             <Button>
               Actions
@@ -195,7 +190,7 @@ class Posts extends PureComponent<IProps> {
           </Dropdown>
         )
       }
-    ];
+    ]
     return (
       <>
         <Head>
@@ -224,8 +219,8 @@ class Posts extends PureComponent<IProps> {
           </div>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default Posts;
+export default Posts

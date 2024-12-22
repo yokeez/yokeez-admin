@@ -1,33 +1,33 @@
-import Head from 'next/head';
-import { PureComponent, createRef } from 'react';
+import Head from 'next/head'
+import { PureComponent, createRef } from 'react'
 import {
   Form, message, Button, Select, Upload, Input, Row, Col
-} from 'antd';
-import Page from '@components/common/layout/page';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { FormInstance } from 'antd/lib/form';
-import { UploadOutlined } from '@ant-design/icons';
-import { photoService } from '@services/photo.service';
-import { SelectGalleryDropdown } from '@components/gallery/common/select-gallery-dropdown';
-import { BreadcrumbComponent } from '@components/common';
-import Router from 'next/router';
-import { getGlobalConfig } from '@services/config';
+} from 'antd'
+import Page from '@components/common/layout/page'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { FormInstance } from 'antd/lib/form'
+import { UploadOutlined } from '@ant-design/icons'
+import { photoService } from '@services/photo.service'
+import { SelectGalleryDropdown } from '@components/gallery/common/select-gallery-dropdown'
+import { BreadcrumbComponent } from '@components/common'
+import Router from 'next/router'
+import { getGlobalConfig } from '@services/config'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
-const { Dragger } = Upload;
+const { Dragger } = Upload
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+function getBase64(img:any, callback:any) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
 interface IProps {
@@ -39,94 +39,94 @@ class BulkUploadPhoto extends PureComponent<IProps> {
     uploading: false,
     fileList: [],
     selectedPerformerId: ''
-  };
-
-  formRef: any;
-
-  componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
   }
 
-  onUploading(file, resp: any) {
+  formRef: any
+
+  componentDidMount() {
+    if (!this.formRef) this.formRef = createRef()
+  }
+
+  onUploading(file:any, resp: any) {
     // eslint-disable-next-line no-param-reassign
-    file.percent = resp.percentage;
-    this.forceUpdate();
+    file.percent = resp.percentage
+    this.forceUpdate()
   }
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
-    if (field === 'performerId') this.setState({ selectedPerformerId: val });
+    })
+    if (field === 'performerId') this.setState({ selectedPerformerId: val })
   }
 
-  async beforeUpload(file, listFile) {
-    const config = getGlobalConfig();
+  async beforeUpload(file:any, listFile:any) {
+    const config = getGlobalConfig()
     if (file.size / 1024 / 1024 > (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5)) {
-      message.error(`${file.name} is over ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB`);
-      return false;
+      message.error(`${file.name} is over ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB`)
+      return false
     }
-    getBase64(file, (imageUrl) => {
+    getBase64(file, (imageUrl:any) => {
       // eslint-disable-next-line no-param-reassign
-      file.thumbUrl = imageUrl;
-    });
-    const { fileList } = this.state;
+      file.thumbUrl = imageUrl
+    })
+    const { fileList } = this.state
     this.setState({
-      fileList: [...fileList, ...listFile.filter((f) => f.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5))]
-    });
-    return true;
+      fileList: [...fileList, ...listFile.filter((f:any) => f.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5))]
+    })
+    return true
   }
 
-  remove(file) {
-    const { fileList } = this.state;
-    this.setState({ fileList: fileList.filter((f) => f.uid !== file.uid) });
+  remove(file:any) {
+    const { fileList } = this.state
+    this.setState({ fileList: fileList.filter((f:any) => f.uid !== file.uid) })
   }
 
   async submit(data: any) {
-    const { fileList } = this.state;
+    const { fileList } = this.state
     if (!data.performerId) {
-      message.error('Please select creator!');
-      return;
+      message.error('Please select creator!')
+      return
     }
     if (!data.galleryId) {
-      message.error('Please select gallery!');
-      return;
+      message.error('Please select gallery!')
+      return
     }
     if (!fileList.length) {
-      message.error('Please select photo!');
-      return;
+      message.error('Please select photo!')
+      return
     }
-    const uploadFiles = fileList.filter((f) => !['uploading', 'done'].includes(f.status));
+    const uploadFiles:any = fileList.filter((f:any) => !['uploading', 'done'].includes(f.status))
     if (!uploadFiles.length) {
-      message.error('Please select new file!');
-      return;
+      message.error('Please select new file!')
+      return
     }
-    await this.setState({ uploading: true });
+    await this.setState({ uploading: true })
 
     // eslint-disable-next-line no-restricted-syntax
     for (const file of uploadFiles) {
       try {
         // eslint-disable-next-line no-continue
-        if (['uploading', 'done'].includes(file.status)) continue;
-        file.status = 'uploading';
+        if (['uploading', 'done'].includes(file.status)) continue
+        file.status = 'uploading'
         // eslint-disable-next-line no-await-in-loop
-        await photoService.uploadPhoto(file, data, this.onUploading.bind(this, file));
-        file.status = 'done';
-        file.response = { status: 'success' };
+        await photoService.uploadPhoto(file, data, this.onUploading.bind(this, file))
+        file.status = 'done'
+        file.response = { status: 'success' }
       } catch (e) {
-        file.status = 'error';
-        message.error(`File ${file.name} error!`);
+        file.status = 'error'
+        message.error(`File ${file.name} error!`)
       }
     }
-    message.success('Photos has been uploaded!');
-    Router.push('/photos');
+    message.success('Photos has been uploaded!')
+    Router.push('/photos')
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
-    const { uploading, fileList, selectedPerformerId } = this.state;
-    const { galleryId } = this.props;
+    if (!this.formRef) this.formRef = createRef()
+    const { uploading, fileList, selectedPerformerId } = this.state
+    const { galleryId } = this.props
     return (
       <>
         <Head>
@@ -149,7 +149,7 @@ class BulkUploadPhoto extends PureComponent<IProps> {
               <Col md={12} xs={12}>
                 <Form.Item name="performerId" label="Creator" rules={[{ required: true }]}>
                   <SelectPerformerDropdown
-                    onSelect={(val) => this.setFormVal('performerId', val)}
+                    onSelect={(val:any) => this.setFormVal('performerId', val)}
                     disabled={uploading}
                     defaultValue=""
                   />
@@ -163,7 +163,7 @@ class BulkUploadPhoto extends PureComponent<IProps> {
                 >
                   <SelectGalleryDropdown
                     performerId={selectedPerformerId}
-                    onSelect={(val) => this.setFormVal('galleryId', val)}
+                    onSelect={(val:any) => this.setFormVal('galleryId', val)}
                     defaultValue={galleryId || ''}
                   />
                 </Form.Item>
@@ -207,8 +207,8 @@ class BulkUploadPhoto extends PureComponent<IProps> {
           </Form>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default BulkUploadPhoto;
+export default BulkUploadPhoto

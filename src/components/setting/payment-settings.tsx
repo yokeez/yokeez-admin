@@ -1,14 +1,14 @@
 /* eslint-disable no-template-curly-in-string */
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Input, Button, Select, message, Divider
-} from 'antd';
-import { settingService } from 'src/services/setting.service';
+} from 'antd'
+import { settingService } from 'src/services/setting.service'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!',
@@ -19,7 +19,7 @@ const validateMessages = {
   number: {
     range: 'Must be between ${min} and ${max}'
   }
-};
+}
 
 interface IProps {
   settings: any;
@@ -34,42 +34,42 @@ export class PaymentSettingsForm extends PureComponent<IProps> {
   componentDidMount(): void {
     const {
       settings
-    } = this.props;
-    const paymentGateway = settings.find((s) => s.key === 'paymentGateway');
+    } = this.props
+    const paymentGateway = settings.find((s:any) => s.key === 'paymentGateway')
     this.setState({
       gateway: paymentGateway?.value || 'stripe'
-    });
+    })
   }
 
-  onSubmit = async (data) => {
+  onSubmit = async (data:any) => {
     try {
       // eslint-disable-next-line no-restricted-syntax
       for (const key of Object.keys(data)) {
         // eslint-disable-next-line no-await-in-loop
-        await settingService.update(key, data[key]);
+        await settingService.update(key, data[key])
       }
-      message.success('Updated setting successfully');
+      message.success('Updated setting successfully')
     } catch (e) {
-      const err = await Promise.resolve(e);
-      message.error(err?.message || 'Error occured, please try again later');
+      const err:any = await Promise.resolve(e)
+      message.error(err?.message || 'Error occured, please try again later')
     }
   }
 
   render() {
     const {
       settings
-    } = this.props;
-    const { gateway, submiting } = this.state;
-    const ccbillClientAccountNumber = settings.find((s) => s.key === 'ccbillClientAccountNumber');
-    const ccbillSingleSubAccountNumber = settings.find((s) => s.key === 'ccbillSingleSubAccountNumber');
-    const ccbillRecurringSubAccountNumber = settings.find((s) => s.key === 'ccbillRecurringSubAccountNumber');
-    const ccbillFlexformId = settings.find((s) => s.key === 'ccbillFlexformId');
-    const ccbillSalt = settings.find((s) => s.key === 'ccbillSalt');
-    const ccbillDatalinkUsername = settings.find((s) => s.key === 'ccbillDatalinkUsername');
-    const ccbillDatalinkPassword = settings.find((s) => s.key === 'ccbillDatalinkPassword');
-    const stripePublishableKey = settings.find((s) => s.key === 'stripePublishableKey');
-    const stripeSecretKey = settings.find((s) => s.key === 'stripeSecretKey');
-    const paymentGateway = settings.find((s) => s.key === 'paymentGateway');
+    } = this.props
+    const { gateway, submiting } = this.state
+    const ccbillClientAccountNumber = settings.find((s:any) => s.key === 'ccbillClientAccountNumber')
+    const ccbillSingleSubAccountNumber = settings.find((s:any) => s.key === 'ccbillSingleSubAccountNumber')
+    const ccbillRecurringSubAccountNumber = settings.find((s:any) => s.key === 'ccbillRecurringSubAccountNumber')
+    const ccbillFlexformId = settings.find((s:any) => s.key === 'ccbillFlexformId')
+    const ccbillSalt = settings.find((s:any) => s.key === 'ccbillSalt')
+    const ccbillDatalinkUsername = settings.find((s:any) => s.key === 'ccbillDatalinkUsername')
+    const ccbillDatalinkPassword = settings.find((s:any) => s.key === 'ccbillDatalinkPassword')
+    const stripePublishableKey = settings.find((s:any) => s.key === 'stripePublishableKey')
+    const stripeSecretKey = settings.find((s:any) => s.key === 'stripeSecretKey')
+    const paymentGateway = settings.find((s:any) => s.key === 'paymentGateway')
 
     return (
       <Form
@@ -191,6 +191,6 @@ export class PaymentSettingsForm extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

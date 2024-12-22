@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 import {
   Input, Row, Col, Select
-} from 'antd';
+} from 'antd'
 
 interface IProps {
   onSubmit: Function;
@@ -21,16 +21,16 @@ export class SearchFilter extends PureComponent<IProps> {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props;
-    defaultValue && this.setState({ ...defaultValue });
+    const { defaultValue } = this.props
+    defaultValue && this.setState({ ...defaultValue })
   }
 
   render() {
-    const { onSubmit, defaultValue } = this.props;
+    const { onSubmit, defaultValue } = this.props
     const {
-      status = '', 
+      status = ''
       // verifiedDocument = ''
-    } = defaultValue;
+    }:any = defaultValue
 
     return (
       <Row gutter={24}>
@@ -98,6 +98,6 @@ export class SearchFilter extends PureComponent<IProps> {
           </Select>
         </Col>
       </Row>
-    );
+    )
   }
 }

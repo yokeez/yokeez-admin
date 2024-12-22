@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
-import { Table } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import Link from 'next/link';
-import { DropdownAction } from '@components/common/dropdown-action';
+import { PureComponent } from 'react'
+import { Table } from 'antd'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import Link from 'next/link'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -16,7 +16,7 @@ interface IProps {
 
 export class TableListMenu extends PureComponent<IProps> {
   render() {
-    const { deleteMenu } = this.props;
+    const { deleteMenu } = this.props
     const columns = [
       {
         title: 'Title',
@@ -49,13 +49,13 @@ export class TableListMenu extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
         title: 'Action',
         dataIndex: '_id',
-        render: (data, record) => (
+        render: (data: any, record: any) => (
           <DropdownAction
             menuOptions={[
               {
@@ -69,11 +69,9 @@ export class TableListMenu extends PureComponent<IProps> {
                     }}
                     as={`/menu/update?id=${record._id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -93,10 +91,10 @@ export class TableListMenu extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <Table
         dataSource={dataSource}
@@ -106,6 +104,6 @@ export class TableListMenu extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

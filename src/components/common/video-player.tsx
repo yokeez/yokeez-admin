@@ -1,12 +1,12 @@
-import { PureComponent } from 'react';
-import videojs from 'video.js';
-import { isMobile } from 'react-device-detect';
-import 'node_modules/video.js/dist/video-js.css';
+import { PureComponent } from 'react'
+import videojs from 'video.js'
+import { isMobile } from 'react-device-detect'
+// import 'node_modules/video.js/dist/video-js.css'
 
 export class VideoPlayer extends PureComponent<any> {
-  videoNode: HTMLVideoElement;
+  videoNode: HTMLVideoElement | any
 
-  player: any;
+  player: any
 
   componentDidMount() {
     this.player = videojs(this.videoNode, {
@@ -15,22 +15,22 @@ export class VideoPlayer extends PureComponent<any> {
       controlBar: {
         pictureInPictureToggle: false
       }
-    } as any);
+    } as any)
   }
 
   componentWillUnmount() {
     if (this.player) {
-      this.player.dispose();
+      this.player.dispose()
     }
   }
 
   render() {
     return (
       <div className="videojs-player">
-        <div data-vjs-player style={!isMobile ? { paddingTop: 'max(60vh)' } : null}>
-          <video ref={(node) => { this.videoNode = node; }} className="video-js" />
+        <div data-vjs-player style={!isMobile ? { paddingTop: 'max(60vh)' } : undefined}>
+          <video ref={(node) => { this.videoNode = node }} className="video-js" />
         </div>
       </div>
-    );
+    )
   }
 }

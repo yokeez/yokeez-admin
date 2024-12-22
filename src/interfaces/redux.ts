@@ -1,9 +1,9 @@
-export interface IReduxAction<T> {
+export interface IReduxAction<T,> {
   type: string;
   payload: T;
 }
 
-export interface IReducerFieldUpdate<T> {
+export interface IReducerFieldUpdate<T,> {
   field: string;
   data: T;
 }

@@ -1,11 +1,11 @@
 /* eslint-disable no-nested-ternary */
-import { PureComponent } from 'react';
-import { DeleteOutlined, PlusOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { PureComponent } from 'react'
+import { DeleteOutlined, PlusOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import {
   Progress, Button, Upload, Tooltip, Image, Modal
-} from 'antd';
-import { VideoPlayer } from '@components/common';
-import '../feed/index.less';
+} from 'antd'
+import { VideoPlayer } from '@components/common'
+import '../feed/index.less'
 
 interface IProps {
   remove: Function;
@@ -20,16 +20,16 @@ export default class UploadList extends PureComponent<IProps> {
     previewVideoUrl: ''
   }
 
-  beforeUpload(file, fileList) {
-    const { onAddMore: handleAddMore } = this.props;
-    handleAddMore(file, fileList);
+  beforeUpload(file:any, fileList:any) {
+    const { onAddMore: handleAddMore } = this.props
+    handleAddMore(file, fileList)
   }
 
   render() {
     const {
       files, remove: handleRemove, uploading, type
-    } = this.props;
-    const { openPreviewModal, previewVideoUrl } = this.state;
+    } = this.props
+    const { openPreviewModal, previewVideoUrl } = this.state
     return (
       <div className="f-upload-list">
         {files && files.map((file) => (
@@ -106,6 +106,6 @@ export default class UploadList extends PureComponent<IProps> {
           />
         </Modal>
       </div>
-    );
+    )
   }
 }

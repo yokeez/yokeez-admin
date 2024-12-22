@@ -1,12 +1,12 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Table, Tag
-} from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import Link from 'next/link';
-import { ImageProduct } from '@components/product/image-product';
-import { DropdownAction } from '@components/common/dropdown-action';
+} from 'antd'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import Link from 'next/link'
+import { ImageProduct } from '@components/product/image-product'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -19,20 +19,20 @@ interface IProps {
 
 export class TableListProduct extends PureComponent<IProps> {
   render() {
-    const { deleteProduct } = this.props;
+    const { deleteProduct } = this.props
     const columns = [
       {
         title: '',
         dataIndex: 'image',
-        render(data, record) {
-          return <ImageProduct product={record} />;
+        render(data: any, record: any) {
+          return <ImageProduct product={record} />
         }
       },
       {
         title: 'Creator',
         dataIndex: 'performer',
-        render(data) {
-          return <span>{data?.name || data?.username || 'N/A'}</span>;
+        render(data: any) {
+          return <span>{data?.name || data?.username || 'N/A'}</span>
         }
       },
       {
@@ -48,14 +48,14 @@ export class TableListProduct extends PureComponent<IProps> {
               $
               {(price || 0).toFixed(2)}
             </span>
-          );
+          )
         }
       },
       {
         title: 'Stock',
         dataIndex: 'stock',
-        render(stock: number, record) {
-          return <span>{record.type !== 'digital' ? stock : ''}</span>;
+        render(stock: number, record: any) {
+          return <span>{record.type !== 'digital' ? stock : ''}</span>
         }
       },
       {
@@ -64,10 +64,10 @@ export class TableListProduct extends PureComponent<IProps> {
         render(type: string) {
           switch (type) {
             case 'physical':
-              return <Tag color="blue">Physical</Tag>;
+              return <Tag color="blue">Physical</Tag>
             case 'digital':
-              return <Tag color="pink">Digital</Tag>;
-            default: return <Tag color="default">{type}</Tag>;
+              return <Tag color="pink">Digital</Tag>
+            default: return <Tag color="default">{type}</Tag>
           }
         }
       },
@@ -77,10 +77,10 @@ export class TableListProduct extends PureComponent<IProps> {
         render(status: string) {
           switch (status) {
             case 'active':
-              return <Tag color="green">Active</Tag>;
+              return <Tag color="green">Active</Tag>
             case 'inactive':
-              return <Tag color="red">Inactive</Tag>;
-            default: return <Tag color="default">{status}</Tag>;
+              return <Tag color="red">Inactive</Tag>
+            default: return <Tag color="default">{status}</Tag>
           }
         }
       },
@@ -89,7 +89,7 @@ export class TableListProduct extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
@@ -109,11 +109,9 @@ export class TableListProduct extends PureComponent<IProps> {
                     }}
                     as={`/product/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -133,10 +131,10 @@ export class TableListProduct extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <Table
         dataSource={dataSource}
@@ -146,6 +144,6 @@ export class TableListProduct extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

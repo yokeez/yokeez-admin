@@ -1,20 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import {
-  Layout, message, Select, Button, PageHeader,
+  Layout, message, Select, Button,
   Input, Space, Statistic, Divider, Avatar
-} from 'antd';
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { ICountry, IPayoutRequest } from 'src/interfaces';
-import { BreadcrumbComponent } from '@components/common/breadcrumb';
-import Page from '@components/common/layout/page';
-import { payoutRequestService, getGlobalConfig, utilsService } from 'src/services';
-import Router from 'next/router';
-import { getResponseError } from '@lib/utils';
-import { formatDate } from 'src/lib/date';
-import './index.less';
+} from 'antd'
+import { PageHeader } from '@ant-design/pro-components'
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { ICountry, IPayoutRequest } from 'src/interfaces'
+import { BreadcrumbComponent } from '@components/common/breadcrumb'
+import Page from '@components/common/layout/page'
+import { payoutRequestService, getGlobalConfig, utilsService } from 'src/services'
+import Router from 'next/router'
+import { getResponseError } from '@lib/utils'
+import { formatDate } from 'src/lib/date'
+import './index.less'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 interface IProps {
   id: string;
@@ -22,7 +23,7 @@ interface IProps {
 }
 
 interface IStates {
-  request: IPayoutRequest;
+  request: IPayoutRequest | any;
   loading: boolean;
   status: string;
   adminNote: any;
@@ -34,15 +35,15 @@ interface IStates {
 }
 
 class PayoutDetailPage extends PureComponent<IProps, IStates> {
-  static async getInitialProps({ ctx }) {
+  static async getInitialProps({ ctx }:any) {
     const [countries] = await Promise.all([
       utilsService.countriesList()
-    ]);
-    return { ...ctx.query, countries: countries?.data || [] };
+    ])
+    return { ...ctx.query, countries: countries?.data || [] }
   }
 
   constructor(props: IProps) {
-    super(props);
+    super(props)
     this.state = {
       request: null,
       loading: true,
@@ -53,65 +54,65 @@ class PayoutDetailPage extends PureComponent<IProps, IStates> {
         previousPaidOutTokens: 0,
         remainingUnpaidTokens: 0
       }
-    };
+    }
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData()
   }
 
   async handleStripePayout() {
-    const { status, request } = this.state;
-    if (status !== 'pending' || request.paymentAccountType !== 'stripe') return;
+    const { status, request } = this.state
+    if (status !== 'pending' || request.paymentAccountType !== 'stripe') return
     try {
-      await this.setState({ loading: true });
-      const resp = await (await payoutRequestService.payout(request._id)).data;
+      await this.setState({ loading: true })
+      const resp = await (await payoutRequestService.payout(request._id)).data
       if (resp.status === 'done') {
-        message.success('Transfer money via Stripe Connect success', 5);
-        await this.setState({ status: resp.status });
-        this.onUpdate();
+        message.success('Transfer money via Stripe Connect success', 5)
+        await this.setState({ status: resp.status })
+        this.onUpdate()
       }
     } catch (e) {
-      const err = await Promise.resolve(e);
-      this.setState({ loading: false });
-      message.error(getResponseError(err), 10);
+      const err = await Promise.resolve(e)
+      this.setState({ loading: false })
+      message.error(getResponseError(err), 10)
     }
   }
 
   async onUpdate() {
-    const { status, adminNote, request } = this.state;
+    const { status, adminNote, request } = this.state
     try {
-      await this.setState({ loading: true });
+      await this.setState({ loading: true })
       await payoutRequestService.update(request._id, {
         status,
         adminNote
-      });
-      message.success('Updated successfully');
-      Router.replace('/payout-request');
+      })
+      message.success('Updated successfully')
+      Router.replace('/payout-request')
     } catch (e) {
-      const err = await Promise.resolve(e);
-      message.error(getResponseError(err), 10);
+      const err = await Promise.resolve(e)
+      message.error(getResponseError(err), 10)
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loading: false })
     }
   }
 
   async getData() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      await this.setState({ loading: true });
-      const resp = await payoutRequestService.findById(id);
-      this.getStatsPayout(resp.data.sourceId);
+      await this.setState({ loading: true })
+      const resp = await payoutRequestService.findById(id)
+      this.getStatsPayout(resp.data.sourceId)
       await this.setState({
         request: resp.data,
         status: resp.data.status,
         adminNote: resp.data.adminNote
-      });
+      })
     } catch (e) {
-      const err = await Promise.resolve(e);
-      message.error(getResponseError(err));
+      const err = await Promise.resolve(e)
+      message.error(getResponseError(err))
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loading: false })
     }
   }
 
@@ -119,26 +120,26 @@ class PayoutDetailPage extends PureComponent<IProps, IStates> {
     try {
       const resp = await payoutRequestService.calculate({
         performerId
-      });
+      })
       this.setState({
         statsPayout: resp.data
-      });
+      })
     } catch (e) {
-      const err = await Promise.resolve(e);
-      message.error(getResponseError(err));
+      const err = await Promise.resolve(e)
+      message.error(getResponseError(err))
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loading: false })
     }
   }
 
   render() {
-    const { countries = [] } = this.props;
+    const { countries = [] } = this.props
     const {
       request, adminNote, loading, statsPayout, status
-    } = this.state;
-    const paymentAccountInfo = request?.paymentAccountInfo;
-    const country = countries && countries.find((c) => c.code === paymentAccountInfo?.country);
-    const config = getGlobalConfig();
+    } = this.state
+    const paymentAccountInfo = request?.paymentAccountInfo
+    const country = countries && countries.find((c) => c.code === paymentAccountInfo?.country)
+    const config = getGlobalConfig()
     return (
       <Layout>
         <Head>
@@ -321,7 +322,7 @@ class PayoutDetailPage extends PureComponent<IProps, IStates> {
                     defaultValue={adminNote}
                     style={{ width: '100%' }}
                     onChange={(v) => {
-                      this.setState({ adminNote: v.target.value });
+                      this.setState({ adminNote: v.target.value })
                     }}
                     placeholder="Write your message here"
                     autoSize={{ minRows: 3 }}
@@ -349,8 +350,8 @@ class PayoutDetailPage extends PureComponent<IProps, IStates> {
           </div>
         </Content>
       </Layout>
-    );
+    )
   }
 }
 
-export default PayoutDetailPage;
+export default PayoutDetailPage

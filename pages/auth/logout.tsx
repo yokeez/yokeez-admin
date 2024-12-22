@@ -1,10 +1,10 @@
-import { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import { PureComponent } from 'react'
+import { connect } from 'react-redux'
 
-import './index.less';
-import Head from 'next/head';
-import { logout } from '@redux/auth/actions';
-import Page from '@components/common/layout/page';
+import './index.less'
+import Head from 'next/head'
+import { logout } from '@redux/auth/actions'
+import Page from '@components/common/layout/page'
 
 interface IProps {
   sLogout: { success: boolean; };
@@ -12,11 +12,11 @@ interface IProps {
 }
 
 class Logout extends PureComponent<IProps> {
-  static authenticate: boolean = false;
+  static authenticate: boolean = false
 
   componentDidMount() {
-    const { logout: handleLogout } = this.props;
-    handleLogout();
+    const { logout: handleLogout } = this.props
+    handleLogout()
   }
 
   render() {
@@ -29,11 +29,11 @@ class Logout extends PureComponent<IProps> {
           <span>Logout...</span>
         </Page>
       </>
-    );
+    )
   }
 }
 
 const mapStates = (state: any) => ({
   sLogout: state.auth.logout
-});
-export default connect(mapStates, { logout })(Logout);
+})
+export default connect(mapStates, { logout })(Logout)

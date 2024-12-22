@@ -1,23 +1,23 @@
 /* eslint-disable react/destructuring-assignment */
-import { Table, Tag } from 'antd';
-import { ITokenPackage } from 'src/interfaces/index';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import Link from 'next/link';
-import { DropdownAction } from '@components/common/dropdown-action';
-import { formatDate } from '@lib/date';
+import { Table, Tag } from 'antd'
+import { ITokenPackage } from 'src/interfaces/index'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import Link from 'next/link'
+import { DropdownAction } from '@components/common/dropdown-action'
+import { formatDate } from '@lib/date'
 
 interface IProps {
-    dataSource: ITokenPackage[];
-    pagination: {};
-    rowKey: string;
-    onChange: Function;
-    loading: boolean;
-    deleteToken : Function;
+  dataSource: ITokenPackage[];
+  pagination: {};
+  rowKey: string;
+  onChange: Function;
+  loading: boolean;
+  deleteToken: Function;
 }
 
-export const TableListToken = ({
+export function TableListToken({
   dataSource, pagination, rowKey, onChange, loading, deleteToken
-}: IProps) => {
+}: IProps) {
   const columns = [
     {
       title: 'Name',
@@ -26,25 +26,25 @@ export const TableListToken = ({
     {
       title: 'Price',
       dataIndex: 'price',
-      render(price) {
+      render(price: any) {
         return (
           <span>
             $
             {price.toFixed(2)}
           </span>
-        );
+        )
       }
     },
     {
       title: 'Amount of Tokens',
       dataIndex: 'tokens',
-      render(tokens) {
+      render(tokens: any) {
         return (
           <span>
             <img alt="coin" src="/coin-ico.png" width="15px" />
             {tokens}
           </span>
-        );
+        )
       }
     },
     {
@@ -55,20 +55,20 @@ export const TableListToken = ({
     {
       title: 'Status',
       dataIndex: 'isActive',
-      render(isActive) {
+      render(isActive: any) {
         if (isActive) {
-          return <Tag color="green">Active</Tag>;
+          return <Tag color="green">Active</Tag>
         }
 
-        return <Tag color="red">Inactive</Tag>;
+        return <Tag color="red">Inactive</Tag>
       }
     },
     {
       title: 'Updated On',
       dataIndex: 'updatedAt',
       sorter: true,
-      render(date) {
-        return <span>{formatDate(date)}</span>;
+      render(date: any) {
+        return <span>{formatDate(date)}</span>
       }
     },
     {
@@ -88,10 +88,8 @@ export const TableListToken = ({
                   }}
                   as={`/token-package/update?id=${id}`}
                 >
-                  <a>
-                    <EditOutlined />
-                    Update
-                  </a>
+                  <EditOutlined />
+                  Update
                 </Link>
               )
             },
@@ -110,15 +108,15 @@ export const TableListToken = ({
         />
       )
     }
-  ];
+  ]
   return (
     <Table
       columns={columns}
       dataSource={dataSource}
       rowKey={rowKey}
       pagination={pagination}
-      onChange={onChange.bind(this)}
+      onChange={() => onChange()}
       loading={loading}
     />
-  );
-};
+  )
+}

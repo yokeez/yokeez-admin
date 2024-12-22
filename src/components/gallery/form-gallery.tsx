@@ -1,10 +1,10 @@
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef } from 'react'
 import {
   Form, Input, Button, Select, InputNumber, Switch
-} from 'antd';
-import { IGalleryCreate, IGalleryUpdate } from 'src/interfaces';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { FormInstance } from 'antd/lib/form';
+} from 'antd'
+import { IGalleryCreate, IGalleryUpdate } from 'src/interfaces'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { FormInstance } from 'antd/lib/form'
 
 interface IProps {
   gallery?: IGalleryUpdate;
@@ -13,28 +13,28 @@ interface IProps {
 }
 
 export class FormGallery extends PureComponent<IProps> {
-  formRef: any;
+  formRef: any
 
   state = {
     isSale: false
   }
 
   componentDidMount() {
-    const { gallery } = this.props;
-    gallery && this.setState({ isSale: gallery.isSale });
+    const { gallery } = this.props
+    gallery && this.setState({ isSale: gallery.isSale })
   }
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
+    })
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
-    const { gallery, onFinish, submiting } = this.props;
-    const { isSale } = this.state;
+    if (!this.formRef) this.formRef = createRef()
+    const { gallery, onFinish, submiting } = this.props
+    const { isSale } = this.state
     return (
       <Form
         ref={this.formRef}
@@ -55,7 +55,7 @@ export class FormGallery extends PureComponent<IProps> {
           <SelectPerformerDropdown
             showAll
             defaultValue={gallery && gallery.performerId}
-            onSelect={(val) => this.setFormVal('performerId', val)}
+            onSelect={(val:any) => this.setFormVal('performerId', val)}
           />
         </Form.Item>
         <Form.Item name="title" rules={[{ required: true, message: 'Please input title of gallery!' }]} label="Gallery Title">
@@ -88,6 +88,6 @@ export class FormGallery extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

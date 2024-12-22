@@ -1,12 +1,12 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import { message } from 'antd';
-import { menuService } from '@services/menu.service';
-import { IMenu } from 'src/interfaces';
-import Loader from '@components/common/base/loader';
-import { BreadcrumbComponent } from '@components/common';
-import { FormMenu } from '@components/menu/form-menu';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import { message } from 'antd'
+import { menuService } from '@services/menu.service'
+import { IMenu } from 'src/interfaces'
+import Loader from '@components/common/base/loader'
+import { BreadcrumbComponent } from '@components/common'
+import { FormMenu } from '@components/menu/form-menu'
 
 interface IProps {
   id: string;
@@ -16,44 +16,44 @@ class MenuUpdate extends PureComponent<IProps> {
     submiting: false,
     fetching: true,
     menu: {} as IMenu
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   async componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const resp = await menuService.findById(id);
-      this.setState({ menu: resp.data });
+      const resp = await menuService.findById(id)
+      this.setState({ menu: resp.data })
     } catch (e) {
-      message.error('Menu not found!');
+      message.error('Menu not found!')
     } finally {
-      this.setState({ fetching: false });
+      this.setState({ fetching: false })
     }
   }
 
   async submit(data: any) {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      this.setState({ submiting: true });
+      this.setState({ submiting: true })
 
       const submitData = {
         ...data
-      };
-      await menuService.update(id, submitData);
-      message.success('Updated successfully');
-      this.setState({ submiting: false });
+      }
+      await menuService.update(id, submitData)
+      message.success('Updated successfully')
+      this.setState({ submiting: false })
     } catch (e) {
       // TODO - check and show error here
-      message.error('Something went wrong, please try again!');
-      this.setState({ submiting: false });
+      message.error('Something went wrong, please try again!')
+      this.setState({ submiting: false })
     }
   }
 
   render() {
-    const { menu, submiting, fetching } = this.state;
+    const { menu, submiting, fetching } = this.state
     return (
       <>
         <Head>
@@ -66,8 +66,8 @@ class MenuUpdate extends PureComponent<IProps> {
           {fetching ? <Loader /> : <FormMenu menu={menu} onFinish={this.submit.bind(this)} submiting={submiting} />}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default MenuUpdate;
+export default MenuUpdate

@@ -1,12 +1,12 @@
-import Head from 'next/head';
-import { PureComponent, createRef } from 'react';
-import { message } from 'antd';
-import Page from '@components/common/layout/page';
-import { FormInstance } from 'antd/lib/form';
-import { bannerService } from '@services/banner.service';
-import { BreadcrumbComponent } from '@components/common';
-import { FormUploadBanner } from '@components/banner/form-upload-banner';
-import Router from 'next/router';
+import Head from 'next/head'
+import { PureComponent, createRef } from 'react'
+import { message } from 'antd'
+import Page from '@components/common/layout/page'
+// import { FormInstance } from 'antd/lib/form'
+import { bannerService } from '@services/banner.service'
+import { BreadcrumbComponent } from '@components/common'
+import { FormUploadBanner } from '@components/banner/form-upload-banner'
+import Router from 'next/router'
 
 interface IProps {}
 
@@ -14,53 +14,53 @@ class UploadBanner extends PureComponent<IProps> {
   state = {
     uploading: false,
     uploadPercentage: 0
-  };
+  }
 
-  formRef: any;
+  formRef: any
 
-  _banner: File;
+  _banner: File | any
 
   componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
+    if (!this.formRef) this.formRef = createRef()
   }
 
   onUploading(resp: any) {
-    this.setState({ uploadPercentage: resp.percentage });
+    this.setState({ uploadPercentage: resp.percentage })
   }
 
-  setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
-    instance.setFieldsValue({
-      [field]: val
-    });
-  }
+  // setFormVal(field: string, val: any) {
+  //   const instance = this.formRef.current as FormInstance
+  //   instance.setFieldsValue({
+  //     [field]: val
+  //   })
+  // }
 
-  beforeUpload(file) {
-    this._banner = file;
-    return false;
+  beforeUpload(file:any) {
+    this._banner = file
+    return false
   }
 
   async submit(data: any) {
     if (!this._banner) {
-      message.error('Please select a banner!');
-      return;
+      message.error('Please select a banner!')
+      return
     }
     await this.setState({
       uploading: true
-    });
+    })
     try {
-      await bannerService.uploadBanner(this._banner, data, this.onUploading.bind(this));
-      message.success('Banner has been uploaded');
-      Router.push('/banners');
+      await bannerService.uploadBanner(this._banner, data, this.onUploading.bind(this))
+      message.success('Banner has been uploaded')
+      Router.push('/banners')
     } catch (error) {
-      message.error('An error occurred, please try again!');
-      this.setState({ uploading: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ uploading: false })
     }
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
-    const { uploading, uploadPercentage } = this.state;
+    if (!this.formRef) this.formRef = createRef()
+    const { uploading, uploadPercentage } = this.state
     return (
       <>
         <Head>
@@ -76,8 +76,8 @@ class UploadBanner extends PureComponent<IProps> {
           />
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default UploadBanner;
+export default UploadBanner

@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef } from 'react'
 import {
   Form, Input, Select, Upload, Button, message, Progress
-} from 'antd';
-import { IPhotoUpdate, IPhotoCreate } from 'src/interfaces';
-import { CameraOutlined } from '@ant-design/icons';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { FormInstance } from 'antd/lib/form';
-import { ThumbnailPhoto } from '@components/photo/thumbnail-photo';
-import { SelectGalleryDropdown } from '@components/gallery/common/select-gallery-dropdown';
-import { getGlobalConfig } from '@services/config';
+} from 'antd'
+import { IPhotoUpdate, IPhotoCreate } from 'src/interfaces'
+import { CameraOutlined } from '@ant-design/icons'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { FormInstance } from 'antd/lib/form'
+import { ThumbnailPhoto } from '@components/photo/thumbnail-photo'
+import { SelectGalleryDropdown } from '@components/gallery/common/select-gallery-dropdown'
+import { getGlobalConfig } from '@services/config'
 
 interface IProps {
   photo?: IPhotoUpdate;
@@ -22,78 +22,78 @@ interface IProps {
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+function getBase64(img:any, callback:any) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
 export class FormUploadPhoto extends PureComponent<IProps> {
   state = {
     previewImage: '',
     selectedPerformerId: ''
-  };
+  }
 
-  formRef: any;
+  formRef: any
 
   componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
-    const { photo } = this.props;
-    if (photo) this.setState({ selectedPerformerId: photo.performerId });
+    if (!this.formRef) this.formRef = createRef()
+    const { photo } = this.props
+    if (photo) this.setState({ selectedPerformerId: photo.performerId })
   }
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
-    if (field === 'performerId') this.setState({ selectedPerformerId: val });
+    })
+    if (field === 'performerId') this.setState({ selectedPerformerId: val })
   }
 
-  beforeUpload(file) {
-    const config = getGlobalConfig();
-    const { beforeUpload: handleUpload } = this.props;
-    const isMaxSize = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5);
+  beforeUpload(file:any) {
+    const config = getGlobalConfig()
+    const { beforeUpload: handleUpload }:any = this.props
+    const isMaxSize = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5)
     if (!isMaxSize) {
-      message.error(`Image must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`);
-      return false;
+      message.error(`Image must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`)
+      return false
     }
-    getBase64(file, (imageUrl) => {
+    getBase64(file, (imageUrl:any) => {
       // eslint-disable-next-line no-param-reassign
-      this.setState({ previewImage: imageUrl });
-    });
+      this.setState({ previewImage: imageUrl })
+    })
 
-    handleUpload(file);
-    return true;
+    handleUpload(file)
+    return true
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
+    if (!this.formRef) this.formRef = createRef()
     const {
       photo, submit, uploading, uploadPercentage
-    } = this.props;
-    const { previewImage, selectedPerformerId } = this.state;
-    const havePhoto = !!photo;
-    const config = getGlobalConfig();
+    } = this.props
+    const { previewImage, selectedPerformerId } = this.state
+    const havePhoto = !!photo
+    const config = getGlobalConfig()
     return (
       <Form
         {...layout}
         onFinish={(data) => {
           if (!data.performerId) {
-            message.error('Please select creator!');
-            return;
+            message.error('Please select creator!')
+            return
           }
           if (!data.galleryId) {
-            message.error('Please select gallery!');
-            return;
+            message.error('Please select gallery!')
+            return
           }
-          submit(data);
+          submit(data)
         }}
         onFinishFailed={() => message.error('Please complete the required fields')}
         name="form-upload"
@@ -112,13 +112,13 @@ export class FormUploadPhoto extends PureComponent<IProps> {
         <Form.Item name="performerId" label="Creator" rules={[{ required: true }]}>
           <SelectPerformerDropdown
             defaultValue={selectedPerformerId || ''}
-            onSelect={(val) => this.setFormVal('performerId', val)}
+            onSelect={(val:any) => this.setFormVal('performerId', val)}
           />
         </Form.Item>
         <Form.Item name="galleryId" label="Gallery" rules={[{ required: true, message: 'Please select a gallery' }]}>
           <SelectGalleryDropdown
             defaultValue={photo && photo.galleryId ? photo.galleryId : ''}
-            onSelect={(val) => this.setFormVal('galleryId', val)}
+            onSelect={(val:any) => this.setFormVal('galleryId', val)}
             performerId={selectedPerformerId}
           />
         </Form.Item>
@@ -140,20 +140,18 @@ export class FormUploadPhoto extends PureComponent<IProps> {
         </Form.Item>
         <Form.Item help={`Image must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`}>
           {!havePhoto ? (
-            <>
-              <Upload
-                listType="picture-card"
-                customRequest={() => false}
-                accept={'image/*'}
-                multiple={false}
-                showUploadList={false}
-                disabled={uploading || havePhoto}
-                beforeUpload={(file) => this.beforeUpload(file)}
-              >
-                {previewImage ? <img src={previewImage} alt="file" width="100%" /> : null}
-                <CameraOutlined />
-              </Upload>
-            </>
+            <Upload
+              listType="picture-card"
+              customRequest={() => false}
+              accept={'image/*'}
+              multiple={false}
+              showUploadList={false}
+              disabled={uploading || havePhoto}
+              beforeUpload={(file) => this.beforeUpload(file)}
+            >
+              {previewImage ? <img src={previewImage} alt="file" width="100%" /> : null}
+              <CameraOutlined />
+            </Upload>
           ) : (
             <ThumbnailPhoto photo={photo} style={{ width: '250px' }} />
           )}
@@ -165,6 +163,6 @@ export class FormUploadPhoto extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

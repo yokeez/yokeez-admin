@@ -1,81 +1,81 @@
 import {
   Layout, message, Input, Select, Button, Tag
-} from 'antd';
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { BreadcrumbComponent } from '@components/common/breadcrumb';
-import Page from '@components/common/layout/page';
-import { orderService } from 'src/services';
-import Router from 'next/router';
-import { getResponseError } from '@lib/utils';
-import { IOrder } from 'src/interfaces';
+} from 'antd'
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { BreadcrumbComponent } from '@components/common/breadcrumb'
+import Page from '@components/common/layout/page'
+import { orderService } from 'src/services'
+import Router from 'next/router'
+import { getResponseError } from '@lib/utils'
+import { IOrder } from 'src/interfaces'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 interface IProps {
   id: string;
 }
 
 interface IStates {
-  order: IOrder;
+  order: IOrder | any;
   shippingCode: string;
   deliveryStatus: string;
   submiting: boolean;
 }
 
 class OrderDetailPage extends PureComponent<IProps, IStates> {
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   constructor(props: IProps) {
-    super(props);
+    super(props)
     this.state = {
       order: null,
       shippingCode: '',
       deliveryStatus: '',
       submiting: false
-    };
+    }
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData()
   }
 
   async onUpdate() {
-    const { deliveryStatus, shippingCode } = this.state;
-    const { id } = this.props;
+    const { deliveryStatus, shippingCode } = this.state
+    const { id } = this.props
     if (!shippingCode) {
-      message.error('Missing shipping code');
-      return;
+      message.error('Missing shipping code')
+      return
     }
     try {
-      await this.setState({ submiting: true });
-      await orderService.update(id, { deliveryStatus, shippingCode });
-      message.success('Changes saved.');
-      Router.push('/order');
+      await this.setState({ submiting: true })
+      await orderService.update(id, { deliveryStatus, shippingCode })
+      message.success('Changes saved.')
+      Router.push('/order')
     } catch (e) {
-      message.error(getResponseError(e));
-      this.setState({ submiting: false });
+      message.error(getResponseError(e))
+      this.setState({ submiting: false })
     }
   }
 
   async getData() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const { data: order } = await orderService.findById(id);
+      const { data: order } = await orderService.findById(id)
       await this.setState({
         order,
         shippingCode: order.shippingCode,
         deliveryStatus: order.deliveryStatus
-      });
+      })
     } catch (e) {
-      message.error('Can not find order!');
+      message.error('Can not find order!')
     }
   }
 
   render() {
-    const { order, submiting } = this.state;
+    const { order, submiting } = this.state
     return (
       <Layout>
         <Head>
@@ -193,8 +193,8 @@ class OrderDetailPage extends PureComponent<IProps, IStates> {
           </div>
         </Content>
       </Layout>
-    );
+    )
   }
 }
 
-export default OrderDetailPage;
+export default OrderDetailPage

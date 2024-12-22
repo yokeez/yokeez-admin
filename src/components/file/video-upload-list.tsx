@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
-import { FileAddOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Progress } from 'antd';
-import './index.less';
+import { PureComponent } from 'react'
+import { FileAddOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Progress } from 'antd'
+import './index.less'
 
 interface IProps {
   remove: Function;
@@ -10,7 +10,7 @@ interface IProps {
 
 export default class VideoUploadList extends PureComponent<IProps> {
   render() {
-    const { files, remove } = this.props;
+    const { files, remove } = this.props
     return (
       <div className="ant-upload-list ant-upload-list-picture">
         {files.map((file) => (
@@ -40,6 +40,6 @@ export default class VideoUploadList extends PureComponent<IProps> {
           </div>
         ))}
       </div>
-    );
+    )
   }
 }

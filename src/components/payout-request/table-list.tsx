@@ -1,13 +1,13 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Table, Tag, Button, Avatar
-} from 'antd';
+} from 'antd'
 import {
   EyeOutlined, DeleteOutlined
-} from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import { IPayoutRequest } from 'src/interfaces';
-import Link from 'next/link';
+} from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import { IPayoutRequest } from 'src/interfaces'
+import Link from 'next/link'
 
 interface IProps {
   dataSource: any[];
@@ -22,20 +22,20 @@ export class RequestPayoutTable extends PureComponent<IProps> {
   render() {
     const {
       dataSource, rowKey, loading, pagination, onChange, onDelete
-    } = this.props;
+    } = this.props
     const columns = [
       {
         title: 'Performer',
         dataIndex: 'performerId',
         key: 'performerId',
-        render(data, record: IPayoutRequest) {
+        render(data:any, record: IPayoutRequest) {
           return (
             <span>
               <Avatar src={record?.sourceInfo?.avatar || '/no-avatar.png'} />
               {' '}
               {record?.sourceInfo?.name || record?.sourceInfo?.username || 'N/A'}
             </span>
-          );
+          )
         }
       },
       {
@@ -48,7 +48,7 @@ export class RequestPayoutTable extends PureComponent<IProps> {
               $
               {(requestTokens || 0).toFixed(2)}
             </span>
-          );
+          )
         }
       },
       // {
@@ -71,13 +71,13 @@ export class RequestPayoutTable extends PureComponent<IProps> {
         render: (paymentAccountType: string) => {
           switch (paymentAccountType) {
             case 'stripe':
-              return <Tag color="#656fde">Stripe</Tag>;
+              return <Tag color="#656fde">Stripe</Tag>
             case 'paypal':
-              return <Tag color="#25397c">Paypal</Tag>;
+              return <Tag color="#25397c">Paypal</Tag>
             default:
-              break;
+              break
           }
-          return <Tag color="default">{paymentAccountType}</Tag>;
+          return <Tag color="default">{paymentAccountType}</Tag>
         }
       },
       {
@@ -86,11 +86,11 @@ export class RequestPayoutTable extends PureComponent<IProps> {
         key: 'status',
         render(status: string) {
           switch (status) {
-            case 'approved': return <Tag color="blue">Approved</Tag>;
-            case 'pending': return <Tag color="warning">Pending</Tag>;
-            case 'rejected': return <Tag color="volcano">Rejected</Tag>;
-            case 'done': return <Tag color="green">Done</Tag>;
-            default: return <Tag color="green">{status}</Tag>;
+            case 'approved': return <Tag color="blue">Approved</Tag>
+            case 'pending': return <Tag color="warning">Pending</Tag>
+            case 'rejected': return <Tag color="volcano">Rejected</Tag>
+            case 'done': return <Tag color="green">Done</Tag>
+            default: return <Tag color="green">{status}</Tag>
           }
         }
       },
@@ -99,20 +99,20 @@ export class RequestPayoutTable extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
         title: 'Action',
         dataIndex: '_id',
-        render(id: string, record) {
+        render(id: string, record:any) {
           return [
             <Link key="view" href={{ pathname: '/payout-request/detail', query: { id } }} as={`/payout-request/detail?id=${id}`}><Button><EyeOutlined /></Button></Link>,
             <Button style={{ margin: '0 5px' }} disabled={['done', 'rejected'].includes(record.status)} key="delete" onClick={() => onDelete(record)}><DeleteOutlined /></Button>
-          ];
+          ]
         }
       }
-    ];
+    ]
     return (
       <Table
         dataSource={dataSource}
@@ -122,6 +122,6 @@ export class RequestPayoutTable extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

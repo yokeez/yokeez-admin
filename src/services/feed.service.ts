@@ -1,30 +1,30 @@
-import { APIRequest } from './api-request';
+import { APIRequest } from './api-request'
 
 export class FeedService extends APIRequest {
   search(query?: { [key: string]: any }) {
     return this.get(
       this.buildUrl('/feeds/performers', query)
-    );
+    )
   }
 
   pinFeedProfile(id: string) {
-    return this.put(`/feeds/performers/pin/${id}`);
+    return this.put(`/feeds/performers/pin/${id}`)
   }
 
   delete(id: string) {
-    return this.del(`/feeds/performers/${id}`);
+    return this.del(`/feeds/performers/${id}`)
   }
 
   findById(id: string, headers?: { [key: string]: string }) {
-    return this.get(`/feeds/performers/${id}`, headers);
+    return this.get(`/feeds/performers/${id}`, headers)
   }
 
   update(id: string, payload: any) {
-    return this.put(`/feeds/performers/${id}`, payload);
+    return this.put(`/feeds/performers/${id}`, payload)
   }
 
-  create(data) {
-    return this.post('/feeds/performers', data);
+  create(data:any) {
+    return this.post('/feeds/performers', data)
   }
 
   uploadPhoto(file: File, payload: any, onProgress?: Function) {
@@ -40,7 +40,7 @@ export class FeedService extends APIRequest {
         onProgress,
         customData: payload
       }
-    );
+    )
   }
 
   uploadVideo(file: File, payload: any, onProgress?: Function) {
@@ -56,7 +56,7 @@ export class FeedService extends APIRequest {
         onProgress,
         customData: payload
       }
-    );
+    )
   }
 
   uploadThumbnail(file: File, payload: any, onProgress?: Function) {
@@ -72,7 +72,7 @@ export class FeedService extends APIRequest {
         onProgress,
         customData: payload
       }
-    );
+    )
   }
 
   uploadTeaser(file: File, payload: any, onProgress?: Function) {
@@ -88,20 +88,20 @@ export class FeedService extends APIRequest {
         onProgress,
         customData: payload
       }
-    );
+    )
   }
 
-  addPoll(payload) {
-    return this.post('/feeds/performers/polls', payload);
+  addPoll(payload:any) {
+    return this.post('/feeds/performers/polls', payload)
   }
 
   votePoll(pollId: string) {
-    return this.post(`/feeds/users/vote/${pollId}`);
+    return this.post(`/feeds/users/vote/${pollId}`)
   }
 
-  getBookmark(payload) {
-    return this.get(this.buildUrl('/reactions/feeds/bookmark', payload));
+  getBookmark(payload:any) {
+    return this.get(this.buildUrl('/reactions/feeds/bookmark', payload))
   }
 }
 
-export const feedService = new FeedService();
+export const feedService = new FeedService()

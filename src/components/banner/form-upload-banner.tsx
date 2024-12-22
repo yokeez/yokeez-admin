@@ -1,11 +1,11 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Input, Select, Upload, Button, message, Progress
-} from 'antd';
-import { IBannerUpdate, IBannerCreate } from 'src/interfaces';
-import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
-import ImgCrop from 'antd-img-crop';
-import { getGlobalConfig } from '@services/config';
+} from 'antd'
+import { IBannerUpdate, IBannerCreate } from 'src/interfaces'
+import { LoadingOutlined, UploadOutlined } from '@ant-design/icons'
+import ImgCrop from 'antd-img-crop'
+import { getGlobalConfig } from '@services/config'
 
 interface IProps {
   banner?: IBannerUpdate;
@@ -18,52 +18,52 @@ interface IProps {
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
 export class FormUploadBanner extends PureComponent<IProps> {
   state = {
     display: 'desktop'
-  };
+  }
 
-  onPreview = async (file) => {
-    let src = file.url;
+  onPreview = async (file:any) => {
+    let src = file.url
     if (!src) {
       src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
+        const reader = new FileReader()
+        reader.readAsDataURL(file.originFileObj)
+        reader.onload = () => resolve(reader.result)
+      })
     }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow.document.write(image.outerHTML);
-  };
+    const image = new Image()
+    image.src = src
+    const imgWindow:any = window.open(src)
+    imgWindow.document.write(image.outerHTML)
+  }
 
-  handleChange = (info) => {
-    const { beforeUpload: handleBeforeUpload } = this.props;
-    handleBeforeUpload(info.file.originFileObj);
-  };
+  handleChange = (info:any) => {
+    const { beforeUpload: handleBeforeUpload }:any = this.props
+    handleBeforeUpload(info.file.originFileObj)
+  }
 
-  beforeUpload(file) {
-    const config = getGlobalConfig();
-    const isMaxSize = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5);
+  beforeUpload(file:any) {
+    const config = getGlobalConfig()
+    const isMaxSize = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5)
     if (!isMaxSize) {
-      message.error(`Image must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`);
+      message.error(`Image must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`)
     }
-    return isMaxSize;
+    return isMaxSize
   }
 
   render() {
     const {
       banner, submit, uploading, uploadPercentage
-    } = this.props;
-    const { display } = this.state;
-    const haveBanner = !!banner;
+    } = this.props
+    const { display } = this.state
+    const haveBanner = !!banner
     return (
       <Form
         {...layout}
@@ -139,7 +139,7 @@ export class FormUploadBanner extends PureComponent<IProps> {
         </Form.Item>
         <Form.Item label="Banner" help={display.includes('desktop') ? 'Ratio dimension 2,7:1 (eg: 1080px:400px)' : 'Ratio dimension 2,7:1 (eg: 500px:180px)'}>
           {haveBanner ? <img src={banner?.photo?.url || './banner-image.jpg'} alt="banner" style={{ width: '100%' }} /> : (
-            <ImgCrop aspect={display.includes('desktop') ? 2.7 / 1 : 2.7 / 1} shape="rect" quality={1} modalTitle="Edit cover image" modalWidth={768}>
+            <ImgCrop aspect={display.includes('desktop') ? 2.7 / 1 : 2.7 / 1} quality={1} modalTitle="Edit cover image" modalWidth={768}>
               <Upload
                 accept="image/*"
                 listType="picture-card"
@@ -161,6 +161,6 @@ export class FormUploadBanner extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

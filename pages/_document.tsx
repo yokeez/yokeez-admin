@@ -1,25 +1,42 @@
 import Document, {
   Html, Head, Main, NextScript
-} from 'next/document';
-import { settingService } from '@services/setting.service';
+} from 'next/document'
+import { settingService } from '@services/setting.service'
+import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 
-interface IProps{
+interface IProps {
   settings: any;
 }
 
 class CustomDocument extends Document<IProps> {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    const resp = await settingService.public('all', true);
-    const settings = resp.data;
+  static async getInitialProps(ctx: any) {
+    const cache = createCache()
+    const originalRenderPage = ctx.renderPage
+    ctx.renderPage = () => originalRenderPage({
+      enhanceApp: (App: any) => (props: any) => (
+        <StyleProvider cache={cache}>
+          <App {...props} />
+        </StyleProvider>
+      )
+    })
+    const initialProps = await Document.getInitialProps(ctx)
+    const style = extractStyle(cache, true)
+    const resp = await settingService.public('all', true)
+    const settings = resp.data
     return {
       ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          <style dangerouslySetInnerHTML={{ __html: style }} />
+        </>
+      ),
       settings
-    };
+    }
   }
 
   render() {
-    const { settings } = this.props;
+    const { settings } = this.props
     return (
       <Html>
         <Head>
@@ -50,8 +67,8 @@ class CustomDocument extends Document<IProps> {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default CustomDocument;
+export default CustomDocument

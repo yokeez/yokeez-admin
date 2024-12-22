@@ -1,15 +1,16 @@
-import Head from "next/head";
-import { Row, Col, Statistic, Card, Layout } from "antd";
-import { PureComponent } from "react";
-import { utilsService } from "@services/utils.service";
+import Head from 'next/head'
 import {
-  AreaChartOutlined,
+  Row, Col, Statistic, Card, Layout
+} from 'antd'
+import { PureComponent } from 'react'
+import { utilsService } from '@services/utils.service'
+import {
   PieChartOutlined,
   BarChartOutlined,
   LineChartOutlined,
-  DotChartOutlined,
-} from "@ant-design/icons";
-import Link from "next/link";
+  DotChartOutlined
+} from '@ant-design/icons'
+import Link from 'next/link'
 
 export default class Dashboard extends PureComponent<any> {
   state = {
@@ -36,19 +37,19 @@ export default class Dashboard extends PureComponent<any> {
       totalShippingdOrders: 0,
       totalSubscribers: 0,
       totalActiveSubscribers: 0,
-      totalInactiveSubscribers: 0,
-    },
-  };
+      totalInactiveSubscribers: 0
+    }
+  }
 
   async componentDidMount() {
-    const stats = await (await utilsService.statistics()).data;
+    const stats = await (await utilsService.statistics()).data
     if (stats) {
-      this.setState({ stats });
+      this.setState({ stats })
     }
   }
 
   render() {
-    const { stats } = this.state;
+    const { stats } = this.state
     return (
       <Layout>
         <Head>
@@ -56,27 +57,25 @@ export default class Dashboard extends PureComponent<any> {
         </Head>
         <Row className="dashboard-stats">
           <Col md={8} xs={12}>
-            <Link href={{ pathname: "/users", query: { status: "active" } }}>
-              <a>
-                <Card>
-                  <Statistic
-                    title="ACTIVE USERS"
-                    value={stats.totalActiveUsers}
-                    valueStyle={{ color: "#ffc107" }}
-                    prefix={<LineChartOutlined />}
-                  />
-                </Card>
-              </a>
+            <Link href={{ pathname: '/users', query: { status: 'active' } }}>
+              <Card>
+                <Statistic
+                  title="ACTIVE USERS"
+                  value={stats.totalActiveUsers}
+                  valueStyle={{ color: '#ffc107' }}
+                  prefix={<LineChartOutlined />}
+                />
+              </Card>
             </Link>
           </Col>
           {/* <Col md={8} xs={12}>
-            <Link href={{ pathname: "/users", query: { status: "inactive" } }}>
+            <Link href={{ pathname: '/users', query: { status: 'inactive' } }}>
               <a>
                 <Card>
                   <Statistic
-                    title="INACTIVE USERS"
+                    title='INACTIVE USERS'
                     value={stats.totalInactiveUsers}
-                    valueStyle={{ color: "#ffc107" }}
+                    valueStyle={{ color: '#ffc107' }}
                     prefix={<LineChartOutlined />}
                   />
                 </Card>
@@ -85,32 +84,28 @@ export default class Dashboard extends PureComponent<any> {
           </Col> */}
           <Col md={8} xs={12}>
             <Link
-              href={{ pathname: "/users", query: { verifiedEmail: false } }}
+              href={{ pathname: '/users', query: { verifiedEmail: false } }}
             >
-              <a>
-                <Card>
-                  <Statistic
-                    title="NOT VERIFIED EMAIL USERS"
-                    value={stats.totalPendingUsers}
-                    valueStyle={{ color: "#ffc107" }}
-                    prefix={<LineChartOutlined />}
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="NOT VERIFIED EMAIL USERS"
+                  value={stats.totalPendingUsers}
+                  valueStyle={{ color: '#ffc107' }}
+                  prefix={<LineChartOutlined />}
+                />
+              </Card>
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href={{ pathname: "/creator", query: { status: "active" } }}>
-              <a>
-                <Card>
-                  <Statistic
-                    title="ACTIVE CREATORS"
-                    value={stats.totalActivePerformers}
-                    valueStyle={{ color: "#009688" }}
-                    prefix={<BarChartOutlined />}
-                  />
-                </Card>
-              </a>
+            <Link href={{ pathname: '/creator', query: { status: 'active' } }}>
+              <Card>
+                <Statistic
+                  title="ACTIVE CREATORS"
+                  value={stats.totalActivePerformers}
+                  valueStyle={{ color: '#009688' }}
+                  prefix={<BarChartOutlined />}
+                />
+              </Card>
             </Link>
           </Col>
           {/* <Col md={8} xs={12}>
@@ -118,7 +113,7 @@ export default class Dashboard extends PureComponent<any> {
               <a>
                 <Card>
                   <Statistic
-                    title="INACTIVE CREATORS"
+                    title='INACTIVE CREATORS'
                     value={stats.totalInactivePerformers}
                     valueStyle={{ color: '#009688' }}
                     prefix={<BarChartOutlined />}
@@ -130,44 +125,40 @@ export default class Dashboard extends PureComponent<any> {
           <Col md={8} xs={12}>
             <Link
               href={{
-                pathname: "/creator",
-                query: { verifiedDocument: false },
+                pathname: '/creator',
+                query: { verifiedDocument: false }
               }}
             >
-              <a>
-                <Card>
-                  <Statistic
-                    title="NOT VERIFIED ID CREATORS"
-                    value={stats.totalPendingPerformers}
-                    valueStyle={{ color: "#009688" }}
-                    prefix={<BarChartOutlined />}
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="NOT VERIFIED ID CREATORS"
+                  value={stats.totalPendingPerformers}
+                  valueStyle={{ color: '#009688' }}
+                  prefix={<BarChartOutlined />}
+                />
+              </Card>
             </Link>
           </Col>
           <Col md={8} xs={12}>
             <Link href="/feed">
-              <a>
-                <Card>
-                  <Statistic
-                    title="TOTAL POSTS"
-                    value={stats.totalPosts}
-                    valueStyle={{ color: "#5399d0" }}
-                    prefix={<PieChartOutlined />}
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="TOTAL POSTS"
+                  value={stats.totalPosts}
+                  valueStyle={{ color: '#5399d0' }}
+                  prefix={<PieChartOutlined />}
+                />
+              </Card>
             </Link>
           </Col>
           {/* <Col md={8} xs={12}>
-            <Link href="/gallery">
+            <Link href='/gallery'>
               <a>
                 <Card>
                   <Statistic
-                    title="TOTAL GALLERIES"
+                    title='TOTAL GALLERIES'
                     value={stats.totalGalleries}
-                    valueStyle={{ color: "#5399d0" }}
+                    valueStyle={{ color: '#5399d0' }}
                     prefix={<PieChartOutlined />}
                   />
                 </Card>
@@ -175,13 +166,13 @@ export default class Dashboard extends PureComponent<any> {
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href="/photos">
+            <Link href='/photos'>
               <a>
                 <Card>
                   <Statistic
-                    title="TOTAL PHOTOS"
+                    title='TOTAL PHOTOS'
                     value={stats.totalPhotos}
-                    valueStyle={{ color: "#5399d0" }}
+                    valueStyle={{ color: '#5399d0' }}
                     prefix={<PieChartOutlined />}
                   />
                 </Card>
@@ -189,13 +180,13 @@ export default class Dashboard extends PureComponent<any> {
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href="/video">
+            <Link href='/video'>
               <a>
                 <Card>
                   <Statistic
-                    title="TOTAL VIDEOS"
+                    title='TOTAL VIDEOS'
                     value={stats.totalVideos}
-                    valueStyle={{ color: "#5399d0" }}
+                    valueStyle={{ color: '#5399d0' }}
                     prefix={<PieChartOutlined />}
                   />
                 </Card>
@@ -203,13 +194,13 @@ export default class Dashboard extends PureComponent<any> {
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href="/product">
+            <Link href='/product'>
               <a>
                 <Card>
                   <Statistic
-                    title="TOTAL PRODUCTS"
+                    title='TOTAL PRODUCTS'
                     value={stats.totalProducts}
-                    valueStyle={{ color: "#5399d0" }}
+                    valueStyle={{ color: '#5399d0' }}
                     prefix={<PieChartOutlined />}
                   />
                 </Card>
@@ -218,24 +209,22 @@ export default class Dashboard extends PureComponent<any> {
           </Col> */}
           <Col md={8} xs={12}>
             <Link href="/subscription">
-              <a>
-                <Card>
-                  <Statistic
-                    title="TOTAL SUBSCRIBERS"
-                    value={stats.totalSubscribers}
-                    valueStyle={{ color: "#941fd0" }}
-                    prefix={<DotChartOutlined />}
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="TOTAL SUBSCRIBERS"
+                  value={stats.totalSubscribers}
+                  valueStyle={{ color: '#941fd0' }}
+                  prefix={<DotChartOutlined />}
+                />
+              </Card>
             </Link>
           </Col>
           {/* <Col md={8} xs={12}>
-            <Link href="/subscription">
+            <Link href='/subscription'>
               <a>
                 <Card>
                   <Statistic
-                    title="TOTAL ACTIVE SUBSCRIBERS"
+                    title='TOTAL ACTIVE SUBSCRIBERS'
                     value={stats.totalActiveSubscribers}
                     valueStyle={{ color: '#5399d0' }}
                     prefix={<DotChartOutlined />}
@@ -245,11 +234,11 @@ export default class Dashboard extends PureComponent<any> {
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href="/subscription">
+            <Link href='/subscription'>
               <a>
                 <Card>
                   <Statistic
-                    title="TOTAL INACTIVE SUBSCRIBERS"
+                    title='TOTAL INACTIVE SUBSCRIBERS'
                     value={stats.totalInactiveSubscribers}
                     valueStyle={{ color: '#5399d0' }}
                     prefix={<DotChartOutlined />}
@@ -260,54 +249,48 @@ export default class Dashboard extends PureComponent<any> {
           </Col> */}
           <Col md={8} xs={12}>
             <Link href="/earnings">
-              <a>
-                <Card>
-                  <Statistic
-                    title="TOTAL EARNINGS"
-                    value={`${stats?.totalGrossPrice.toFixed(2)}`}
-                    valueStyle={{ color: "#fb2b2b" }}
-                    prefix="$"
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="TOTAL EARNINGS"
+                  value={`${stats?.totalGrossPrice.toFixed(2)}`}
+                  valueStyle={{ color: '#fb2b2b' }}
+                  prefix="$"
+                />
+              </Card>
             </Link>
           </Col>
           <Col md={8} xs={12}>
             <Link href="/earnings">
-              <a>
-                <Card>
-                  <Statistic
-                    title="PLATFORM EARNINGS"
-                    value={`${stats?.totalPriceCommission.toFixed(2)}`}
-                    valueStyle={{ color: "#fb2b2b" }}
-                    prefix="$"
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="PLATFORM EARNINGS"
+                  value={`${stats?.totalPriceCommission.toFixed(2)}`}
+                  valueStyle={{ color: '#fb2b2b' }}
+                  prefix="$"
+                />
+              </Card>
             </Link>
           </Col>
           <Col md={8} xs={12}>
             <Link href="/earnings">
-              <a>
-                <Card>
-                  <Statistic
-                    title="CREATOR'S EARNINGS"
-                    value={`${stats?.totalNetPrice.toFixed(2)}`}
-                    valueStyle={{ color: "#fb2b2b" }}
-                    prefix="$"
-                  />
-                </Card>
-              </a>
+              <Card>
+                <Statistic
+                  title="CREATOR'S EARNINGS"
+                  value={`${stats?.totalNetPrice.toFixed(2)}`}
+                  valueStyle={{ color: '#fb2b2b' }}
+                  prefix="$"
+                />
+              </Card>
             </Link>
           </Col>
           {/* <Col md={8} xs={12}>
-            <Link href="/order?deliveryStatus=shipping">
+            <Link href='/order?deliveryStatus=shipping'>
               <a>
                 <Card>
                   <Statistic
-                    title="SHIPPED ORDERS"
+                    title='SHIPPED ORDERS'
                     value={stats.totalShippingdOrders}
-                    valueStyle={{ color: "#c8d841" }}
+                    valueStyle={{ color: '#c8d841' }}
                     prefix={<AreaChartOutlined />}
                   />
                 </Card>
@@ -315,13 +298,13 @@ export default class Dashboard extends PureComponent<any> {
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href="/order?deliveryStatus=delivered">
+            <Link href='/order?deliveryStatus=delivered'>
               <a>
                 <Card>
                   <Statistic
-                    title="DELIVERED ORDERS"
+                    title='DELIVERED ORDERS'
                     value={stats.totalDeliveredOrders}
-                    valueStyle={{ color: "#c8d841" }}
+                    valueStyle={{ color: '#c8d841' }}
                     prefix={<AreaChartOutlined />}
                   />
                 </Card>
@@ -329,13 +312,13 @@ export default class Dashboard extends PureComponent<any> {
             </Link>
           </Col>
           <Col md={8} xs={12}>
-            <Link href="/order?deliveryStatus=refunded">
+            <Link href='/order?deliveryStatus=refunded'>
               <a>
                 <Card>
                   <Statistic
-                    title="REFUNDED ORDERS"
+                    title='REFUNDED ORDERS'
                     value={stats.totalRefundedOrders}
-                    valueStyle={{ color: "#c8d841" }}
+                    valueStyle={{ color: '#c8d841' }}
                     prefix={<AreaChartOutlined />}
                   />
                 </Card>
@@ -344,6 +327,6 @@ export default class Dashboard extends PureComponent<any> {
           </Col> */}
         </Row>
       </Layout>
-    );
+    )
   }
 }

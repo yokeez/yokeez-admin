@@ -1,14 +1,14 @@
-import { message } from 'antd';
-import Head from 'next/head';
-import { BreadcrumbComponent } from '@components/common/breadcrumb';
-import Page from '@components/common/layout/page';
-import { PureComponent } from 'react';
-import { SearchFilter } from '@components/common/search-filter';
-import { TableListSubscription } from '@components/subscription/table-list-subscription';
-import { ISubscription } from 'src/interfaces';
-import { subscriptionService } from '@services/subscription.service';
-import { getResponseError } from '@lib/utils';
-import moment from 'moment';
+import { message } from 'antd'
+import Head from 'next/head'
+import { BreadcrumbComponent } from '@components/common/breadcrumb'
+import Page from '@components/common/layout/page'
+import { PureComponent } from 'react'
+import { SearchFilter } from '@components/common/search-filter'
+import { TableListSubscription } from '@components/subscription/table-list-subscription'
+import { ISubscription } from 'src/interfaces'
+import { subscriptionService } from '@services/subscription.service'
+import { getResponseError } from '@lib/utils'
+import moment from 'moment'
 
 interface IProps { }
 interface IStates {
@@ -26,7 +26,7 @@ interface IStates {
 
 class SubscriptionPage extends PureComponent<IProps, IStates> {
   constructor(props: IProps) {
-    super(props);
+    super(props)
     this.state = {
       subscriptionList: [],
       loading: false,
@@ -38,96 +38,96 @@ class SubscriptionPage extends PureComponent<IProps, IStates> {
       sort: 'desc',
       sortBy: 'updatedAt',
       filter: {}
-    };
+    }
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData()
   }
 
-  async handleTabChange(data) {
-    const { pagination } = this.state;
-    await this.setState({ pagination: { ...pagination, current: data.current } });
-    this.getData();
+  async handleTabChange(data:any) {
+    const { pagination } = this.state
+    await this.setState({ pagination: { ...pagination, current: data.current } })
+    this.getData()
   }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.getData();
+  async handleFilter(values:any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.getData()
   }
 
-  async onCancelSubscription(subscription: ISubscription) {
+  async onCancelSubscription(subscription: ISubscription | any) {
     if (!window.confirm('Are you sure you want to cancel the subscription?')) {
-      return;
+      return
     }
     try {
-      await subscriptionService.cancelSubscription(subscription._id, subscription.paymentGateway);
-      this.getData();
-      message.success('The subscription has been cancelled');
+      await subscriptionService.cancelSubscription(subscription._id, subscription.paymentGateway)
+      this.getData()
+      message.success('The subscription has been cancelled')
     } catch (error) {
-      const err = await Promise.resolve(error);
-      message.error(getResponseError(err));
+      const err = await Promise.resolve(error)
+      message.error(getResponseError(err))
     }
   }
 
   async onRenewSubscription(subscription: ISubscription) {
     if (!window.confirm('Are you sure you want to reactivate this subscription?')) {
-      return;
+      return
     }
     try {
       const {
         subscriptionType
-      } = subscription;
+      } = subscription
       if (subscriptionType === 'yearly') {
         await subscriptionService.update(subscription._id, {
           expiredAt: moment().add(1, 'y'), subscriptionType, status: 'active'
-        });
+        })
       } else if (subscriptionType === 'monthly') {
         await subscriptionService.update(subscription._id, {
           expiredAt: moment().add(1, 'M'), subscriptionType, status: 'active'
-        });
+        })
       } else {
         await subscriptionService.update(subscription._id, {
           expiredAt: moment().add(1, 'd'), subscriptionType, status: 'active'
-        });
+        })
       }
 
-      this.getData();
-      message.success('This subscription have been reactivated');
+      this.getData()
+      message.success('This subscription have been reactivated')
     } catch (error) {
-      const err = await Promise.resolve(error);
-      message.error(getResponseError(err));
+      const err = await Promise.resolve(error)
+      message.error(getResponseError(err))
     }
   }
 
   async getData() {
     const {
       filter, sort, sortBy, pagination
-    } = this.state;
+    } = this.state
     try {
-      await this.setState({ loading: true });
+      await this.setState({ loading: true })
       const resp = await subscriptionService.search({
         ...filter,
         sort,
         sortBy,
         limit: pagination.pageSize,
         offset: (pagination.current - 1) * pagination.pageSize
-      });
+      })
 
       await this.setState({
         subscriptionList: resp.data.data,
         pagination: { ...pagination, total: resp.data.total }
-      });
+      })
     } catch (error) {
-      message.error(getResponseError(error) || 'An error occured. Please try again.');
+      message.error(getResponseError(error) || 'An error occured. Please try again.')
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loading: false })
     }
   }
 
   render() {
-    const { subscriptionList, pagination, loading } = this.state;
+    const { subscriptionList, pagination, loading } = this.state
     return (
       <>
         <Head>
@@ -150,8 +150,8 @@ class SubscriptionPage extends PureComponent<IProps, IStates> {
           </div>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default SubscriptionPage;
+export default SubscriptionPage

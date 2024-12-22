@@ -1,49 +1,49 @@
 import {
   Layout, Form, Input, Button, Row, message
-} from 'antd';
-import { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import Head from 'next/head';
-import Link from 'next/link';
-import { authService } from '@services/auth.service';
-import Router from 'next/router';
-import './index.less';
-import { getGlobalConfig } from '@services/config';
+} from 'antd'
+import { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import Head from 'next/head'
+import Link from 'next/link'
+import { authService } from '@services/auth.service'
+import Router from 'next/router'
+import './index.less'
+import { getGlobalConfig } from '@services/config'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 interface IProps {
   ui: any;
 }
 
 class ForgotPassword extends PureComponent<IProps> {
-  static layout: string = 'public';
+  static layout: string = 'public'
 
-  static authenticate: boolean = false;
+  static authenticate: boolean = false
 
   state = {
     submiting: false
-  };
+  }
 
-  handleReset = async (data) => {
+  handleReset = async (data:any) => {
     try {
-      await this.setState({ submiting: true });
+      await this.setState({ submiting: true })
       await authService.resetPassword({
         ...data
-      });
-      message.success('An email has been sent to you to reset your password');
-      Router.push('/auth/login');
+      })
+      message.success('An email has been sent to you to reset your password')
+      Router.push('/auth/login')
     } catch (e) {
-      const error = await e;
-      message.error(error?.message || 'Error occured, please try again later');
-      this.setState({ submiting: false });
+      const error:any = await e
+      message.error(error?.message || 'Error occured, please try again later')
+      this.setState({ submiting: false })
     }
-  };
+  }
 
   render() {
-    const { ui } = this.props;
-    const { submiting } = this.state;
-    const config = getGlobalConfig();
+    const { ui } = this.props
+    const { submiting } = this.state
+    const config = getGlobalConfig()
     return (
       <Layout>
         <Head>
@@ -98,12 +98,12 @@ class ForgotPassword extends PureComponent<IProps> {
           {new Date().getFullYear()}
         </div>
       </Layout>
-    );
+    )
   }
 }
 
 const mapStates = (state: any) => ({
   ui: state.ui
-});
-const mapDispatch = { };
-export default connect(mapStates, mapDispatch)(ForgotPassword);
+})
+const mapDispatch = { }
+export default connect(mapStates, mapDispatch)(ForgotPassword)

@@ -1,15 +1,15 @@
-import { Upload, message } from 'antd';
-import { LoadingOutlined, FileAddOutlined } from '@ant-design/icons';
-import { PureComponent } from 'react';
-import { getGlobalConfig } from '@services/config';
+import { Upload, message } from 'antd'
+import { LoadingOutlined, FileAddOutlined } from '@ant-design/icons'
+import { PureComponent } from 'react'
+import { getGlobalConfig } from '@services/config'
 
-function beforeUpload(file) {
-  const config = getGlobalConfig();
-  const isLt2M = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_FILE || 100);
+function beforeUpload(file:any) {
+  const config = getGlobalConfig()
+  const isLt2M = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_FILE || 100)
   if (!isLt2M) {
-    message.error(`File must smaller than ${config.NEXT_PUBLIC_MAX_SIZE_FILE || 100}MB!`);
+    message.error(`File must smaller than ${config.NEXT_PUBLIC_MAX_SIZE_FILE || 100}MB!`)
   }
-  return isLt2M;
+  return isLt2M
 }
 
 interface IState {
@@ -29,36 +29,36 @@ export class FileUpload extends PureComponent<IProps, IState> {
   state = {
     loading: false,
     fileUrl: ''
-  };
+  }
 
-  handleChange = (info) => {
-    const { onUploaded } = this.props;
+  handleChange = (info:any) => {
+    const { onUploaded } = this.props
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
+      this.setState({ loading: true })
+      return
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       this.setState({
         loading: false,
         fileUrl: info.file.response.data ? info.file.response.data.url : 'Done!'
-      });
+      })
       onUploaded
         && onUploaded({
           response: info.file.response
-        });
+        })
     }
-  };
+  }
 
   render() {
-    const { loading } = this.state;
+    const { loading } = this.state
     const uploadButton = (
       <div>
         {loading ? <LoadingOutlined /> : <FileAddOutlined />}
       </div>
-    );
-    const { fileUrl } = this.state;
-    const { headers, uploadUrl, fieldName = 'file' } = this.props;
+    )
+    const { fileUrl } = this.state
+    const { headers, uploadUrl, fieldName = 'file' } = this.props
     return (
       <Upload
         name={fieldName}
@@ -72,6 +72,6 @@ export class FileUpload extends PureComponent<IProps, IState> {
       >
         {fileUrl ? <span>Click to download</span> : uploadButton}
       </Upload>
-    );
+    )
   }
 }

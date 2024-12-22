@@ -1,46 +1,46 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import { PureComponent } from 'react';
+import Head from 'next/head'
+import Link from 'next/link'
+import { PureComponent } from 'react'
 import {
   Table, message, Breadcrumb, Dropdown, Menu, Button
-} from 'antd';
+} from 'antd'
 import {
   HomeOutlined,
   DownOutlined,
   EditOutlined
-} from '@ant-design/icons';
-import Page from '@components/common/layout/page';
-import { formatDate } from '@lib/date';
-import { emailTemplateService } from '@services/email-template.service';
+} from '@ant-design/icons'
+import Page from '@components/common/layout/page'
+import { formatDate } from '@lib/date'
+import { emailTemplateService } from '@services/email-template.service'
 
-interface IProps {}
+interface IProps { }
 
 class EmailTemplates extends PureComponent<IProps> {
   state = {
     searching: false,
     list: []
-  };
+  }
 
   componentDidMount() {
-    this.search();
+    this.search()
   }
 
   async search() {
     try {
-      await this.setState({ searching: true });
-      const resp = await emailTemplateService.findAll();
+      await this.setState({ searching: true })
+      const resp = await emailTemplateService.findAll()
       await this.setState({
         searching: false,
         list: resp.data
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      await this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      await this.setState({ searching: false })
     }
   }
 
   render() {
-    const { list, searching } = this.state;
+    const { list, searching } = this.state
     const columns = [
       {
         title: 'Key',
@@ -49,7 +49,7 @@ class EmailTemplates extends PureComponent<IProps> {
       {
         title: 'Name',
         dataIndex: 'name',
-        render(data, record) {
+        render(data: any, record: any) {
           return (
             <>
               <Link
@@ -65,7 +65,7 @@ class EmailTemplates extends PureComponent<IProps> {
               <br />
               <small>{record.description}</small>
             </>
-          );
+          )
         }
       },
       {
@@ -77,7 +77,7 @@ class EmailTemplates extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
@@ -95,15 +95,13 @@ class EmailTemplates extends PureComponent<IProps> {
                     }}
                     as={`/email-templates/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 </Menu.Item>
               </Menu>
-              )}
+            )}
           >
             <Button>
               Actions
@@ -113,7 +111,7 @@ class EmailTemplates extends PureComponent<IProps> {
           </Dropdown>
         )
       }
-    ];
+    ]
     return (
       <>
         <Head>
@@ -136,8 +134,8 @@ class EmailTemplates extends PureComponent<IProps> {
           />
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default EmailTemplates;
+export default EmailTemplates

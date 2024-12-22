@@ -1,17 +1,17 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Button, message, InputNumber, Switch, Row, Col
-} from 'antd';
-import { IPerformer } from 'src/interfaces';
+} from 'antd'
+import { IPerformer } from 'src/interfaces'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
 interface IProps {
   onFinish: Function;
@@ -22,16 +22,16 @@ interface IProps {
 export class SubscriptionForm extends PureComponent<IProps> {
   state = {
     isFreeSubscription: false
-  };
+  }
 
   componentDidMount() {
-    const { performer } = this.props;
-    this.setState({ isFreeSubscription: !!performer?.isFreeSubscription });
+    const { performer } = this.props
+    this.setState({ isFreeSubscription: !!performer?.isFreeSubscription })
   }
 
   render() {
-    const { performer, onFinish, submiting } = this.props;
-    const { isFreeSubscription } = this.state;
+    const { performer, onFinish, submiting } = this.props
+    const { isFreeSubscription } = this.state
     return (
       <Form
         {...layout}
@@ -114,6 +114,6 @@ export class SubscriptionForm extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

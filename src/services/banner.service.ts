@@ -1,4 +1,4 @@
-import { APIRequest } from './api-request';
+import { APIRequest } from './api-request'
 
 export class BannerService extends APIRequest {
   uploadBanner(file: File, payload: any, onProgress?: Function) {
@@ -14,24 +14,24 @@ export class BannerService extends APIRequest {
         onProgress,
         customData: payload
       }
-    );
+    )
   }
 
   search(query?: { [key: string]: any }) {
-    return this.get(this.buildUrl('/admin/site-promo/search', query));
+    return this.get(this.buildUrl('/admin/site-promo/search', query))
   }
 
   findById(id: string) {
-    return this.get(`/admin/site-promo/${id}/view`);
+    return this.get(`/admin/site-promo/${id}/view`)
   }
 
   update(id: string, payload: any) {
-    return this.put(`/admin/site-promo/${id}`, payload);
+    return this.put(`/admin/site-promo/${id}`, payload)
   }
 
   delete(id: string) {
-    return this.del(`/admin/site-promo/${id}`);
+    return this.del(`/admin/site-promo/${id}`)
   }
 }
 
-export const bannerService = new BannerService();
+export const bannerService = new BannerService()

@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import { Layout, Switch } from 'antd';
-import Link from 'next/link';
-import { getGlobalConfig } from '@services/config';
-import ScrollBar from '../base/scroll-bar';
-import { SiderMenu } from './menu';
-import './sider.less';
+import React, { PureComponent } from 'react'
+import { Layout, Switch } from 'antd'
+import Link from 'next/link'
+import { getGlobalConfig } from '@services/config'
+import ScrollBar from '../base/scroll-bar'
+import { SiderMenu } from './menu'
+import './sider.less'
 
 interface ISiderProps {
   collapsed?: boolean;
@@ -20,7 +20,7 @@ class Sider extends PureComponent<ISiderProps> {
   render() {
     const {
       collapsed, theme, isMobile, logo, siteName, onThemeChange, menus
-    } = this.props;
+    } = this.props
     return (
       <Layout.Sider
         width={256}
@@ -34,11 +34,9 @@ class Sider extends PureComponent<ISiderProps> {
       >
         <div className="brand">
           <Link href="/">
-            <a>
-              <div className="logo">
-                {logo ? <img alt="logo" src={logo} /> : <h1>{siteName}</h1>}
-              </div>
-            </a>
+            <div className="logo">
+              {logo ? <img alt="logo" src={logo} /> : <h1>{siteName}</h1>}
+            </div>
           </Link>
         </div>
 
@@ -53,7 +51,7 @@ class Sider extends PureComponent<ISiderProps> {
               menus={menus}
               theme={theme}
               isMobile={isMobile}
-              // onCollapseChange={onCollapseChange}
+            // onCollapseChange={onCollapseChange}
             />
           </ScrollBar>
         </div>
@@ -75,8 +73,8 @@ class Sider extends PureComponent<ISiderProps> {
           </div>
         )}
       </Layout.Sider>
-    );
+    )
   }
 }
 
-export default Sider;
+export default Sider

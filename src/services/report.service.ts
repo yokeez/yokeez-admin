@@ -1,9 +1,9 @@
-import { APIRequest } from './api-request';
+import { APIRequest } from './api-request'
 
 export class ReportService extends APIRequest {
-  search(data) {
-    return this.get(this.buildUrl('/reports', data));
+  search(data:any) {
+    return this.get(this.buildUrl('/reports', data))
   }
 }
 
-export const reportService = new ReportService();
+export const reportService = new ReportService()

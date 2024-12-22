@@ -1,14 +1,14 @@
 /* eslint-disable prefer-promise-reject-errors */
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef } from 'react'
 import {
-  Form, Input, Button, Select, Switch, InputNumber, Popover
-} from 'antd';
-import { IMenu } from 'src/interfaces';
-import { FormInstance } from 'antd/lib/form';
-import { SelectPostDropdown } from '@components/post/select-post-dropdown';
-import { isUrl } from '@lib/string';
-import Link from 'next/link';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+  Form, Input, Button, Select, Switch, Popover
+} from 'antd'
+import { IMenu } from 'src/interfaces'
+import { FormInstance } from 'antd/lib/form'
+import { SelectPostDropdown } from '@components/post/select-post-dropdown'
+import { isUrl } from '@lib/string'
+import Link from 'next/link'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 
 interface IProps {
   menu?: IMenu;
@@ -16,35 +16,35 @@ interface IProps {
   submiting?: boolean;
 }
 export class FormMenu extends PureComponent<IProps> {
-  formRef: any;
+  formRef: any
 
   state = {
     isInternal: false,
     path: ''
-  };
+  }
 
   componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
-    const { menu } = this.props;
+    if (!this.formRef) this.formRef = createRef()
+    const { menu } = this.props
     if (menu) {
       this.setState({
         isInternal: menu.internal,
         path: menu.path
-      });
+      })
     }
   }
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
+    })
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
-    const { menu, onFinish, submiting } = this.props;
-    const { isInternal, path } = this.state;
+    if (!this.formRef) this.formRef = createRef()
+    const { menu, onFinish, submiting } = this.props
+    const { isInternal, path } = this.state
     return (
       <Form
         ref={this.formRef}
@@ -84,10 +84,10 @@ export class FormMenu extends PureComponent<IProps> {
           <Switch
             defaultChecked={false}
             onChange={(val) => {
-              this.setState({ isInternal: val });
+              this.setState({ isInternal: val })
               if (!val) {
-                this.setFormVal('path', '');
-                this.setFormVal('isPage', false);
+                this.setFormVal('path', '')
+                this.setFormVal('isPage', false)
               }
             }}
           />
@@ -109,7 +109,7 @@ export class FormMenu extends PureComponent<IProps> {
                       If there is no data, please create a post
                       {' '}
                       <Link href="/posts/create">
-                        <a>here</a>
+                        here
                       </Link>
                     </p>
                   )}
@@ -125,8 +125,8 @@ export class FormMenu extends PureComponent<IProps> {
           >
             <SelectPostDropdown
               defaultValue={path && path.replace('/page/', '')}
-              onSelect={(val) => {
-                this.setFormVal('path', val ? `/page/${val}` : '');
+              onSelect={(val:any) => {
+                this.setFormVal('path', val ? `/page/${val}` : '')
               }}
             />
           </Form.Item>
@@ -137,15 +137,15 @@ export class FormMenu extends PureComponent<IProps> {
               { required: true, message: 'Please input URL of menu item!' },
               {
                 validator: (rule, value) => {
-                  if (!value) return Promise.resolve();
-                  const isUrlValid = isUrl(value);
+                  if (!value) return Promise.resolve()
+                  const isUrlValid = isUrl(value)
                   if (isInternal && isUrlValid) {
-                    return Promise.reject('The path is not valid');
+                    return Promise.reject('The path is not valid')
                   }
                   if (!isInternal && !isUrlValid) {
-                    return Promise.reject('The url is not valid');
+                    return Promise.reject('The url is not valid')
                   }
-                  return Promise.resolve();
+                  return Promise.resolve()
                 }
               }
             ]}
@@ -189,6 +189,6 @@ export class FormMenu extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

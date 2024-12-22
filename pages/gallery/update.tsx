@@ -1,13 +1,13 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import { message } from 'antd';
-import { galleryService } from '@services/gallery.service';
-import { IGalleryUpdate } from 'src/interfaces';
-import Loader from '@components/common/base/loader';
-import { BreadcrumbComponent } from '@components/common';
-import { FormGallery } from '@components/gallery/form-gallery';
-import Router from 'next/router';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import { message } from 'antd'
+import { galleryService } from '@services/gallery.service'
+import { IGalleryUpdate } from 'src/interfaces'
+import Loader from '@components/common/base/loader'
+import { BreadcrumbComponent } from '@components/common'
+import { FormGallery } from '@components/gallery/form-gallery'
+import Router from 'next/router'
 
 interface IProps {
   id: string;
@@ -17,45 +17,45 @@ class GalleryUpdate extends PureComponent<IProps> {
     submiting: false,
     fetching: true,
     gallery: {} as IGalleryUpdate
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   async componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const resp = await galleryService.findById(id);
-      this.setState({ gallery: resp.data });
+      const resp = await galleryService.findById(id)
+      this.setState({ gallery: resp.data })
     } catch (e) {
-      message.error('Gallery is not found!');
+      message.error('Gallery is not found!')
     } finally {
-      this.setState({ fetching: false });
+      this.setState({ fetching: false })
     }
   }
 
   async submit(data: any) {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      this.setState({ submiting: true });
+      this.setState({ submiting: true })
 
       const submitData = {
         ...data
-      };
-      await galleryService.update(id, submitData);
-      message.success('Updated successfully');
-      Router.push('/gallery');
+      }
+      await galleryService.update(id, submitData)
+      message.success('Updated successfully')
+      Router.push('/gallery')
     } catch (e) {
       // TODO - check and show error here
-      message.error('Something went wrong, please try again!');
+      message.error('Something went wrong, please try again!')
     } finally {
-      this.setState({ submiting: false });
+      this.setState({ submiting: false })
     }
   }
 
   render() {
-    const { gallery, submiting, fetching } = this.state;
+    const { gallery, submiting, fetching } = this.state
     return (
       <>
         <Head>
@@ -79,8 +79,8 @@ class GalleryUpdate extends PureComponent<IProps> {
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default GalleryUpdate;
+export default GalleryUpdate

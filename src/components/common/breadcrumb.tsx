@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
-import { Breadcrumb } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import Link from 'next/link';
+import { PureComponent } from 'react'
+import { Breadcrumb } from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 interface IBreadcrum {
   title: string;
@@ -14,7 +14,7 @@ interface IProps {
 
 export class BreadcrumbComponent extends PureComponent<IProps> {
   render() {
-    const { breadcrumbs } = this.props;
+    const { breadcrumbs } = this.props
     return (
       <div style={{ marginBottom: '16px' }}>
         <Breadcrumb>
@@ -27,7 +27,7 @@ export class BreadcrumbComponent extends PureComponent<IProps> {
               <Breadcrumb.Item key={b.title + Math.floor(Math.random() * 1000)}>
                 {b.href ? (
                   <Link href={b.href}>
-                    <a>{b.title}</a>
+                    {b.title}
                   </Link>
                 ) : (
                   b.title
@@ -36,6 +36,6 @@ export class BreadcrumbComponent extends PureComponent<IProps> {
             ))}
         </Breadcrumb>
       </div>
-    );
+    )
   }
 }

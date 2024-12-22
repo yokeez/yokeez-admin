@@ -1,4 +1,4 @@
-import ScrollBar from 'react-perfect-scrollbar';
-import './scroll-bar.less';
+import ScrollBar from 'react-perfect-scrollbar'
+import './scroll-bar.less'
 
-export default ScrollBar;
+export default ScrollBar

@@ -1,24 +1,24 @@
-import { APIRequest } from './api-request';
+import { APIRequest } from './api-request'
 
 class SubscriptionService extends APIRequest {
   search(query?: { [key: string]: any }) {
-    return this.get(this.buildUrl('/subscriptions/admin/search', query));
+    return this.get(this.buildUrl('/subscriptions/admin/search', query))
   }
 
   create(payload: any) {
-    return this.post('/subscriptions', payload);
+    return this.post('/subscriptions', payload)
   }
 
   update(id: string, payload: any) {
-    return this.put(`/subscriptions/admin/${id}`, payload);
+    return this.put(`/subscriptions/admin/${id}`, payload)
   }
 
   delete(id: string) {
-    return this.del(`/subscriptions/admin/${id}`);
+    return this.del(`/subscriptions/admin/${id}`)
   }
 
   cancelSubscription(id: string, gateway: string) {
-    return this.post(`/payment/${gateway}/cancel-subscription/${id}`);
+    return this.post(`/payment/${gateway}/cancel-subscription/${id}`)
   }
 }
-export const subscriptionService = new SubscriptionService();
+export const subscriptionService = new SubscriptionService()

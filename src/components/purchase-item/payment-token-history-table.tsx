@@ -1,9 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import {
   Table, Tag, Avatar, Tooltip
-} from 'antd';
-import { IPaymentTokenHistory } from 'src/interfaces';
-import { formatDate } from '@lib/date';
+} from 'antd'
+import { IPaymentTokenHistory } from 'src/interfaces'
+import { formatDate } from '@lib/date'
 
 interface IProps {
   dataSource: IPaymentTokenHistory[];
@@ -13,19 +13,19 @@ interface IProps {
   onChange: Function;
 }
 
-const PaymentTableList = ({
+function PaymentTableList({
   dataSource,
   pagination,
   rowKey,
   loading,
   onChange
-}: IProps) => {
+}: IProps) {
   const columns = [
     {
       title: 'ID',
       dataIndex: '_id',
       key: 'id',
-      render(data, record) {
+      render(data:any, record:any) {
         // let path = '';
         // switch (record.target) {
         //   case 'feed':
@@ -54,59 +54,59 @@ const PaymentTableList = ({
           >
             {record._id.slice(16, 24)}
           </a>
-        );
+        )
       }
     },
     {
       title: 'User',
       dataIndex: 'sourceInfo',
       key: 'user',
-      render(sourceInfo) {
+      render(sourceInfo:any) {
         return (
           <span>
             <Avatar src={sourceInfo?.avatar || '/no-avatar.png'} />
             {' '}
             {sourceInfo?.name || sourceInfo?.username || 'N/A'}
           </span>
-        );
+        )
       }
     },
     {
       title: 'Creator',
       dataIndex: 'performerInfo',
       key: 'performerInfo',
-      render(data, record) {
+      render(data:any, record:any) {
         return (
           <span>
             <Avatar src={record?.performerInfo?.avatar || '/no-avatar.png'} />
             {' '}
             {record?.performerInfo?.name || record?.performerInfo?.username || 'N/A'}
           </span>
-        );
+        )
       }
     },
     {
       title: 'Description',
-      render(data, record) {
-        return record.products.map((re) => (
+      render(data:any, record:any) {
+        return record.products.map((re:any) => (
           <Tooltip key={record._id} title={re.description}>
             <span key={record._id} style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
               {re.description}
             </span>
           </Tooltip>
-        ));
+        ))
       }
     },
     {
       title: 'Price',
       dataIndex: 'totalPrice',
-      render(totalPrice) {
+      render(totalPrice:any) {
         return (
           <span>
             $
             {(totalPrice || 0).toFixed(2)}
           </span>
-        );
+        )
       }
     },
     {
@@ -116,28 +116,28 @@ const PaymentTableList = ({
       render(type: string) {
         switch (type) {
           case 'feed':
-            return <Tag color="#1da3f1">Feed</Tag>;
+            return <Tag color="#1da3f1">Feed</Tag>
           case 'video':
-            return <Tag color="#00dcff">Video</Tag>;
+            return <Tag color="#00dcff">Video</Tag>
           case 'gallery':
-            return <Tag color="#00dcff">Gallery</Tag>;
+            return <Tag color="#00dcff">Gallery</Tag>
           case 'product':
-            return <Tag color="#FFCF00">Product</Tag>;
+            return <Tag color="#FFCF00">Product</Tag>
           case 'tip':
-            return <Tag color="#dc3545">Creator Tip</Tag>;
+            return <Tag color="#dc3545">Creator Tip</Tag>
           case 'gift':
-            return <Tag color="#dc2244">Gift</Tag>;
+            return <Tag color="#dc2244">Gift</Tag>
           case 'message':
-            return <Tag color="#46b545">Message</Tag>;
+            return <Tag color="#46b545">Message</Tag>
           case 'public_chat':
-            return <Tag color="#46c5ae">Paid Streaming</Tag>;
+            return <Tag color="#46c5ae">Paid Streaming</Tag>
           case 'group_chat':
-            return <Tag color="#3f9c8b">Group Chat</Tag>;
+            return <Tag color="#3f9c8b">Group Chat</Tag>
           case 'private_chat':
-            return <Tag color="#157160">Private Chat</Tag>;
+            return <Tag color="#157160">Private Chat</Tag>
           case 'stream_tip':
-            return <Tag color="#157160">Streaming Tip</Tag>;
-          default: return <Tag color="default">{type}</Tag>;
+            return <Tag color="#157160">Streaming Tip</Tag>
+          default: return <Tag color="default">{type}</Tag>
         }
       }
     },
@@ -148,12 +148,12 @@ const PaymentTableList = ({
       render(status: string) {
         switch (status) {
           case 'pending':
-            return <Tag color="blue">Pending</Tag>;
+            return <Tag color="blue">Pending</Tag>
           case 'success':
-            return <Tag color="green">Success</Tag>;
+            return <Tag color="green">Success</Tag>
           case 'refunded':
-            return <Tag color="red">Refunded</Tag>;
-          default: return <Tag color="default">{status}</Tag>;
+            return <Tag color="red">Refunded</Tag>
+          default: return <Tag color="default">{status}</Tag>
         }
       }
     },
@@ -162,10 +162,10 @@ const PaymentTableList = ({
       dataIndex: 'updatedAt',
       sorter: true,
       render(date: Date) {
-        return <span>{formatDate(date)}</span>;
+        return <span>{formatDate(date)}</span>
       }
     }
-  ];
+  ]
   return (
     <div className="table-responsive">
       <Table
@@ -174,9 +174,9 @@ const PaymentTableList = ({
         pagination={pagination}
         rowKey={rowKey}
         loading={loading}
-        onChange={onChange.bind(this)}
+        onChange={() => onChange()}
       />
     </div>
-  );
-};
-export default PaymentTableList;
+  )
+}
+export default PaymentTableList

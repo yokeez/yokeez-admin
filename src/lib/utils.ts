@@ -1,7 +1,7 @@
 import {
   cloneDeep
-} from 'lodash';
-import * as pathToRegexp from 'path-to-regexp';
+} from 'lodash'
+import * as pathToRegexp from 'path-to-regexp'
 
 /**
  * Convert an array to a tree-structured array.
@@ -12,29 +12,29 @@ import * as pathToRegexp from 'path-to-regexp';
  * @return  {array}    Return a tree-structured array.
  */
 export function arrayToTree(
-  array,
+  array:any,
   id = 'id',
   parentId = 'pid',
   children = 'children'
 ) {
-  const result = [];
-  const hash = {};
-  const data = cloneDeep(array);
+  const result:any = []
+  const hash:any = {}
+  const data = cloneDeep(array)
 
-  data.forEach((item, index) => {
-    hash[data[index][id]] = data[index];
-  });
+  data.forEach((item:any, index:any) => {
+    hash[data[index][id]] = data[index]
+  })
 
-  data.forEach((item) => {
-    const hashParent = hash[item[parentId]];
+  data.forEach((item:any) => {
+    const hashParent = hash[item[parentId]]
     if (hashParent) {
-      !hashParent[children] && (hashParent[children] = []);
-      hashParent[children].push(item);
+      !hashParent[children] && (hashParent[children] = [])
+      hashParent[children].push(item)
     } else {
-      result.push(item);
+      result.push(item)
     }
-  });
-  return result;
+  })
+  return result
 }
 
 /**
@@ -43,8 +43,8 @@ export function arrayToTree(
  * @param   {string}                  pathname   Specify the pathname to match.
  * @return  {array|null}              Return the result of the match or null.
  */
-export function pathMatchRegexp(regexp, pathname) {
-  return pathToRegexp.pathToRegexp(regexp).exec(pathname);
+export function pathMatchRegexp(regexp:any, pathname:any) {
+  return pathToRegexp.pathToRegexp(regexp).exec(pathname)
 }
 
 /**
@@ -55,40 +55,40 @@ export function pathMatchRegexp(regexp, pathname) {
  * @param   {string}    id        The alias of the unique ID of the object in the array.
  * @return  {array}    Return a key array.
  */
-export function queryAncestors(array, current, parentId, id = 'id') {
-  const result = [current];
-  const hashMap = new Map();
-  array.forEach((item) => hashMap.set(item[id], item));
+export function queryAncestors(array:any, current:any, parentId:any, id = 'id') {
+  const result = [current]
+  const hashMap = new Map()
+  array.forEach((item:any) => hashMap.set(item[id], item))
 
-  const getPath = (curr) => {
-    const currentParentId = hashMap.get(curr[id])[parentId];
+  const getPath = (curr:any) => {
+    const currentParentId = hashMap.get(curr[id])[parentId]
     if (currentParentId) {
-      result.push(hashMap.get(currentParentId));
-      getPath(hashMap.get(currentParentId));
+      result.push(hashMap.get(currentParentId))
+      getPath(hashMap.get(currentParentId))
     }
-  };
+  }
 
-  getPath(current);
-  return result;
+  getPath(current)
+  return result
 }
 
 export function getResponseError(data: any) {
   if (!data) {
-    return '';
+    return ''
   }
 
   if (Array.isArray(data.message)) {
-    const item = data.message[0];
+    const item = data.message[0]
     if (!item.constraints) {
-      return data.error || 'Bad request!';
+      return data.error || 'Bad request!'
     }
-    return Object.values(item.constraints)[0];
+    return Object.values(item.constraints)[0]
   }
 
   // TODO - parse for langauge or others
-  return typeof data.message === 'string' ? data.message : 'Bad request!';
+  return typeof data.message === 'string' ? data.message : 'Bad request!'
 }
 
 export function validateUsername(text: string) {
-  return /^[a-z0-9]+$/.test(text);
+  return /^[a-z0-9]+$/.test(text)
 }

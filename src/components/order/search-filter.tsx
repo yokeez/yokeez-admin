@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Row, Col, Select, DatePicker
-} from 'antd';
+} from 'antd'
 
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 const deliveryStatuses = [
   {
@@ -26,7 +26,7 @@ const deliveryStatuses = [
     key: 'refunded',
     text: 'Refunded'
   }
-];
+]
 
 interface IProps {
   onSubmit?: Function;
@@ -37,10 +37,10 @@ export class OrderSearchFilter extends PureComponent<IProps> {
     deliveryStatus: '',
     fromDate: '',
     toDate: ''
-  };
+  }
 
   render() {
-    const { onSubmit } = this.props;
+    const { onSubmit }:any = this.props
     return (
       <Row gutter={24}>
         <Col lg={6} md={12} xs={12}>
@@ -59,13 +59,28 @@ export class OrderSearchFilter extends PureComponent<IProps> {
         </Col>
         <Col lg={8} md={12} xs={12}>
           <RangePicker
-            onChange={(dates: [any, any], dateStrings: [string, string]) => this.setState({
-              fromDate: dateStrings[0],
-              toDate: dateStrings[1]
-            }, () => onSubmit(this.state))}
+            onChange={(dates: any, dateStrings: [string, string]) => {
+              if (dates) {
+                this.setState(
+                  {
+                    fromDate: dateStrings[0],
+                    toDate: dateStrings[1]
+                  },
+                  () => onSubmit?.(this.state)
+                )
+              } else {
+                this.setState(
+                  {
+                    fromDate: '',
+                    toDate: ''
+                  },
+                  () => onSubmit?.(this.state)
+                )
+              }
+            }}
           />
         </Col>
       </Row>
-    );
+    )
   }
 }

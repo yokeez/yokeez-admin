@@ -1,13 +1,13 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import Link from 'next/link';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import Link from 'next/link'
 import {
   Form, Input, Button, Breadcrumb, message, InputNumber
-} from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import { performerCategoryService } from '@services/perfomer-category.service';
-import Loader from '@components/common/base/loader';
+} from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
+import { performerCategoryService } from '@services/perfomer-category.service'
+import Loader from '@components/common/base/loader'
 
 interface IFormValue {
   name: string;
@@ -20,45 +20,45 @@ class CategoryUpdate extends PureComponent<any> {
     submiting: false,
     // fetching: true,
     category: null
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   async componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const resp = await performerCategoryService.findById(id);
-      this.setState({ category: resp.data });
+      const resp = await performerCategoryService.findById(id)
+      this.setState({ category: resp.data })
     } catch (e) {
-      message.error('Category not found!');
+      message.error('Category not found!')
     } finally {
-      this.setState({ });
+      this.setState({ })
     }
   }
 
   async submit(data: any) {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      this.setState({ submiting: true });
+      this.setState({ submiting: true })
 
       const submitData = {
         ...data
-      };
-      await performerCategoryService.update(id, submitData);
-      message.success('Updated successfully');
-      this.setState({ submiting: false });
+      }
+      await performerCategoryService.update(id, submitData)
+      message.success('Updated successfully')
+      this.setState({ submiting: false })
     } catch (e) {
       // TODO - check and show error here
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
-      this.setState({ submiting: false });
+      const err:any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
+      this.setState({ submiting: false })
     }
   }
 
   render() {
-    const { category, submiting } = this.state;
+    const { category, submiting }:any = this.state
     return (
       <>
         <Head>
@@ -71,7 +71,7 @@ class CategoryUpdate extends PureComponent<any> {
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link href="/creator/category" as="/creator/category">
-                <a>Categories</a>
+                Categories
               </Link>
               {/* <span>Categories</span> */}
             </Breadcrumb.Item>
@@ -121,8 +121,8 @@ class CategoryUpdate extends PureComponent<any> {
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default CategoryUpdate;
+export default CategoryUpdate

@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form,
   Input,
@@ -12,31 +12,31 @@ import {
   Checkbox,
   Progress,
   Modal
-} from 'antd';
+} from 'antd'
 import {
   IPerformer,
   ICountry,
   ILangguges,
   IPhoneCodes,
   IBody
-} from 'src/interfaces';
-import { UploadOutlined } from '@ant-design/icons';
-import { AvatarUpload } from '@components/user/avatar-upload';
-import { CoverUpload } from '@components/user/cover-upload';
+} from 'src/interfaces'
+import { UploadOutlined } from '@ant-design/icons'
+import { AvatarUpload } from '@components/user/avatar-upload'
+import { CoverUpload } from '@components/user/cover-upload'
 import {
   authService,
   performerService,
   getGlobalConfig
-} from '@services/index';
-import Router from 'next/router';
-import moment from 'moment';
-import './index.less';
-import { VideoPlayer } from '@components/common';
+} from '@services/index'
+import Router from 'next/router'
+import moment from 'moment'
+import './index.less'
+import { VideoPlayer } from '@components/common'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!',
@@ -48,9 +48,9 @@ const validateMessages = {
     // eslint-disable-next-line no-template-curly-in-string
     range: 'Must be between ${min} and ${max}'
   }
-};
+}
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 interface IProps {
   onFinish: Function;
@@ -72,49 +72,49 @@ export class AccountForm extends PureComponent<IProps> {
     previewVideoName: '',
     isShowPreview: false,
     coverUrl: ''
-  };
+  }
 
   componentDidMount() {
-    const { performer } = this.props;
+    const { performer } = this.props
     this.setState({
       previewVideoUrl: performer?.welcomeVideoPath,
       previewVideoName: performer?.welcomeVideoName,
       coverUrl: performer?.cover || ''
-    });
+    })
   }
 
   handleVideoChange = (info: any) => {
     info.file
       && info.file.percent
-      && this.setState({ uploadVideoPercentage: info.file.percent });
+      && this.setState({ uploadVideoPercentage: info.file.percent })
     if (info.file.status === 'uploading') {
-      this.setState({ isUploadingVideo: true });
-      return;
+      this.setState({ isUploadingVideo: true })
+      return
     }
     if (info.file.status === 'done') {
-      message.success('Intro video was uploaded');
+      message.success('Intro video was uploaded')
       this.setState({
         isUploadingVideo: false,
         previewVideoUrl: info?.file?.response?.data?.url,
         previewVideoName: info?.file?.response?.data?.name
-      });
+      })
     }
-  };
+  }
 
-  beforeUploadVideo = (file) => {
+  beforeUploadVideo = (file:any) => {
     const isValid = file.size / 1024 / 1024
-      < (getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200);
+      < (getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200)
     if (!isValid) {
       message.error(
         `File is too large please provide an file ${
           getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200
         }MB or below`
-      );
-      return false;
+      )
+      return false
     }
-    this.setState({ previewVideoName: file.name });
-    return true;
-  };
+    this.setState({ previewVideoName: file.name })
+    return true
+  }
 
   render() {
     const {
@@ -124,7 +124,7 @@ export class AccountForm extends PureComponent<IProps> {
       countries,
       onUploaded,
       onBeforeUpload
-    } = this.props;
+    } = this.props
     const {
       uploadVideoPercentage,
       isUploadingVideo,
@@ -132,10 +132,10 @@ export class AccountForm extends PureComponent<IProps> {
       previewVideoUrl,
       isShowPreview,
       coverUrl
-    } = this.state;
+    } = this.state
     const uploadHeaders = {
       authorization: authService.getToken()
-    };
+    }
     return (
       <Form
         {...layout}
@@ -179,7 +179,7 @@ export class AccountForm extends PureComponent<IProps> {
                   headers={uploadHeaders}
                   uploadUrl={performer ? performerService.getAvatarUploadUrl(performer?._id) : ''}
                   onUploaded={() => onUploaded && onUploaded('avatar')}
-                  onBeforeUpload={(f) => onBeforeUpload && onBeforeUpload(f, 'avatar')}
+                  onBeforeUpload={(f:any) => onBeforeUpload && onBeforeUpload(f, 'avatar')}
                   image={performer?.avatar || ''}
                 />
               </div>
@@ -189,10 +189,10 @@ export class AccountForm extends PureComponent<IProps> {
                   image={performer?.cover || ''}
                   headers={uploadHeaders}
                   uploadUrl={performer ? performerService.getCoverUploadUrl(performer?._id) : ''}
-                  onBeforeUpload={(f) => onBeforeUpload && onBeforeUpload(f, 'cover')}
-                  onUploaded={({ base64 }) => {
-                    this.setState({ coverUrl: base64 });
-                    onUploaded && onUploaded('cover');
+                  onBeforeUpload={(f:any) => onBeforeUpload && onBeforeUpload(f, 'cover')}
+                  onUploaded={({ base64 }:any) => {
+                    this.setState({ coverUrl: base64 })
+                    onUploaded && onUploaded('cover')
                   }}
                 />
               </div>
@@ -206,9 +206,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true, message: 'Please input your first name!' },
                 {
-                  pattern: new RegExp(
-                    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
-                  ),
+                  pattern: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
                   message:
                     'First name can not contain number and special character'
                 }
@@ -225,9 +223,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true, message: 'Please input your last name!' },
                 {
-                  pattern: new RegExp(
-                    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
-                  ),
+                  pattern: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
                   message:
                     'Last name can not contain number and special character'
                 }
@@ -244,7 +240,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true, message: 'Please input your display name!' },
                 {
-                  pattern: new RegExp(/^(?=.*\S).+$/g),
+                  pattern: /^(?=.*\S).+$/g,
                   message: 'Display name can not contain only whitespace'
                 },
                 {
@@ -264,7 +260,7 @@ export class AccountForm extends PureComponent<IProps> {
               rules={[
                 { required: true },
                 {
-                  pattern: new RegExp(/^[a-z0-9]+$/g),
+                  pattern: /^[a-z0-9]+$/g,
                   message: 'Username must contain lowercase alphanumerics only'
                 },
                 { min: 3 }
@@ -353,9 +349,7 @@ export class AccountForm extends PureComponent<IProps> {
                 label="Password"
                 rules={[
                   {
-                    pattern: new RegExp(
-                      /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g
-                    ),
+                    pattern: /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g,
                     message:
                       'Password must have minimum 8 characters, at least 1 number, 1 uppercase letter, 1 lowercase letter & 1 special character'
                   },
@@ -372,9 +366,7 @@ export class AccountForm extends PureComponent<IProps> {
                 label="Confirm password"
                 rules={[
                   {
-                    pattern: new RegExp(
-                      /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g
-                    ),
+                    pattern: /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[^\w\d]).*$/g,
                     message:
                       'Password must have minimum 8 characters, at least 1 number, 1 uppercase letter, 1 lowercase letter & 1 special character'
                   },
@@ -414,7 +406,7 @@ export class AccountForm extends PureComponent<IProps> {
               name="youtubeProfileUrl"
               label="Youtube profile URL"
               rules={[{
-                pattern: new RegExp(/http(?:s)*:\/\/(?:m.|www.)*youtube.com/),
+                pattern: /http(?:s)*:\/\/(?:m.|www.)*youtube.com/,
                 message: 'Please enter a valid Youtube url'
               }]}
             >
@@ -426,7 +418,7 @@ export class AccountForm extends PureComponent<IProps> {
               name="instagramProfileUrl"
               label="Instagram profile URL"
               rules={[{
-                pattern: new RegExp(/http(?:s)*:\/\/(?:www.)*instagram.com/),
+                pattern: /http(?:s)*:\/\/(?:www.)*instagram.com/,
                 message: 'Please enter a valid Instagram url'
               }]}
             >
@@ -438,7 +430,7 @@ export class AccountForm extends PureComponent<IProps> {
               name="twitterProfileUrl"
               label="Twitter profile URL"
               rules={[{
-                pattern: new RegExp(/http(?:s)*:\/\/(?:www.)*twitter.com/),
+                pattern: /http(?:s)*:\/\/(?:www.)*twitter.com/,
                 message: 'Please enter a valid Twitter url'
               }]}
             >
@@ -450,7 +442,7 @@ export class AccountForm extends PureComponent<IProps> {
               name="spotifyProfileUrl"
               label="Spotify profile URL"
               rules={[{
-                pattern: new RegExp(/http(?:s)*:\/\/(?:open.|www.)*spotify.com/),
+                pattern: /http(?:s)*:\/\/(?:open.|www.)*spotify.com/,
                 message: 'Please enter a valid Spotify url'
               }]}
             >
@@ -462,7 +454,7 @@ export class AccountForm extends PureComponent<IProps> {
               name="tiktokProfileUrl"
               label="Tiktok profile URL"
               rules={[{
-                pattern: new RegExp(/http(?:s)*:\/\/(?:www.)*tiktok.com/),
+                pattern: /http(?:s)*:\/\/(?:www.)*tiktok.com/,
                 message: 'Please enter a valid Tiktok url'
               }]}
             >
@@ -724,6 +716,6 @@ export class AccountForm extends PureComponent<IProps> {
           />
         </Modal>
       </Form>
-    );
+    )
   }
 }

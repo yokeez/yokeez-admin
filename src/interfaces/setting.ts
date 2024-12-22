@@ -9,7 +9,7 @@ export interface ISetting {
   public: boolean;
   type: string;
   visible: boolean;
-  meta: {[key: string]: any};
+  meta: { [key: string]: any };
   createdAt: Date;
   updatedAt: Date;
 }

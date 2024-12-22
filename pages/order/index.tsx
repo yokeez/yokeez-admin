@@ -1,22 +1,22 @@
 /* eslint-disable no-nested-ternary */
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { message } from 'antd';
-import Page from '@components/common/layout/page';
-import { orderService } from '@services/index';
-import { OrderSearchFilter } from '@components/order';
-import OrderTableList from '@components/order/table-list';
-import { BreadcrumbComponent } from '@components/common';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { message } from 'antd'
+import Page from '@components/common/layout/page'
+import { orderService } from '@services/index'
+import { OrderSearchFilter } from '@components/order'
+import OrderTableList from '@components/order/table-list'
+import { BreadcrumbComponent } from '@components/common'
 
 interface IProps {
   deliveryStatus: string;
 }
 
 class ModelOrderPage extends PureComponent<IProps> {
-  static authenticate = true;
+  static authenticate = true
 
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   state = {
@@ -27,19 +27,19 @@ class ModelOrderPage extends PureComponent<IProps> {
     filter: {} as any,
     sortBy: 'updatedAt',
     sort: 'desc'
-  };
-
-  async componentDidMount() {
-    const { deliveryStatus } = this.props;
-    if (deliveryStatus) {
-      await this.setState({ filter: { deliveryStatus } });
-    }
-    this.search();
   }
 
-  handleTableChange = async (pagination, filters, sorter) => {
-    const pager = { ...pagination };
-    pager.current = pagination.current;
+  async componentDidMount() {
+    const { deliveryStatus } = this.props
+    if (deliveryStatus) {
+      await this.setState({ filter: { deliveryStatus } })
+    }
+    this.search()
+  }
+
+  handleTableChange = async (pagination:any, filters:any, sorter:any) => {
+    const pager = { ...pagination }
+    pager.current = pagination.current
     await this.setState({
       pagination: pager,
       sortBy: sorter.field || 'updatedAt',
@@ -48,29 +48,29 @@ class ModelOrderPage extends PureComponent<IProps> {
           ? 'desc'
           : 'asc'
         : 'desc'
-    });
-    this.search(pager.current);
-  };
+    })
+    this.search(pager.current)
+  }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.search();
+  async handleFilter(values:any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.search()
   }
 
   async search(page = 1) {
     const {
       filter, limit, sort, sortBy, pagination
-    } = this.state;
+    } = this.state
     try {
-      await this.setState({ searching: true });
+      await this.setState({ searching: true })
       const resp = await orderService.search({
         ...filter,
         limit,
         offset: (page - 1) * limit,
         sort,
         sortBy
-      });
+      })
       this.setState({
         searching: false,
         list: resp.data.data,
@@ -79,15 +79,15 @@ class ModelOrderPage extends PureComponent<IProps> {
           total: resp.data.total,
           pageSize: limit
         }
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ searching: false })
     }
   }
 
   render() {
-    const { list, searching, pagination } = this.state;
+    const { list, searching, pagination } = this.state
 
     return (
       <>
@@ -118,7 +118,7 @@ class ModelOrderPage extends PureComponent<IProps> {
 
         </Page>
       </>
-    );
+    )
   }
 }
-export default ModelOrderPage;
+export default ModelOrderPage

@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { PureComponent } from 'react';
-import { PictureOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Progress } from 'antd';
+import { PureComponent } from 'react'
+import { PictureOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons'
+import { Progress } from 'antd'
 
 interface IProps {
   remove: Function;
@@ -12,31 +12,31 @@ interface IProps {
 export default class UploadList extends PureComponent<IProps> {
   state = {
     previews: {} as Record<string, any>
-  };
+  }
 
-  renderPreview(file) {
-    const { previews } = this.state;
+  renderPreview(file:any) {
+    const { previews } = this.state
     if (file.status === 'uploading') {
-      return <LoadingOutlined />;
+      return <LoadingOutlined />
     }
     if (previews[file.uid]) {
-      return <img src={previews[file.uid]} alt="uid" />;
+      return <img src={previews[file.uid]} alt="uid" />
     }
 
-    const reader = new FileReader();
+    const reader = new FileReader()
     reader.addEventListener('load', () => {
       const preview = {
         ...previews,
         [file.uid]: reader.result
-      };
-      this.setState({ previews: { preview } });
-    });
-    reader.readAsDataURL(file);
-    return <PictureOutlined />;
+      }
+      this.setState({ previews: { preview } })
+    })
+    reader.readAsDataURL(file)
+    return <PictureOutlined />
   }
 
   render() {
-    const { files, remove } = this.props;
+    const { files, remove } = this.props
     return (
       <div className="ant-upload-list ant-upload-list-picture">
         {files.map((file) => (
@@ -64,6 +64,6 @@ export default class UploadList extends PureComponent<IProps> {
           </div>
         ))}
       </div>
-    );
+    )
   }
 }

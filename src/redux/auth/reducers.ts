@@ -1,12 +1,12 @@
-import { merge } from 'lodash';
-import { createReducers } from '@lib/redux';
-import login from 'pages/auth/login';
-import { loginSuccess, loginFail, logoutSuccess } from './actions';
+import { merge } from 'lodash'
+import { createReducers } from '@lib/redux'
+import login from 'pages/auth/login'
+import { loginSuccess, loginFail, logoutSuccess } from './actions'
 
 const initialState = {
   loggedIn: false,
   authUser: null
-};
+}
 
 const authReducers = [
   {
@@ -18,7 +18,7 @@ const authReducers = [
           requesting: false,
           error: null
         }
-      };
+      }
     }
   },
   {
@@ -33,7 +33,7 @@ const authReducers = [
           data: data.payload,
           success: true
         }
-      };
+      }
     }
   },
   {
@@ -47,7 +47,7 @@ const authReducers = [
           error: data.payload,
           success: false
         }
-      };
+      }
     }
   },
   {
@@ -66,9 +66,9 @@ const authReducers = [
         },
         loggedIn: false,
         authUser: null
-      };
+      }
     }
   }
-];
+]
 
-export default merge({}, createReducers('auth', [authReducers], initialState));
+export default merge({}, createReducers('auth', [authReducers], initialState))

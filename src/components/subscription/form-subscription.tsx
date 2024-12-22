@@ -1,37 +1,37 @@
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef } from 'react'
 import {
   Form, Button, Select, DatePicker
-} from 'antd';
-import { ISubscriptionCreate } from 'src/interfaces';
-import { FormInstance } from 'antd/lib/form';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { SelectUserDropdown } from '@components/user/common/select-user-dropdown';
-import moment from 'moment';
+} from 'antd'
+import { ISubscriptionCreate } from 'src/interfaces'
+import { FormInstance } from 'antd/lib/form'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { SelectUserDropdown } from '@components/user/common/select-user-dropdown'
+import moment from 'moment'
 
 interface IProps {
   onFinish: Function;
   submiting?: boolean;
 }
-function disabledDate(current) {
-  return current && current < moment().endOf('day');
+function disabledDate(current:any) {
+  return current && current < moment().endOf('day')
 }
 export class FormSubscription extends PureComponent<IProps> {
-  formRef: any;
+  formRef: any
 
   componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
+    if (!this.formRef) this.formRef = createRef()
   }
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
+    })
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
-    const { onFinish, submiting } = this.props;
+    if (!this.formRef) this.formRef = createRef()
+    const { onFinish, submiting } = this.props
 
     return (
       <Form
@@ -62,10 +62,10 @@ export class FormSubscription extends PureComponent<IProps> {
           </Select>
         </Form.Item>
         <Form.Item name="userId" label="User" rules={[{ required: true }]}>
-          <SelectUserDropdown onSelect={(val) => this.setFormVal('userId', val)} showAll />
+          <SelectUserDropdown onSelect={(val:any) => this.setFormVal('userId', val)} showAll />
         </Form.Item>
         <Form.Item name="performerId" label="Performer" rules={[{ required: true }]}>
-          <SelectPerformerDropdown onSelect={(val) => this.setFormVal('performerId', val)} />
+          <SelectPerformerDropdown onSelect={(val:any) => this.setFormVal('performerId', val)} />
         </Form.Item>
         <Form.Item
           name="expiredAt"
@@ -90,6 +90,6 @@ export class FormSubscription extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

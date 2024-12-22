@@ -1,4 +1,4 @@
-import { APIRequest } from './api-request';
+import { APIRequest } from './api-request'
 
 export class PhotoService extends APIRequest {
   uploadPhoto(file: File, payload: any, onProgress?: Function) {
@@ -14,26 +14,26 @@ export class PhotoService extends APIRequest {
         onProgress,
         customData: payload
       }
-    );
+    )
   }
 
   search(query?: { [key: string]: any }) {
     return this.get(
       this.buildUrl('/admin/performer-assets/photos/search', query)
-    );
+    )
   }
 
   findById(id: string) {
-    return this.get(`/admin/performer-assets/photos/${id}/view`);
+    return this.get(`/admin/performer-assets/photos/${id}/view`)
   }
 
   update(id: string, payload: any) {
-    return this.put(`/admin/performer-assets/photos/${id}`, payload);
+    return this.put(`/admin/performer-assets/photos/${id}`, payload)
   }
 
   delete(id: string) {
-    return this.del(`/admin/performer-assets/photos/${id}`);
+    return this.del(`/admin/performer-assets/photos/${id}`)
   }
 }
 
-export const photoService = new PhotoService();
+export const photoService = new PhotoService()

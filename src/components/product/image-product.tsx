@@ -1,5 +1,5 @@
-import { PureComponent } from 'react';
-import { IProduct } from 'src/interfaces';
+import { PureComponent } from 'react'
+import { IProduct } from 'src/interfaces'
 
 interface IProps {
   product?: IProduct;
@@ -8,9 +8,9 @@ interface IProps {
 
 export class ImageProduct extends PureComponent<IProps> {
   render() {
-    const { product, style } = this.props;
-    const { image } = product;
-    const url = image || '/product.png';
-    return <img src={url} style={style || { width: 50 }} alt="thumb-prod" />;
+    const { product, style } = this.props
+    const { image }:any = product
+    const url = image || '/product.png'
+    return <img src={url} style={style || { width: 50 }} alt="thumb-prod" />
   }
 }

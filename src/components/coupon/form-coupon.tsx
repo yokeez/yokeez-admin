@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Input, Button, InputNumber, Select, DatePicker
-} from 'antd';
-import { ICouponUpdate } from 'src/interfaces';
-import moment from 'moment';
+} from 'antd'
+import { ICouponUpdate } from 'src/interfaces'
+import moment from 'moment'
 
 interface IProps {
   coupon?: ICouponUpdate;
@@ -11,13 +11,13 @@ interface IProps {
   submiting: boolean;
 }
 
-function disabledDate(current) {
-  return current && current < moment().endOf('day');
+function disabledDate(current:any) {
+  return current && current < moment().endOf('day')
 }
 
 export class FormCoupon extends PureComponent<IProps> {
   render() {
-    const { coupon, onFinish, submiting } = this.props;
+    const { coupon, onFinish, submiting } = this.props
     return (
       <Form
         onFinish={onFinish.bind(this)}
@@ -47,7 +47,7 @@ export class FormCoupon extends PureComponent<IProps> {
           label="Code"
           rules={[
             {
-              pattern: new RegExp(/^[a-zA-Z0-9]*$/g),
+              pattern: /^[a-zA-Z0-9]*$/g,
               message: 'Please input alphanumerics only'
             },
             { required: true, message: 'Please input the coupon code' }
@@ -94,6 +94,6 @@ export class FormCoupon extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

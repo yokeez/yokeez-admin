@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
-import { Select } from 'antd';
-import { sortBy } from 'lodash';
-import { postService } from '@services/post.service';
+import { PureComponent } from 'react'
+import { Select } from 'antd'
+import { sortBy } from 'lodash'
+import { postService } from '@services/post.service'
 
-const { Option } = Select;
+const { Option } = Select
 
 interface IProps {
   placeholder?: string;
@@ -14,37 +14,37 @@ interface IProps {
 }
 
 export class SelectPostDropdown extends PureComponent<IProps> {
-  _initalData = [];
+  _initalData:any = []
 
   state = {
     data: [] as any,
     value: undefined
-  };
-
-  componentDidMount() {
-    this.loadPosts();
   }
 
-  handleSearch = (value) => {
-    const q = value.toLowerCase();
-    const filtered = this._initalData.filter((p) => p.slug.includes(q) || (p.title || '').toLowerCase().includes(q));
-    this.setState({ data: filtered });
-  };
+  componentDidMount() {
+    this.loadPosts()
+  }
+
+  handleSearch = (value:any) => {
+    const q = value.toLowerCase()
+    const filtered = this._initalData.filter((p:any) => p.slug.includes(q) || (p.title || '').toLowerCase().includes(q))
+    this.setState({ data: filtered })
+  }
 
   async loadPosts() {
     // TODO - should check for better option?
-    const resp = await postService.search({ limit: 1000 });
-    this._initalData = sortBy(resp.data.data, (i) => i.slug);
+    const resp = await postService.search({ limit: 1000 })
+    this._initalData = sortBy(resp.data.data, (i) => i.slug)
     this.setState({
       data: [...this._initalData]
-    });
+    })
   }
 
   render() {
     const {
       disabled, placeholder, style, onSelect, defaultValue
-    } = this.props;
-    const { value, data } = this.state;
+    } = this.props
+    const { value, data } = this.state
     return (
       <Select
         showSearch
@@ -60,7 +60,7 @@ export class SelectPostDropdown extends PureComponent<IProps> {
         disabled={disabled}
         allowClear
       >
-        {data.map((p) => (
+        {data.map((p:any) => (
           <Option key={p._id} value={p.slug}>
             <span>
               <strong>{p.slug}</strong>
@@ -71,6 +71,6 @@ export class SelectPostDropdown extends PureComponent<IProps> {
           </Option>
         ))}
       </Select>
-    );
+    )
   }
 }

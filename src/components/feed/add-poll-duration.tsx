@@ -1,10 +1,10 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Row, Button,
   Col, Modal
-} from 'antd';
-import { } from '@ant-design/icons';
-import './index.less';
+} from 'antd'
+import { } from '@ant-design/icons'
+import './index.less'
 
 interface IProps {
   onAddPollDuration: Function;
@@ -14,15 +14,15 @@ interface IProps {
 export default class AddPollDurationForm extends PureComponent<IProps> {
   state = {
     limitTime: 7
-  };
+  }
 
-  async onChangePoll(value) {
-    this.setState({ limitTime: value });
+  async onChangePoll(value:any) {
+    this.setState({ limitTime: value })
   }
 
   render() {
-    const { onAddPollDuration, openDurationPollModal = false } = this.props;
-    const { limitTime } = this.state;
+    const { onAddPollDuration, openDurationPollModal = false } = this.props
+    const { limitTime } = this.state
 
     return (
       <Modal
@@ -49,6 +49,6 @@ export default class AddPollDurationForm extends PureComponent<IProps> {
           </Col>
         </Row>
       </Modal>
-    );
+    )
   }
 }

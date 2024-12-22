@@ -1,4 +1,4 @@
-import { createAction } from '@lib/redux';
+import { createAction } from '@lib/redux'
 
-export const updateUIValue = createAction('updateUIValue');
-export const loadUIValue = createAction('loadUIValue');
+export const updateUIValue = createAction('updateUIValue')
+export const loadUIValue = createAction('loadUIValue')

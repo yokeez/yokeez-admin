@@ -1,13 +1,13 @@
-import { PureComponent } from 'react';
-import { Layout, message } from 'antd';
-import Head from 'next/head';
-import Page from '@components/common/layout/page';
-import { tokenTransactionService } from 'src/services';
-import { IPaymentTokenHistory } from 'src/interfaces';
-import { SearchFilter } from '@components/common/search-filter';
-import PaymentTableList from '@components/purchase-item/payment-token-history-table';
-import { getResponseError } from '@lib/utils';
-import { BreadcrumbComponent } from '@components/common';
+import { PureComponent } from 'react'
+import { Layout, message } from 'antd'
+import Head from 'next/head'
+import Page from '@components/common/layout/page'
+import { tokenTransactionService } from 'src/services'
+import { IPaymentTokenHistory } from 'src/interfaces'
+import { SearchFilter } from '@components/common/search-filter'
+import PaymentTableList from '@components/purchase-item/payment-token-history-table'
+import { getResponseError } from '@lib/utils'
+import { BreadcrumbComponent } from '@components/common'
 
 interface IProps { }
 
@@ -36,14 +36,14 @@ class PurchasedItemHistoryPage extends PureComponent<IProps, IStates> {
     sortBy: 'updatedAt',
     sort: 'desc',
     filter: {}
-  };
-
-  componentDidMount() {
-    this.userSearchTransactions();
   }
 
-  handleTableChange = async (pagination, filters, sorter) => {
-    const { pagination: paginationVal } = this.state;
+  componentDidMount() {
+    this.userSearchTransactions()
+  }
+
+  handleTableChange = async (pagination:any, filters:any, sorter:any) => {
+    const { pagination: paginationVal } = this.state
     await this.setState({
       pagination: { ...paginationVal, current: pagination.current },
       sortBy: sorter.field || 'updatedAt',
@@ -53,29 +53,29 @@ class PurchasedItemHistoryPage extends PureComponent<IProps, IStates> {
           ? 'desc'
           : 'asc'
         : 'desc'
-    });
-    this.userSearchTransactions();
-  };
+    })
+    this.userSearchTransactions()
+  }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.userSearchTransactions();
+  async handleFilter(values:any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.userSearchTransactions()
   }
 
   async userSearchTransactions() {
     try {
       const {
         filter, sort, sortBy, pagination
-      } = this.state;
-      await this.setState({ searching: true });
+      } = this.state
+      await this.setState({ searching: true })
       const resp = await tokenTransactionService.search({
         ...filter,
         sort,
         sortBy,
         limit: pagination.pageSize,
         offset: (pagination.current - 1) * pagination.pageSize
-      });
+      })
       this.setState({
         searching: false,
         paymentList: resp.data.data,
@@ -83,17 +83,17 @@ class PurchasedItemHistoryPage extends PureComponent<IProps, IStates> {
           ...pagination,
           total: resp.data.total
         }
-      });
+      })
     } catch (error) {
-      message.error(getResponseError(await error));
-      this.setState({ searching: false });
+      message.error(getResponseError(await error))
+      this.setState({ searching: false })
     }
   }
 
   render() {
     const {
       paymentList, searching, pagination
-    } = this.state;
+    } = this.state
     const type = [
       {
         key: '',
@@ -144,7 +144,7 @@ class PurchasedItemHistoryPage extends PureComponent<IProps, IStates> {
         key: 'public_chat',
         text: 'Paid Streaming'
       }
-    ];
+    ]
     return (
       <Layout>
         <Head>
@@ -168,8 +168,8 @@ class PurchasedItemHistoryPage extends PureComponent<IProps, IStates> {
           </div>
         </Page>
       </Layout>
-    );
+    )
   }
 }
 
-export default PurchasedItemHistoryPage;
+export default PurchasedItemHistoryPage

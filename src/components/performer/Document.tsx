@@ -1,15 +1,15 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Button, Row, Col, Image, Switch, message
-} from 'antd';
-import { IPerformer } from 'src/interfaces';
-import { performerService, authService } from '@services/index';
-import { ImageUpload } from '@components/file/image-upload';
+} from 'antd'
+import { IPerformer } from 'src/interfaces'
+import { performerService, authService } from '@services/index'
+import { ImageUpload } from '@components/file/image-upload'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 interface IProps {
   performer: IPerformer;
@@ -21,24 +21,24 @@ export class PerformerDocument extends PureComponent<IProps> {
   state = {
     idVerificationUrl: '',
     documentVerificationUrl: ''
-  };
+  }
 
   componentDidMount() {
-    const { performer } = this.props;
+    const { performer } = this.props
     this.setState({
       idVerificationUrl: performer?.idVerification?.url || '',
       documentVerificationUrl: performer?.documentVerification?.url || ''
-    });
+    })
   }
 
   render() {
     const {
       onFinish, submiting, performer
-    } = this.props;
-    const { idVerificationUrl, documentVerificationUrl } = this.state;
+    } = this.props
+    const { idVerificationUrl, documentVerificationUrl } = this.state
     const uploadHeaders = {
       authorization: authService.getToken()
-    };
+    }
     return (
       <Form {...layout} name="form-performer" onFinish={onFinish.bind(this)}>
         <Row>
@@ -50,9 +50,9 @@ export class PerformerDocument extends PureComponent<IProps> {
               <ImageUpload
                 uploadUrl={`${performerService.getUploadDocumentUrl()}/${performer._id}/idVerificationId`}
                 headers={uploadHeaders}
-                onUploaded={(resp) => {
-                  this.setState({ idVerificationUrl: resp.response.data.url });
-                  message.success('Id photo has been uploaded!');
+                onUploaded={(resp:any) => {
+                  this.setState({ idVerificationUrl: resp.response.data.url })
+                  message.success('Id photo has been uploaded!')
                 }}
               />
               {idVerificationUrl ? (
@@ -68,11 +68,11 @@ export class PerformerDocument extends PureComponent<IProps> {
               <ImageUpload
                 uploadUrl={`${performerService.getUploadDocumentUrl()}/${performer._id}/documentVerificationId`}
                 headers={uploadHeaders}
-                onUploaded={(resp) => {
+                onUploaded={(resp:any) => {
                   this.setState({
                     documentVerificationUrl: resp.response.data.url
-                  });
-                  message.success('Selfie photo has been uploaded!');
+                  })
+                  message.success('Selfie photo has been uploaded!')
                 }}
               />
               {documentVerificationUrl ? (
@@ -97,6 +97,6 @@ export class PerformerDocument extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

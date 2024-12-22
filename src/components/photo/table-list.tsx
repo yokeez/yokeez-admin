@@ -1,10 +1,10 @@
-import { PureComponent } from 'react';
-import { Table, Tag } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { formatDate } from '@lib/date';
-import Link from 'next/link';
-import { ThumbnailPhoto } from '@components/photo/thumbnail-photo';
-import { DropdownAction } from '@components/common/dropdown-action';
+import { PureComponent } from 'react'
+import { Table, Tag } from 'antd'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { formatDate } from '@lib/date'
+import Link from 'next/link'
+import { ThumbnailPhoto } from '@components/photo/thumbnail-photo'
+import { DropdownAction } from '@components/common/dropdown-action'
 
 interface IProps {
   dataSource: [];
@@ -17,13 +17,13 @@ interface IProps {
 
 export class TableListPhoto extends PureComponent<IProps> {
   render() {
-    const { deletePhoto } = this.props;
+    const { deletePhoto } = this.props
     const columns = [
       {
         title: '',
         dataIndex: 'thumbnail',
-        render(data, record) {
-          return <ThumbnailPhoto photo={record} />;
+        render(data: any, record: any) {
+          return <ThumbnailPhoto photo={record} />
         }
       },
       {
@@ -46,18 +46,18 @@ export class TableListPhoto extends PureComponent<IProps> {
         render(status: string) {
           switch (status) {
             case 'active':
-              return <Tag color="green">Active</Tag>;
+              return <Tag color="green">Active</Tag>
             case 'inactive':
-              return <Tag color="red">Inactive</Tag>;
-            default: return <Tag color="default">{status}</Tag>;
+              return <Tag color="red">Inactive</Tag>
+            default: return <Tag color="default">{status}</Tag>
           }
         }
       },
       {
         title: 'Performer',
         dataIndex: 'performer',
-        render(data, record) {
-          return <span>{record.performer && record.performer.username}</span>;
+        render(data: any, record: any) {
+          return <span>{record.performer && record.performer.username}</span>
         }
       },
       {
@@ -65,7 +65,7 @@ export class TableListPhoto extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
@@ -85,11 +85,9 @@ export class TableListPhoto extends PureComponent<IProps> {
                     }}
                     as={`/photos/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 )
               },
@@ -109,10 +107,10 @@ export class TableListPhoto extends PureComponent<IProps> {
           />
         )
       }
-    ];
+    ]
     const {
       dataSource, rowKey, loading, pagination, onChange
-    } = this.props;
+    } = this.props
     return (
       <Table
         dataSource={dataSource}
@@ -122,6 +120,6 @@ export class TableListPhoto extends PureComponent<IProps> {
         pagination={pagination}
         onChange={onChange.bind(this)}
       />
-    );
+    )
   }
 }

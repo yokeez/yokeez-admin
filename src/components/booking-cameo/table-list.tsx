@@ -1,11 +1,11 @@
 import {
   Avatar, Table
-} from 'antd';
-import { formatDate } from '@lib/date';
-import { IPerformer, IUser } from 'src/interfaces';
-import Link from 'next/link';
-import { EyeOutlined } from '@ant-design/icons';
-import { renderBookingStatus } from '@lib/cameo';
+} from 'antd'
+import { formatDate } from '@lib/date'
+import { IPerformer, IUser } from 'src/interfaces'
+import Link from 'next/link'
+import { EyeOutlined } from '@ant-design/icons'
+import { renderBookingStatus } from '@lib/cameo'
 
 interface IProps {
   dataSource: any;
@@ -29,43 +29,43 @@ export function TableListBookingOrder(props: IProps) {
             }}
             as={`/booking/details?id=${id}`}
           >
-            <a>{id.slice(0, 12).toUpperCase()}</a>
+            {id.slice(0, 12).toUpperCase()}
           </Link>
-        );
+        )
       }
     },
     {
       title: 'Model',
       dataIndex: 'performerInfo',
       render(performerInfo: IPerformer) {
-        const performer = performerInfo;
+        const performer = performerInfo
         return (
           <>
             <Avatar src={performer?.avatar || '/no-avatar.png'} />
             {performerInfo?.name || performerInfo?.username}
           </>
-        );
+        )
       }
     },
     {
       title: 'User',
       dataIndex: 'userInfo',
       render(userInfo: IUser) {
-        const user = userInfo;
+        const user = userInfo
         return (
           <>
             <Avatar src={user?.avatar || '/no-avatar.png'} />
             {user?.name || user?.username}
           </>
 
-        );
+        )
       }
     },
     {
       title: 'Status',
       dataIndex: 'status',
       render(status: string) {
-        return renderBookingStatus(status);
+        return renderBookingStatus(status)
       }
     },
     {
@@ -73,7 +73,7 @@ export function TableListBookingOrder(props: IProps) {
       dataIndex: 'updatedAt',
       sorter: true,
       render(date: Date) {
-        return <span>{formatDate(date)}</span>;
+        return <span>{formatDate(date)}</span>
       }
     },
     {
@@ -88,17 +88,15 @@ export function TableListBookingOrder(props: IProps) {
             }}
             as={`/booking/details?id=${id}`}
           >
-            <a>
-              <EyeOutlined />
-            </a>
+            <EyeOutlined />
           </Link>
         </div>
       )
     }
-  ];
+  ]
   const {
     dataSource, rowKey, loading, pagination, onChange
-  } = props;
+  } = props
   return (
     <Table
       dataSource={dataSource}
@@ -106,7 +104,7 @@ export function TableListBookingOrder(props: IProps) {
       rowKey={rowKey}
       loading={loading}
       pagination={pagination}
-      onChange={onChange.bind(this)}
+      onChange={() => onChange()}
     />
-  );
+  )
 }

@@ -1,10 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
-import { formatDate } from '@lib/date';
+import { formatDate } from '@lib/date'
 import {
-  Button, Collapse, Table, Tag
-} from 'antd';
-import { CaretDownOutlined } from '@ant-design/icons';
-import { getGlobalConfig } from '@services/config';
+  Button, Collapse, Table
+} from 'antd'
 
 interface IProps {
   items: any[];
@@ -27,7 +25,7 @@ const reportTableList = ({
       title: 'User',
       dataIndex: 'sourceInfo',
       key: 'sourceInfo',
-      render: (user) => (
+      render: (user:any) => (
         <span>
           {user?.name || user?.username || 'N/A'}
         </span>
@@ -37,7 +35,7 @@ const reportTableList = ({
       title: 'Creator',
       dataIndex: 'performerInfo',
       key: 'performerInfo',
-      render: (performer) => (
+      render: (performer:any) => (
         <span>
           {performer?.name || performer?.username || 'N/A'}
         </span>
@@ -55,7 +53,7 @@ const reportTableList = ({
     {
       title: 'Reason',
       key: 'description',
-      render: (record) => (
+      render: (record:any) => (
         <Collapse ghost accordion expandIconPosition="right">
           <Collapse.Panel
             header={record?.title || record?.description}
@@ -76,15 +74,15 @@ const reportTableList = ({
     {
       title: 'Action',
       key: '_id',
-      render: (report) => (
+      render: (report:any) => (
         <Button type="link">
           <a href={`/feed/update?id=${report.targetId}`}>View</a>
         </Button>
       )
     }
-  ];
+  ]
 
-  const dataSource = items.map((p) => ({ ...p, key: p._id }));
+  const dataSource = items.map((p) => ({ ...p, key: p._id }))
 
   return (
     <Table
@@ -99,6 +97,6 @@ const reportTableList = ({
       loading={searching}
       onChange={onChange.bind(this)}
     />
-  );
-};
-export default reportTableList;
+  )
+}
+export default reportTableList

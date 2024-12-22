@@ -1,24 +1,28 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import Head from 'next/head';
-import { PureComponent, createRef } from 'react';
+import Head from 'next/head'
+import { PureComponent, createRef } from 'react'
 import {
-  Form, Menu, message, Button, Input, Select,
+  Form, Menu, message, Button, Input,
   InputNumber, Switch, Checkbox, Radio
-} from 'antd';
-import Page from '@components/common/layout/page';
-import { settingService } from '@services/setting.service';
-import { ISetting } from 'src/interfaces';
-import Loader from '@components/common/base/loader';
-import { ImageUpload } from '@components/file/image-upload';
-import { authService } from '@services/auth.service';
-import { FormInstance } from 'antd/lib/form';
-import { getResponseError } from '@lib/utils';
-import dynamic from 'next/dynamic';
-import { PaymentSettingsForm } from '@components/setting/payment-settings';
+} from 'antd'
+import Page from '@components/common/layout/page'
+import { settingService } from '@services/setting.service'
+import { ISetting } from 'src/interfaces'
+import Loader from '@components/common/base/loader'
+import { ImageUpload } from '@components/file/image-upload'
+import { authService } from '@services/auth.service'
+import { FormInstance } from 'antd/lib/form'
+import { getResponseError } from '@lib/utils'
+import dynamic from 'next/dynamic'
+import { PaymentSettingsForm } from '@components/setting/payment-settings'
 
 const WYSIWYG = dynamic(() => import('@components/wysiwyg'), {
   ssr: false
-});
+})
+
+interface Settings {
+  [key: string]: any; // Allows any string key with any value
+}
 
 class Settings extends PureComponent {
   state = {
@@ -26,11 +30,11 @@ class Settings extends PureComponent {
     loading: false,
     selectedTab: 'general',
     list: []
-  };
+  }
 
-  formRef: any;
+  formRef: any
 
-  dataChange = {} as any;
+  dataChange = {} as any
 
   smtpInfo = {
     host: '',
@@ -40,155 +44,154 @@ class Settings extends PureComponent {
       user: '',
       password: ''
     }
-  } as any;
+  } as any
 
   componentDidMount() {
-    this.formRef = createRef();
-    this.loadSettings();
+    this.formRef = createRef()
+    this.loadSettings()
   }
 
   async handleTextEditerContentChange(key: string, content: string) {
-    this[key] = content;
-    this.setVal(key, content);
-    this.dataChange[key] = content;
+    this[key] = content
+    this.setVal(key, content)
+    this.dataChange[key] = content
   }
 
-  async onMenuChange(menu) {
+  async onMenuChange(menu:any) {
     await this.setState({
       selectedTab: menu.key
-    });
+    })
 
-    await this.loadSettings();
+    await this.loadSettings()
   }
 
   setVal(field: string, val: any) {
-    this.dataChange[field] = val;
+    this.dataChange[field] = val
   }
 
   setObject(field: string, val: any) {
     if (field === 'user' || field === 'pass') {
-      this.smtpInfo.auth[field] = val;
+      this.smtpInfo.auth[field] = val
     } else {
-      this.smtpInfo[field] = val;
+      this.smtpInfo[field] = val
     }
 
-    this.dataChange.smtpTransporter = this.smtpInfo;
+    this.dataChange.smtpTransporter = this.smtpInfo
   }
 
   async loadSettings() {
-    const { selectedTab } = this.state;
+    const { selectedTab } = this.state
     try {
-      await this.setState({ loading: true });
-      const resp = (await settingService.all(selectedTab)) as any;
-      this.dataChange = {};
+      await this.setState({ loading: true })
+      const resp = (await settingService.all(selectedTab)) as any
+      this.dataChange = {}
       if (selectedTab === 'mailer' && resp.data && resp.data.length) {
-        const info = resp.data.find((data) => data.key === 'smtpTransporter');
-        if (info) this.smtpInfo = info.value;
+        const info = resp.data.find((data:any) => data.key === 'smtpTransporter')
+        if (info) this.smtpInfo = info.value
       }
-      this.setState({ list: resp.data });
+      this.setState({ list: resp.data })
       if (selectedTab === 'general') {
-        const textEditorSettings = resp.data.filter((r) => r.type === 'text-editor');
+        const textEditorSettings = resp.data.filter((r:any) => r.type === 'text-editor')
         if (textEditorSettings && textEditorSettings.length > 0) {
-          textEditorSettings.forEach((t) => {
-            this[t.key] = t.value;
-          });
+          textEditorSettings.forEach((t:any) => {
+            this[t.key] = t.value
+          })
         }
       }
     } catch (e) {
-      const err = await Promise.resolve(e);
-      message.error(getResponseError(err) || 'An error occurred, please try again!');
+      const err = await Promise.resolve(e)
+      message.error(getResponseError(err) || 'An error occurred, please try again!')
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loading: false })
     }
   }
 
   async submit() {
     try {
-      await this.setState({ updating: true });
-      // eslint-disable-next-line no-restricted-syntax
-      for (const key of Object.keys(this.dataChange)) {
+      await this.setState({ updating: true })
+      const updatePromises = Object.keys(this.dataChange).map(async (key) => {
         if (key.indexOf('commission') !== -1) {
           if (!this.dataChange[key]) {
-            return message.error('Missing commission value!');
+            return message.error('Missing commission value!')
           }
           if (Number.isNaN(this.dataChange[key])) {
-            return message.error('Commission must be a number!');
+            return message.error('Commission must be a number!')
           }
           if (this.dataChange[key] <= 0 || this.dataChange[key] >= 1) {
-            return message.error('Commission must be greater than 0 and smaller than 1!');
+            return message.error('Commission must be greater than 0 and smaller than 1!')
           }
         }
-        // eslint-disable-next-line no-await-in-loop
-        await settingService.update(key, this.dataChange[key]);
-      }
-      return message.success('Updated setting successfully');
+        return settingService.update(key, this.dataChange[key])
+      })
+      await Promise.all(updatePromises)
+      return await message.success('Updated setting successfully')
     } catch (e) {
-      const err = await Promise.resolve(e);
-      return message.error(getResponseError(err));
+      const err = await Promise.resolve(e)
+      return await message.error(getResponseError(err))
     } finally {
-      this.setState({ updating: false });
+      this.setState({ updating: false })
     }
   }
 
   async verifyMailer() {
     try {
-      this.setState({ updating: true });
-      const resp = await settingService.verifyMailer();
+      this.setState({ updating: true })
+      const resp = await settingService.verifyMailer()
       if (resp.data.hasError) {
-        return message.error(JSON.stringify(resp.data.error || 'Could not verify this SMTP transporter'));
+        return await message.error(JSON.stringify(resp.data.error || 'Could not verify this SMTP transporter'))
       }
-      message.success('We\'ve sent and test email, please check your email inbox or spam folder');
+      message.success('We\'ve sent and test email, please check your email inbox or spam folder')
     } catch (e) {
-      const err = await Promise.resolve(e);
-      message.error(err ? JSON.stringify(err) : 'Could not verify this SMTP transporter');
+      const err = await Promise.resolve(e)
+      message.error(err ? JSON.stringify(err) : 'Could not verify this SMTP transporter')
     } finally {
       // eslint-disable-next-line no-unsafe-finally
-      return this.setState({ updating: false });
+      return this.setState({ updating: false })
     }
   }
 
   renderUpload(setting: ISetting, ref: any) {
     if (!setting.meta || !setting.meta.upload) {
-      return null;
+      return null
     }
     const uploadHeaders = {
       authorization: authService.getToken()
-    };
+    }
     return (
       <div style={{ padding: '10px 0' }} key={`upload${setting._id}`}>
         <ImageUpload
           image={setting.value}
           uploadUrl={settingService.getFileUploadUrl()}
           headers={uploadHeaders}
-          onUploaded={(resp) => {
-            const formInstance = this.formRef.current as FormInstance;
+          onUploaded={(resp:any) => {
+            const formInstance = this.formRef.current as FormInstance
             // eslint-disable-next-line no-param-reassign
-            ref.current.input.value = resp.response.data.url;
+            ref.current.input.value = resp.response.data.url
             formInstance.setFieldsValue({
               [setting.key]: resp.response.data.url
-            });
-            this.dataChange[setting.key] = resp.response.data.url;
+            })
+            this.dataChange[setting.key] = resp.response.data.url
           }}
         />
       </div>
-    );
+    )
   }
 
   renderFormItem(setting: ISetting) {
-    const { updating } = this.state;
+    const { updating } = this.state
     // eslint-disable-next-line prefer-const
-    let { type } = setting;
+    let { type } = setting
     if (setting.meta && setting.meta.textarea) {
-      type = 'textarea';
+      type = 'textarea'
     }
-    const ref = createRef() as any;
+    const ref = createRef() as any
     switch (type) {
       case 'textarea':
         return (
           <Form.Item label={setting.name} key={setting._id} help={setting.description} extra={setting.extra}>
             <Input.TextArea defaultValue={setting.value} onChange={(val) => this.setVal(setting.key, val.target.value)} />
           </Form.Item>
-        );
+        )
       case 'number':
         return (
           <Form.Item label={setting.name} key={setting._id} help={setting.description} extra={setting.extra}>
@@ -201,19 +204,19 @@ class Settings extends PureComponent {
               step={(setting.meta && typeof setting.meta.step === 'number') ? setting.meta.step : 1}
             />
           </Form.Item>
-        );
+        )
       case 'text-editor':
         return (
           <Form.Item label={setting.name} key={setting._id} help={setting.description}>
             <WYSIWYG onChange={this.handleTextEditerContentChange.bind(this, setting.key)} html={this[setting.key]} />
           </Form.Item>
-        );
+        )
       case 'boolean':
         return (
           <Form.Item label={setting.name} key={setting._id} help={setting.description} extra={setting.extra} valuePropName="checked">
             <Switch defaultChecked={setting.value} onChange={(val) => this.setVal(setting.key, val)} />
           </Form.Item>
-        );
+        )
       case 'mixed':
         return (
           <div className="ant-row ant-form-item ant-form-item-with-help" key={setting._id} style={{ margin: '15px 0' }}>
@@ -268,7 +271,7 @@ class Settings extends PureComponent {
               </div>
             </div>
           </div>
-        );
+        )
       case 'radio':
         return (
           <Form.Item label={setting.name} key={setting._id} help={setting.description} extra={setting.extra}>
@@ -280,7 +283,7 @@ class Settings extends PureComponent {
               ))}
             </Radio.Group>
           </Form.Item>
-        );
+        )
       default:
         return (
           <Form.Item label={setting.name} key={setting._id} help={setting.description} extra={setting.extra}>
@@ -292,23 +295,23 @@ class Settings extends PureComponent {
             />
             {this.renderUpload(setting, ref)}
           </Form.Item>
-        );
+        )
     }
   }
 
   render() {
     const {
       updating, selectedTab, list, loading
-    } = this.state;
+    } = this.state
     const layout = {
       labelCol: { span: 24 },
       wrapperCol: { span: 24 }
-    };
+    }
 
-    const initialValues = {} as any;
+    const initialValues = {} as any
     list.forEach((item: ISetting) => {
-      initialValues[item.key] = item.value;
-    });
+      initialValues[item.key] = item.value
+    })
     return (
       <>
         <Head>
@@ -333,7 +336,7 @@ class Settings extends PureComponent {
           {loading ? (
             <Loader />
           ) : (
-            <>
+            <div>
               {selectedTab === 'paymentGateways' ? <PaymentSettingsForm settings={list} /> : (
                 <Form
                   {...layout}
@@ -351,12 +354,12 @@ class Settings extends PureComponent {
                   </Form.Item>
                 </Form>
               )}
-            </>
+            </div>
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default Settings;
+export default Settings

@@ -1,16 +1,16 @@
-import { PureComponent } from 'react';
+import { PureComponent } from 'react'
 import {
   Form, Input, Button, message
-} from 'antd';
+} from 'antd'
 
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
 interface IProps {
   onFinish: Function;
@@ -20,7 +20,7 @@ interface IProps {
 
 export class CCbillSettingForm extends PureComponent<IProps> {
   render() {
-    const { ccbillSetting, onFinish, submiting } = this.props;
+    const { ccbillSetting, onFinish, submiting } = this.props
     return (
       <Form
         // {...layout}
@@ -71,6 +71,6 @@ export class CCbillSettingForm extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

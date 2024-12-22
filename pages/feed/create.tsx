@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import FormFeed from '@components/feed/feed-form';
-import { BreadcrumbComponent } from '@components/common';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import FormFeed from '@components/feed/feed-form'
+import { BreadcrumbComponent } from '@components/common'
 
 class FeedCreate extends PureComponent {
   render() {
@@ -18,8 +18,8 @@ class FeedCreate extends PureComponent {
           <FormFeed />
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default FeedCreate;
+export default FeedCreate

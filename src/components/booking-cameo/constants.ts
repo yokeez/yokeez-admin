@@ -1,14 +1,14 @@
 export const RECIPIENT_SOURCE = {
   MYSELF: 'myself',
   SOMEONE_ELSE: 'someone_else'
-};
+}
 
 export const OCCASION_TYPE = {
   BIRTHDAY: 'birthday',
   ADVICE: 'advice',
   QUESTION: 'question',
   OTHER: 'other'
-};
+}
 
 export const QUESTION_KEYS = {
   BIRTHDAY_WHEN: 'birthday_when',
@@ -22,4 +22,4 @@ export const QUESTION_KEYS = {
   OTHER_OCCASION: 'other_occasion',
   OTHER_REASON: 'other_reason',
   TO_KNOW: 'to_know'
-};
+}

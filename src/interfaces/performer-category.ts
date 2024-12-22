@@ -1,4 +1,4 @@
-import { ISearch } from './utils';
+import { ISearch } from './utils'
 
 export interface IPerformerCategory {
   _id: string;

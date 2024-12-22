@@ -1,15 +1,15 @@
 import {
   message
-} from 'antd';
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { SearchFilter } from '@components/common/search-filter';
-import { BreadcrumbComponent } from '@components/common';
-import Page from '@components/common/layout/page';
-import { getResponseError } from 'src/lib/utils';
-import { RequestPayoutTable } from '@components/payout-request/table-list';
-import { IPayoutRequest } from 'src/interfaces';
-import { payoutRequestService } from 'src/services';
+} from 'antd'
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { SearchFilter } from '@components/common/search-filter'
+import { BreadcrumbComponent } from '@components/common'
+import Page from '@components/common/layout/page'
+import { getResponseError } from 'src/lib/utils'
+import { RequestPayoutTable } from '@components/payout-request/table-list'
+import { IPayoutRequest } from 'src/interfaces'
+import { payoutRequestService } from 'src/services'
 
 interface IProps {}
 interface IStates {
@@ -31,7 +31,7 @@ interface IStates {
 
 class PayoutRequestPage extends PureComponent<IProps, IStates> {
   constructor(props: IProps) {
-    super(props);
+    super(props)
     this.state = {
       loading: true,
       data: [],
@@ -45,21 +45,21 @@ class PayoutRequestPage extends PureComponent<IProps, IStates> {
         sorter: 'desc'
       },
       filter: {}
-    };
+    }
   }
 
   componentDidMount() {
-    this.getList();
+    this.getList()
   }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.getList();
+  async handleFilter(values:any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.getList()
   }
 
-  async onHandleTabChange(pagination, filters, sorter) {
-    const { sort, pagination: pager } = this.state;
+  async onHandleTabChange(pagination:any, filters:any, sorter:any) {
+    const { sort, pagination: pager } = this.state
     await this.setState({
       offset: (pagination.current - 1) * pager.pageSize,
       sort: {
@@ -67,21 +67,21 @@ class PayoutRequestPage extends PureComponent<IProps, IStates> {
         sortBy: sorter.field,
         sorter: sorter.order === 'ascend' ? 'asc' : 'desc'
       }
-    });
-    this.getList();
+    })
+    this.getList()
   }
 
   async onDelete(request: IPayoutRequest) {
     try {
-      if (!window.confirm('Are you sure to delete this payout request?')) return;
+      if (!window.confirm('Are you sure to delete this payout request?')) return
       if (request.status !== 'pending') {
-        message.error('Could not delete if status is not PENDING');
-        return;
+        message.error('Could not delete if status is not PENDING')
+        return
       }
-      await payoutRequestService.delete(request._id);
-      this.getList();
+      await payoutRequestService.delete(request._id)
+      this.getList()
     } catch (e) {
-      this.showError(e);
+      this.showError(e)
     }
   }
 
@@ -92,7 +92,7 @@ class PayoutRequestPage extends PureComponent<IProps, IStates> {
       pagination,
       sort,
       query
-    } = this.state;
+    } = this.state
     try {
       const resp = await payoutRequestService.search({
         ...filter,
@@ -100,47 +100,47 @@ class PayoutRequestPage extends PureComponent<IProps, IStates> {
         offset,
         ...query,
         limit: pagination.pageSize
-      });
+      })
       await this.setState({
         data: resp.data.data,
         pagination: { ...pagination, total: resp.data.total }
-      });
+      })
     } catch (e) {
-      this.showError(e);
+      this.showError(e)
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loading: false })
     }
   }
 
-  async setDateRanger(_, dateStrings: string[]) {
-    if (!dateStrings[0] && !dateStrings[1]) {
-      await this.setState({
-        query: {},
-        sort: { sortBy: 'updatedAt', sorter: 'desc' }
-      });
-      this.getList();
-    }
-    if (dateStrings[0] && dateStrings[1]) {
-      await this.setState({
-        query: { fromDate: dateStrings[0], toDate: dateStrings[1] }
-      });
-      this.getList();
-    }
-  }
+  // async setDateRanger(_:any, dateStrings: string[]) {
+  //   if (!dateStrings[0] && !dateStrings[1]) {
+  //     await this.setState({
+  //       query: {},
+  //       sort: { sortBy: 'updatedAt', sorter: 'desc' }
+  //     })
+  //     this.getList()
+  //   }
+  //   if (dateStrings[0] && dateStrings[1]) {
+  //     await this.setState({
+  //       query: { fromDate: dateStrings[0], toDate: dateStrings[1] }
+  //     })
+  //     this.getList()
+  //   }
+  // }
 
-  async showError(e) {
-    const err = await Promise.resolve(e);
-    message.error(getResponseError(err));
+  async showError(e:any) {
+    const err = await Promise.resolve(e)
+    message.error(getResponseError(err))
   }
 
   render() {
-    const { data, loading, pagination } = this.state;
+    const { data, loading, pagination } = this.state
     const statuses = [
       { text: 'All', key: '' },
       { text: 'Pending', key: 'pending' },
       { text: 'Rejected', key: 'rejected' },
       { text: 'Done', key: 'done' }
-    ];
+    ]
     return (
       <>
         <Head>
@@ -167,7 +167,7 @@ class PayoutRequestPage extends PureComponent<IProps, IStates> {
           </div>
         </Page>
       </>
-    );
+    )
   }
 }
-export default PayoutRequestPage;
+export default PayoutRequestPage

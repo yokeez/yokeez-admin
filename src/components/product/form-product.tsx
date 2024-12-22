@@ -1,11 +1,11 @@
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef } from 'react'
 import {
   Form, Input, InputNumber, Select, Upload, Button, message, Progress
-} from 'antd';
-import { IProduct } from 'src/interfaces';
-import { UploadOutlined, CameraOutlined } from '@ant-design/icons';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { FormInstance } from 'antd/lib/form';
+} from 'antd'
+import { IProduct } from 'src/interfaces'
+import { UploadOutlined, CameraOutlined } from '@ant-design/icons'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { FormInstance } from 'antd/lib/form'
 
 interface IProps {
   product?: IProduct;
@@ -18,65 +18,65 @@ interface IProps {
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 const validateMessages = {
   required: 'This field is required!'
-};
+}
 
 export class FormProduct extends PureComponent<IProps> {
   state = {
     previewImageProduct: null,
     isDigitalProduct: false,
     digitalProductName: ''
-  };
+  }
 
-  formRef: any;
+  formRef: any
 
   componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
-    const { product } = this.props;
+    if (!this.formRef) this.formRef = createRef()
+    const { product } = this.props
     if (product) {
       this.setState({
         previewImageProduct: product?.image || '',
         isDigitalProduct: product.type === 'digital'
-      });
+      })
     }
   }
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
+    })
     if (field === 'type') {
-      this.setState({ isDigitalProduct: val === 'digital' });
+      this.setState({ isDigitalProduct: val === 'digital' })
     }
   }
 
-  beforeUpload(file, field) {
-    const { beforeUpload: handleUpload } = this.props;
+  beforeUpload(file:any, field:any) {
+    const { beforeUpload: handleUpload }:any = this.props
     if (field === 'image') {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => this.setState({ previewImageProduct: reader.result }));
-      reader.readAsDataURL(file);
+      const reader = new FileReader()
+      reader.addEventListener('load', () => this.setState({ previewImageProduct: reader.result }))
+      reader.readAsDataURL(file)
     }
     if (field === 'digitalFile') {
       this.setState({
         digitalProductName: file.name
-      });
+      })
     }
-    handleUpload(file, field);
-    return false;
+    handleUpload(file, field)
+    return false
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
+    if (!this.formRef) this.formRef = createRef()
     const {
       product, submit, uploading, uploadPercentage
-    } = this.props;
-    const { previewImageProduct, isDigitalProduct, digitalProductName } = this.state;
-    const haveProduct = !!product;
+    } = this.props
+    const { previewImageProduct, isDigitalProduct, digitalProductName } = this.state
+    const haveProduct = !!product
     return (
       <Form
         {...layout}
@@ -103,7 +103,7 @@ export class FormProduct extends PureComponent<IProps> {
             placeholder="Select creator"
             disabled={haveProduct}
             defaultValue={product && product.performerId}
-            onSelect={(val) => this.setFormVal('performerId', val)}
+            onSelect={(val:any) => this.setFormVal('performerId', val)}
           />
         </Form.Item>
         <Form.Item name="name" rules={[{ required: true, message: 'Please input name of product!' }]} label="Name">
@@ -178,6 +178,6 @@ export class FormProduct extends PureComponent<IProps> {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }

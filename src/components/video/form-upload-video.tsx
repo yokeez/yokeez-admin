@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef } from 'react'
 import {
   Form, Input, Select, Upload, Button, message, Progress, Switch, DatePicker,
   Col, Row, InputNumber, Avatar, Modal
-} from 'antd';
-import { IVideo } from 'src/interfaces';
-import { CameraOutlined, VideoCameraAddOutlined, FileAddOutlined } from '@ant-design/icons';
-import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown';
-import { performerService, getGlobalConfig, videoService } from '@services/index';
-import { FormInstance } from 'antd/lib/form';
-import moment from 'moment-timezone';
-import { debounce } from 'lodash';
-import { VideoPlayer } from '@components/common';
-import timezones from 'timezones-list';
+} from 'antd'
+import { IVideo } from 'src/interfaces'
+import { CameraOutlined, VideoCameraAddOutlined, FileAddOutlined } from '@ant-design/icons'
+import { SelectPerformerDropdown } from '@components/performer/common/select-performer-dropdown'
+import { performerService, getGlobalConfig, videoService } from '@services/index'
+import { FormInstance } from 'antd/lib/form'
+import moment from 'moment-timezone'
+import { debounce } from 'lodash'
+import { VideoPlayer } from '@components/common'
+import timezones from 'timezones-list'
 
 interface IProps {
   video?: IVideo;
@@ -25,7 +25,7 @@ interface IProps {
 const layout = {
   labelCol: { span: 24 },
   wrapperCol: { span: 24 }
-};
+}
 
 export class FormUploadVideo extends PureComponent<IProps> {
   state = {
@@ -46,13 +46,13 @@ export class FormUploadVideo extends PureComponent<IProps> {
     previewUrl: '',
     previewType: '',
     timezone: ''
-  };
+  }
 
-  formRef: any;
+  formRef: any
 
   componentDidMount() {
-    if (!this.formRef) this.formRef = createRef();
-    const { video } = this.props;
+    if (!this.formRef) this.formRef = createRef()
+    const { video } = this.props
     if (video) {
       this.setState(
         {
@@ -63,47 +63,47 @@ export class FormUploadVideo extends PureComponent<IProps> {
           isSchedule: video.isSchedule,
           scheduledAt: video.scheduledAt || moment().add(1, 'day')
         }
-      );
+      )
     }
-    this.getPerformers('', video?.participantIds || '');
+    this.getPerformers('', video?.participantIds || '')
   }
 
   async handleRemovefile(type: string) {
-    if (!window.confirm('Confirm to remove file!')) return;
-    const { video } = this.props;
+    if (!window.confirm('Confirm to remove file!')) return
+    const { video }:any = this.props
     try {
-      await videoService.deleteFile(video._id, type);
-      type === 'teaser' && this.setState({ removedTeaser: true });
-      type === 'thumbnail' && this.setState({ removedThumbnail: true });
+      await videoService.deleteFile(video._id, type)
+      type === 'teaser' && this.setState({ removedTeaser: true })
+      type === 'thumbnail' && this.setState({ removedThumbnail: true })
     } catch (e) {
-      const err = await e;
-      message.error(err?.message || 'Error occured, please try again later');
+      const err:any = await e
+      message.error(err?.message || 'Error occured, please try again later')
     }
   }
 
-  getPerformers = debounce(async (q, performerIds) => {
+  getPerformers = debounce(async (q:any, performerIds:any) => {
     try {
-      const resp = await (await performerService.search({ q, performerIds: performerIds || '', limit: 99 })).data;
-      const performers = resp.data || [];
-      this.setState({ performers, firstLoadPerformer: true });
+      const resp = await (await performerService.search({ q, performerIds: performerIds || '', limit: 99 })).data
+      const performers = resp.data || []
+      this.setState({ performers, firstLoadPerformer: true })
     } catch (e) {
-      const err = await e;
-      message.error(err?.message || 'Error occured');
-      this.setState({ firstLoadPerformer: true });
+      const err:any = await e
+      message.error(err?.message || 'Error occured')
+      this.setState({ firstLoadPerformer: true })
     }
-  }, 500);
+  }, 500)
 
   setFormVal(field: string, val: any) {
-    const instance = this.formRef.current as FormInstance;
+    const instance = this.formRef.current as FormInstance
     instance.setFieldsValue({
       [field]: val
-    });
+    })
   }
 
   previewModal = () => {
     const {
       isShowPreview, previewUrl, previewType
-    } = this.state;
+    } = this.state
     return (
       <Modal
         width={767}
@@ -138,61 +138,61 @@ export class FormUploadVideo extends PureComponent<IProps> {
           />
         )}
       </Modal>
-    );
-  };
+    )
+  }
 
   beforeUpload(file: File, field: string) {
-    const { beforeUpload: beforeUploadHandler } = this.props;
-    let maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_FILE || 100;
+    const { beforeUpload: beforeUploadHandler } = this.props
+    let maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_FILE || 100
     switch (field) {
       case 'thumbnail':
-        maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_IMAGE || 5;
-        break;
-      case 'teaser': maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200;
-        break;
-      case 'video': maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_VIDEO || 2048;
-        break;
-      default: break;
+        maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_IMAGE || 5
+        break
+      case 'teaser': maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200
+        break
+      case 'video': maxSize = getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_VIDEO || 2048
+        break
+      default: break
     }
-    const valid = file.size / 1024 / 1024 < maxSize;
+    const valid = file.size / 1024 / 1024 < maxSize
     if (!valid) {
       // eslint-disable-next-line no-nested-ternary
-      message.error(`${field === 'thumbnail' ? 'Thumbnail' : field === 'teaser' ? 'Teaser' : 'Video'} must be smaller than ${maxSize}MB!`);
-      return false;
+      message.error(`${field === 'thumbnail' ? 'Thumbnail' : field === 'teaser' ? 'Teaser' : 'Video'} must be smaller than ${maxSize}MB!`)
+      return false
     }
-    if (field === 'thumbnail') this.setState({ selectedThumbnail: file });
-    if (field === 'teaser') this.setState({ selectedTeaser: file });
-    if (field === 'video') this.setState({ selectedVideo: file });
-    beforeUploadHandler(file, field);
-    return true;
+    if (field === 'thumbnail') this.setState({ selectedThumbnail: file })
+    if (field === 'teaser') this.setState({ selectedTeaser: file })
+    if (field === 'video') this.setState({ selectedVideo: file })
+    beforeUploadHandler(file, field)
+    return true
   }
 
   render() {
-    if (!this.formRef) this.formRef = createRef();
+    if (!this.formRef) this.formRef = createRef()
     const {
       video, submit, uploading, uploadPercentage = 0
-    } = this.props;
+    } = this.props
     const {
       previewThumbnail, previewVideo, isSchedule, previewTeaserVideo, scheduledAt,
       selectedTeaser, selectedThumbnail, selectedVideo, isSaleVideo, performers, firstLoadPerformer,
       removedTeaser, removedThumbnail, timezone
-    } = this.state;
+    }:any = this.state
     return (
       <Form
         {...layout}
         onFinish={(values) => {
-          const data = { ...values };
+          const data = { ...values }
           if (data.status === 'file-error') {
-            message.error('Video file is on error, please upload new one');
-            return;
+            message.error('Video file is on error, please upload new one')
+            return
           }
           if (data.isSchedule) {
-            data.scheduledAt = scheduledAt.tz(timezone);
+            data.scheduledAt = scheduledAt.tz(timezone)
           }
           if (data.tags && data.tags.length) {
-            data.tags = data.tags.map((t) => t.replace(/\s+/g, '_').toLowerCase());
+            data.tags = data.tags.map((t:any) => t.replace(/\s+/g, '_').toLowerCase())
           }
-          submit(data);
+          submit(data)
         }}
         name="form-upload"
         ref={this.formRef}
@@ -215,7 +215,7 @@ export class FormUploadVideo extends PureComponent<IProps> {
           <SelectPerformerDropdown
             showAll
             defaultValue={video?.performerId || ''}
-            onSelect={(val) => this.setFormVal('performerId', val)}
+            onSelect={(val:any) => this.setFormVal('performerId', val)}
           />
         </Form.Item>
         <Form.Item
@@ -251,12 +251,14 @@ export class FormUploadVideo extends PureComponent<IProps> {
             showSearch
             placeholder="Search performers here"
             optionFilterProp="children"
-            onSearch={this.getPerformers.bind(this)}
+            onSearch={() => {
+              this.getPerformers.bind(this)
+            }}
             loading={uploading}
           >
             {performers
               && performers.length > 0
-              && performers.map((p) => (
+              && performers.map((p:any) => (
                 <Select.Option key={p._id} value={p._id}>
                   <Avatar src={p?.avatar || '/no-avatar.png'} />
                   {' '}
@@ -430,6 +432,6 @@ export class FormUploadVideo extends PureComponent<IProps> {
         </Form.Item>
         {this.previewModal()}
       </Form>
-    );
+    )
   }
 }

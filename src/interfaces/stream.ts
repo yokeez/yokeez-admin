@@ -1,26 +1,26 @@
 /* eslint-disable no-shadow */
-export const PUBLIC_CHAT = 'public';
-export const PRIVATE_CHAT = 'private';
-export const GROUP_CHAT = 'group';
-export const OFFLINE = 'offline';
-export const MODEL_STREAM_CHANNEL = 'MODEL_STREAM_CHANNEL';
+export const PUBLIC_CHAT = 'public'
+export const PRIVATE_CHAT = 'private'
+export const GROUP_CHAT = 'group'
+export const OFFLINE = 'offline'
+export const MODEL_STREAM_CHANNEL = 'MODEL_STREAM_CHANNEL'
 
-export enum MODEL_STREAM_EVENT_NAME {
+export enum ModelStreamEventName {
   GROUP_START = 'GROUP_START',
-  PRIVATE_ACCPET = 'PRIVATE_ACCPET'
+  PRIVATE_ACCPET = 'PRIVATE_ACCPET',
 }
 
 export enum BroadcastStatus {
   FINISHED = 'finished',
   BROADCASTING = 'broadcasting',
-  CREATED = 'created'
+  CREATED = 'created',
 }
 
 export enum BroadcastType {
   LiveStream = 'liveStream',
   IpCamera = 'ipCamera',
   StreamSource = 'streamSource',
-  Vod = 'Vod'
+  Vod = 'Vod',
 }
 
 export interface IOneTimeToken {
@@ -41,8 +41,8 @@ export interface StreamSettings {
   AntMediaAppname: string;
 }
 
-export const HLS = 'hls';
-export const WEBRTC = 'webrtc';
+export const HLS = 'hls'
+export const WEBRTC = 'webrtc'
 
 export const defaultStreamValue = {
   publish: true,
@@ -64,4 +64,4 @@ export const defaultStreamValue = {
   absoluteStartTimeMs: 0,
   webRTCViewerLimit: -1,
   hlsViewerLimit: -1
-};
+}

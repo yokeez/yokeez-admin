@@ -1,22 +1,22 @@
 /* eslint-disable no-nested-ternary */
-import Head from 'next/head';
-import Link from 'next/link';
-import { PureComponent } from 'react';
+import Head from 'next/head'
+import Link from 'next/link'
+import { PureComponent } from 'react'
 import {
   Table, message, Breadcrumb, Dropdown, Menu, Button
-} from 'antd';
+} from 'antd'
 import {
   HomeOutlined,
   DownOutlined,
   EditOutlined,
   DeleteOutlined
-} from '@ant-design/icons';
-import Page from '@components/common/layout/page';
-import { performerCategoryService } from '@services/perfomer-category.service';
-import { formatDate } from '@lib/date';
-import { SearchFilter } from '@components/common/search-filter';
+} from '@ant-design/icons'
+import Page from '@components/common/layout/page'
+import { performerCategoryService } from '@services/perfomer-category.service'
+import { formatDate } from '@lib/date'
+import { SearchFilter } from '@components/common/search-filter'
 
-interface IProps {}
+interface IProps { }
 
 class Categories extends PureComponent<IProps> {
   state = {
@@ -27,59 +27,59 @@ class Categories extends PureComponent<IProps> {
     filter: {} as any,
     sortBy: 'ordering',
     sort: 'asc'
-  };
-
-  componentDidMount() {
-    this.search();
   }
 
-  handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...pagination };
-    pager.current = pagination.current;
+  componentDidMount() {
+    this.search()
+  }
+
+  handleTableChange = (pagination: any, filters: any, sorter: any) => {
+    const pager = { ...pagination }
+    pager.current = pagination.current
     this.setState({
       pagination: pager,
       sortBy: sorter.field || '',
       sort: sorter.order ? (sorter.order === 'descend' ? 'desc' : 'asc') : ''
-    });
-    this.search(pager.current);
-  };
+    })
+    this.search(pager.current)
+  }
 
-  async handleFilter(values) {
-    const { filter } = this.state;
-    await this.setState({ filter: { ...filter, ...values } });
-    this.search();
+  async handleFilter(values: any) {
+    const { filter } = this.state
+    await this.setState({ filter: { ...filter, ...values } })
+    this.search()
   }
 
   async deleteCategory(id: string) {
-    const { pagination } = this.state;
+    const { pagination } = this.state
     if (!window.confirm('Are you sure you want to delete this category?')) {
-      return false;
+      return false
     }
     try {
-      await performerCategoryService.delete(id);
-      message.success('Deleted successfully');
-      await this.search(pagination.current);
+      await performerCategoryService.delete(id)
+      message.success('Deleted successfully')
+      await this.search(pagination.current)
     } catch (e) {
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
+      const err: any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
     }
-    return undefined;
+    return undefined
   }
 
   async search(page = 1) {
     const {
       filter, limit, sort,
       sortBy, pagination
-    } = this.state;
+    } = this.state
     try {
-      await this.setState({ searching: true });
+      await this.setState({ searching: true })
       const resp = await performerCategoryService.search({
         ...filter,
         limit,
         offset: (page - 1) * limit,
         sort,
         sortBy
-      });
+      })
       await this.setState({
         searching: false,
         list: resp.data.data,
@@ -88,35 +88,33 @@ class Categories extends PureComponent<IProps> {
           total: resp.data.total,
           pageSize: limit
         }
-      });
+      })
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      await this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      await this.setState({ searching: false })
     }
   }
 
   render() {
-    const { list, searching, pagination } = this.state;
+    const { list, searching, pagination } = this.state
     const columns = [
       {
         title: 'Name',
         dataIndex: 'name',
         sorter: true,
-        render(data, record) {
+        render(data: any, record: any) {
           return (
-            <>
-              <Link
-                href={{
-                  pathname: '/creator/category/update',
-                  query: {
-                    id: record._id
-                  }
-                }}
-              >
-                <a style={{ fontWeight: 'bold' }}>{record.name}</a>
-              </Link>
-            </>
-          );
+            <Link
+              href={{
+                pathname: '/creator/category/update',
+                query: {
+                  id: record._id
+                }
+              }}
+            >
+              <a style={{ fontWeight: 'bold' }}>{record.name}</a>
+            </Link>
+          )
         }
       },
       {
@@ -124,7 +122,7 @@ class Categories extends PureComponent<IProps> {
         dataIndex: 'ordering',
         sorter: true,
         render(ordering: number) {
-          return <span>{ordering}</span>;
+          return <span>{ordering}</span>
         }
       },
       {
@@ -132,7 +130,7 @@ class Categories extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>;
+          return <span>{formatDate(date)}</span>
         }
       },
       {
@@ -150,11 +148,9 @@ class Categories extends PureComponent<IProps> {
                     }}
                     as={`/creator/category/update?id=${id}`}
                   >
-                    <a>
-                      <EditOutlined />
-                      {' '}
-                      Update
-                    </a>
+                    <EditOutlined />
+                    {' '}
+                    Update
                   </Link>
                 </Menu.Item>
                 <Menu.Item
@@ -168,7 +164,7 @@ class Categories extends PureComponent<IProps> {
                   </span>
                 </Menu.Item>
               </Menu>
-              )}
+            )}
           >
             <Button>
               Actions
@@ -178,7 +174,7 @@ class Categories extends PureComponent<IProps> {
           </Dropdown>
         )
       }
-    ];
+    ]
     return (
       <>
         <Head>
@@ -207,8 +203,8 @@ class Categories extends PureComponent<IProps> {
           </div>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default Categories;
+export default Categories

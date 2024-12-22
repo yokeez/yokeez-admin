@@ -1,5 +1,5 @@
-import { IPerformer } from './performer';
-import { IUser } from './user';
+import { IPerformer } from './performer'
+import { IUser } from './user'
 
 export interface IBooking {
   _id: string;

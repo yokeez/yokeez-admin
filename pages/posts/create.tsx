@@ -1,65 +1,65 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
 
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
 import {
   Form, Input, Select, Button, Breadcrumb, message
-} from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import { postService } from '@services/post.service';
-import Router from 'next/router';
+} from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
+import { postService } from '@services/post.service'
+import Router from 'next/router'
 
 const WYSIWYG = dynamic(() => import('@components/wysiwyg'), {
   ssr: false
-});
+})
 
 class PostCreate extends PureComponent<any> {
-  private _content: string = '';
+  private _content: string = ''
 
   state = {
     submiting: false
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    const { query } = ctx;
+  static async getInitialProps({ ctx }:any) {
+    const { query } = ctx
     if (!query.type) {
-      query.type = 'post';
+      query.type = 'post'
     }
-    return query;
+    return query
   }
 
   async submit(data: any) {
-    const { type } = this.props;
+    const { type } = this.props
 
     try {
-      await this.setState({ submiting: true });
+      await this.setState({ submiting: true })
       const submitData = {
         ...data,
         content: this._content,
         type
-      };
-      await postService.create(submitData);
-      message.success('Created successfully');
+      }
+      await postService.create(submitData)
+      message.success('Created successfully')
       // TODO - redirect
       Router.push(
         {
           pathname: '/posts'
         },
         '/posts'
-      );
+      )
     } catch (e) {
-      message.error('Something went wrong, please try again!');
-      this.setState({ submiting: false });
+      message.error('Something went wrong, please try again!')
+      this.setState({ submiting: false })
     }
   }
 
   contentChange(content: string) {
-    this._content = content;
+    this._content = content
   }
 
   render() {
-    const { submiting } = this.state;
+    const { submiting } = this.state
     return (
       <>
         <Head>
@@ -118,8 +118,8 @@ class PostCreate extends PureComponent<any> {
           </Form>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default PostCreate;
+export default PostCreate

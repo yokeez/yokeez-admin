@@ -1,15 +1,15 @@
 import {
   Form, Input, Button, Row, Layout, message
-} from 'antd';
-import { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import Head from 'next/head';
-import { login } from '@redux/auth/actions';
-import Link from 'next/link';
-import './index.less';
-import { getGlobalConfig } from '@services/config';
+} from 'antd'
+import { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import Head from 'next/head'
+import { login } from '@redux/auth/actions'
+import Link from 'next/link'
+import './index.less'
+import { getGlobalConfig } from '@services/config'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 interface IProps {
   loginAuth: any;
@@ -18,30 +18,25 @@ interface IProps {
 }
 
 class Login extends PureComponent<IProps> {
-  static layout: string = 'public';
+  static layout: string = 'public'
 
-  static authenticate: boolean = false;
+  static authenticate: boolean = false
 
-  async componentDidUpdate(preProps) {
-    const { loginAuth } = this.props;
-    const { error } = loginAuth;
+  async componentDidUpdate(preProps:any) {
+    const { loginAuth } = this.props
+    const { error } = loginAuth
     if (preProps?.loginAuth?.error !== error && error) {
-      const e = await error;
-      message.error(e?.message || 'Error occured, please try again', 5);
+      const e = await error
+      message.error(e?.message || 'Error occured, please try again', 5)
     }
   }
 
-  handleOk = (data) => {
-    const { login: handlerLogin } = this.props;
-    handlerLogin(data);
-  };
-
   render() {
-    const { ui, login: handlerLogin } = this.props;
+    const { ui, login: handlerLogin } = this.props
     const {
       loginAuth = { requesting: false, error: null, success: false }
-    } = this.props;
-    const config = getGlobalConfig();
+    } = this.props
+    const config = getGlobalConfig()
     return (
       <Layout>
         <Head>
@@ -95,7 +90,7 @@ class Login extends PureComponent<IProps> {
             </Form>
             <p>
               <Link href="/auth/forgot">
-                <a>Forgot password?</a>
+                Forgot password?
               </Link>
             </p>
           </div>
@@ -110,13 +105,13 @@ class Login extends PureComponent<IProps> {
           {new Date().getFullYear()}
         </div>
       </Layout>
-    );
+    )
   }
 }
 
 const mapStates = (state: any) => ({
   loginAuth: state.auth.login,
   ui: state.ui
-});
-const mapDispatch = { login };
-export default connect(mapStates, mapDispatch)(Login);
+})
+const mapDispatch = { login }
+export default connect(mapStates, mapDispatch)(Login)

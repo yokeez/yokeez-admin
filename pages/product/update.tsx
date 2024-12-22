@@ -1,22 +1,22 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import { message } from 'antd';
-import { productService } from '@services/product.service';
-import { IProduct } from 'src/interfaces';
-import Loader from '@components/common/base/loader';
-import { BreadcrumbComponent } from '@components/common';
-import { FormProduct } from '@components/product/form-product';
-import Router from 'next/router';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import { message } from 'antd'
+import { productService } from '@services/product.service'
+import { IProduct } from 'src/interfaces'
+import Loader from '@components/common/base/loader'
+import { BreadcrumbComponent } from '@components/common'
+import { FormProduct } from '@components/product/form-product'
+import Router from 'next/router'
 
 interface IProps {
   id: string;
 }
 
-interface IFiles {
-  fieldname: string;
-  file: File;
-}
+// interface IFiles {
+//   fieldname: string;
+//   file: File;
+// }
 
 class ProductUpdate extends PureComponent<IProps> {
   state = {
@@ -24,74 +24,76 @@ class ProductUpdate extends PureComponent<IProps> {
     fetching: true,
     product: {} as IProduct,
     uploadPercentage: 0
-  };
+  }
 
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   _files: {
-    image: File;
-    digitalFile: File;
+    image: File | null;
+    digitalFile: File | null;
   } = {
-    image: null,
-    digitalFile: null
-  };
+      image: null,
+      digitalFile: null
+    }
 
   async componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const resp = await productService.findById(id);
-      this.setState({ product: resp.data });
+      const resp = await productService.findById(id)
+      this.setState({ product: resp.data })
     } catch (e) {
-      message.error('Product not found!');
+      message.error('Product not found!')
     } finally {
-      this.setState({ fetching: false });
+      this.setState({ fetching: false })
     }
   }
 
   onUploading(resp: any) {
     if (this._files.image || this._files.digitalFile) {
-      this.setState({ uploadPercentage: resp.percentage });
+      this.setState({ uploadPercentage: resp.percentage })
     }
   }
 
-  beforeUpload(file: File, field: string) {
-    this._files[field] = file;
+  beforeUpload(file: File, field: keyof typeof this._files) {
+    this._files[field] = file
   }
 
   async submit(data: any) {
-    const { id } = this.props;
+    const { id } = this.props
     try {
       const files = Object.keys(this._files).reduce((f, key) => {
-        if (this._files[key]) {
+        const typedKey = key as keyof typeof this._files
+        if (this._files[typedKey]) {
           f.push({
-            fieldname: key,
-            file: this._files[key] || null
-          });
+            fieldname: typedKey,
+            file: this._files[typedKey]
+          })
         }
-        return f;
-      }, [] as IFiles[]) as [IFiles];
-      await this.setState({ submiting: true });
+        return f
+      }, [] as any)
+
+      await this.setState({ submiting: true })
       await productService.update(
         id,
         files,
         data,
         this.onUploading.bind(this)
-      );
-      message.success('Updated successfully');
-      Router.push('/product');
+      )
+      message.success('Updated successfully')
+      Router.push('/product')
     } catch (e) {
       // TODO - check and show error here
-      message.error('Something went wrong, please try again!');
-      this.setState({ submiting: false });
+      message.error('Something went wrong, please try again!')
+      this.setState({ submiting: false })
     }
   }
 
   render() {
     const {
       product, submiting, fetching, uploadPercentage
-    } = this.state;
+    } = this.state
     return (
       <>
         <Head>
@@ -118,8 +120,8 @@ class ProductUpdate extends PureComponent<IProps> {
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default ProductUpdate;
+export default ProductUpdate

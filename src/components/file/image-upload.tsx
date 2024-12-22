@@ -1,15 +1,15 @@
-import { Upload, message } from 'antd';
-import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
-import { PureComponent } from 'react';
-import { getGlobalConfig } from '@services/config';
+import { Upload, message } from 'antd'
+import { LoadingOutlined, CameraOutlined } from '@ant-design/icons'
+import { PureComponent } from 'react'
+import { getGlobalConfig } from '@services/config'
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+function getBase64(img:any, callback:any) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
-function beforeUpload(file) {
+function beforeUpload(file:any) {
   // const ext = file.name.split('.').pop().toLowerCase();
   // const isImageAccept = env.imageAccept
   //   .split(',')
@@ -18,13 +18,13 @@ function beforeUpload(file) {
   // if (isImageAccept === -1) {
   //   message.error(`You can only upload ${env.imageAccept} file!`);
   // }
-  const config = getGlobalConfig();
-  const isMaxSize = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5);
+  const config = getGlobalConfig()
+  const isMaxSize = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5)
   if (!isMaxSize) {
-    message.error(`Image must smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`);
-    return false;
+    message.error(`Image must smaller than ${config.NEXT_PUBLIC_MAX_SIZE_IMAGE || 5}MB!`)
+    return false
   }
-  return true;
+  return true
 }
 
 interface IState {
@@ -44,35 +44,35 @@ export class ImageUpload extends PureComponent<IProps, IState> {
   state = {
     loading: false,
     imageUrl: ''
-  };
+  }
 
-  handleChange = (info) => {
-    const { onUploaded } = this.props;
+  handleChange = (info:any) => {
+    const { onUploaded } = this.props
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
+      this.setState({ loading: true })
+      return
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) => {
+      getBase64(info.file.originFileObj, (imageUrl:any) => {
         this.setState({
           imageUrl,
           loading: false
-        });
+        })
         onUploaded
           && onUploaded({
             response: info.file.response,
             base64: imageUrl
-          });
-      });
+          })
+      })
     }
-  };
+  }
 
   render() {
-    const { loading, imageUrl } = this.state;
+    const { loading, imageUrl } = this.state
     const {
       options = {}, image, headers, uploadUrl
-    } = this.props;
+    } = this.props
     return (
       <Upload
         accept={'image/*'}
@@ -88,6 +88,6 @@ export class ImageUpload extends PureComponent<IProps, IState> {
         {(imageUrl || image) && <img src={imageUrl || image} alt="file" style={{ width: '100%' }} />}
         {loading ? <LoadingOutlined /> : <CameraOutlined />}
       </Upload>
-    );
+    )
   }
 }

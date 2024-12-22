@@ -1,27 +1,22 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import { message } from 'antd';
-import { videoService } from '@services/video.service';
-import { IVideo } from 'src/interfaces';
-import Loader from '@components/common/base/loader';
-import { BreadcrumbComponent } from '@components/common';
-import { FormUploadVideo } from '@components/video/form-upload-video';
-import Router from 'next/router';
-import moment from 'moment';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import { message } from 'antd'
+import { videoService } from '@services/video.service'
+import { IVideo } from 'src/interfaces'
+import Loader from '@components/common/base/loader'
+import { BreadcrumbComponent } from '@components/common'
+import { FormUploadVideo } from '@components/video/form-upload-video'
+import Router from 'next/router'
+import moment from 'moment'
 
 interface IProps {
   id: string;
 }
 
-interface IFiles {
-  fieldname: string;
-  file: File;
-}
-
 class VideoUpdate extends PureComponent<IProps> {
-  static async getInitialProps({ ctx }) {
-    return ctx.query;
+  static async getInitialProps({ ctx }:any) {
+    return ctx.query
   }
 
   state = {
@@ -29,86 +24,87 @@ class VideoUpdate extends PureComponent<IProps> {
     uploading: false,
     uploadPercentage: 0,
     video: {} as IVideo
-  };
+  }
 
   _files: {
-    thumbnail: File;
-    video: File;
-    teaser: File;
+    thumbnail: File | null;
+    video: File | null;
+    teaser: File | null;
   } = {
-    thumbnail: null,
-    video: null,
-    teaser: null
-  };
+      thumbnail: null,
+      video: null,
+      teaser: null
+    }
 
   async componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props
     try {
-      const resp = await videoService.findById(id);
-      this.setState({ video: resp.data });
+      const resp = await videoService.findById(id)
+      this.setState({ video: resp.data })
     } catch (e) {
-      message.error('Video not found!');
+      message.error('Video not found!')
     } finally {
-      this.setState({ fetching: false });
+      this.setState({ fetching: false })
     }
   }
 
   onUploading(resp: any) {
-    this.setState({ uploadPercentage: resp.percentage });
+    this.setState({ uploadPercentage: resp.percentage })
   }
 
-  beforeUpload(file: File, field: string) {
-    this._files[field] = file;
+  beforeUpload(file: File, field: keyof typeof this._files) {
+    this._files[field] = file
   }
 
   async submit(data: IVideo) {
     if ((data.isSale && !data.price) || (data.isSale && data.price < 1)) {
-      message.error('Invalid amount of tokens');
-      return;
+      message.error('Invalid amount of tokens')
+      return
     }
     if (
       (data.isSchedule && !data.scheduledAt)
       || (data.isSchedule && moment(data.scheduledAt).isBefore(moment()))
     ) {
-      message.error('Invalid schedule date');
-      return;
+      message.error('Invalid schedule date')
+      return
     }
     // eslint-disable-next-line no-param-reassign
-    data.tags = [...data.tags];
+    data.tags = [...data.tags]
     const files = Object.keys(this._files).reduce((f, key) => {
-      if (this._files[key]) {
+      const typedKey = key as keyof typeof this._files // Explicitly cast the key
+      if (this._files[typedKey]) {
         f.push({
-          fieldname: key,
-          file: this._files[key] || null
-        });
+          fieldname: typedKey,
+          file: this._files[typedKey]
+        })
       }
-      return f;
-    }, [] as IFiles[]) as [IFiles];
+      return f
+    }, [] as any)
 
     await this.setState({
       uploading: true
-    });
-    const { video } = this.state;
+    })
+    const { video } = this.state
     try {
       await videoService.update(
         video._id,
         files,
         data,
         this.onUploading.bind(this)
-      );
-      message.success('Video has been uploaded');
+      )
+      message.success('Video has been uploaded')
       // TODO - process for response data?
-      Router.push('/video');
+      Router.push('/video')
     } catch (error) {
-      message.error('An error occurred, please try again!');
-      this.setState({ uploading: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ uploading: false })
     }
   }
 
   render() {
     const {
       video, uploading, fetching, uploadPercentage
-    } = this.state;
+    } = this.state
     return (
       <>
         <Head>
@@ -134,8 +130,8 @@ class VideoUpdate extends PureComponent<IProps> {
           )}
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default VideoUpdate;
+export default VideoUpdate

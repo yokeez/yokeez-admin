@@ -1,13 +1,13 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import Page from '@components/common/layout/page';
-import Link from 'next/link';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import Page from '@components/common/layout/page'
+import Link from 'next/link'
 import {
   Form, Input, Button, Breadcrumb, message, InputNumber
-} from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+} from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
 // import { performerCategoryService } from '@services/perfomer-category.service';
-import Router from 'next/router';
+import Router from 'next/router'
 
 interface IFormValue {
   name: string;
@@ -19,36 +19,36 @@ interface IFormValue {
 class CategoryCreate extends PureComponent<any> {
   state = {
     submiting: false
-  };
+  }
 
   async submit() {
     try {
-      this.setState({ submiting: true });
+      this.setState({ submiting: true })
 
       // const submitData = {
       //   ...data
       // };
       // const resp = await performerCategoryService.create(submitData);
-      message.success('Created successfully');
+      message.success('Created successfully')
       // TODO - redirect
       Router.push(
         {
           pathname: '/creator/category'
         },
         '/creator/category'
-      );
+      )
     } catch (e) {
       // TODO - check and show error here
-      const err = (await Promise.resolve(e)) || {};
-      message.error(err.message || 'An error occurred, please try again!');
-      this.setState({ submiting: false });
+      const err: any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
+      this.setState({ submiting: false })
     } finally {
-      this.setState({ submiting: false });
+      this.setState({ submiting: false })
     }
   }
 
   render() {
-    const { submiting } = this.state;
+    const { submiting } = this.state
     return (
       <>
         <Head>
@@ -61,7 +61,7 @@ class CategoryCreate extends PureComponent<any> {
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link href="/creator/category" as="/creator/category">
-                <a>Categories</a>
+                Categories
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>Create new category</Breadcrumb.Item>
@@ -104,8 +104,8 @@ class CategoryCreate extends PureComponent<any> {
           </Form>
         </Page>
       </>
-    );
+    )
   }
 }
 
-export default CategoryCreate;
+export default CategoryCreate

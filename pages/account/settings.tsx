@@ -1,14 +1,14 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Tabs, message } from 'antd';
-import Page from '@components/common/layout/page';
-import { AccountForm } from '@components/user/account-form';
-import { IUser, ICountry } from 'src/interfaces';
-import { updateUser, updateCurrentUserAvatar } from 'src/redux/user/actions';
-import { authService, userService } from '@services/index';
-import { UpdatePaswordForm } from '@components/user/update-password-form';
-import { utilsService } from '@services/utils.service';
+import Head from 'next/head'
+import { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { Tabs, message } from 'antd'
+import Page from '@components/common/layout/page'
+import { AccountForm } from '@components/user/account-form'
+import { IUser, ICountry } from 'src/interfaces'
+import { updateUser, updateCurrentUserAvatar } from 'src/redux/user/actions'
+import { authService, userService } from '@services/index'
+import { UpdatePaswordForm } from '@components/user/update-password-form'
+import { utilsService } from '@services/utils.service'
 
 interface IProps {
   currentUser: IUser;
@@ -19,56 +19,61 @@ interface IProps {
   updateSuccess?: boolean;
 }
 class AccountSettings extends PureComponent<IProps> {
-  static async getInitialProps({ ctx }) {
-    const resp = await utilsService.countriesList();
+  static defaultProps = {
+    updating: false,
+    updateSuccess: false
+  }
+
+  static async getInitialProps({ ctx }: any) {
+    const resp = await utilsService.countriesList()
     return {
       countries: resp.data,
       ...ctx.query
-    };
+    }
   }
 
   state = {
     pwUpdating: false
-  };
+  }
 
   componentDidUpdate(prevProps: any) {
-    const { updateSuccess: handlerUpdate } = this.props;
+    const { updateSuccess: handlerUpdate } = this.props
     if (prevProps.updateSuccess !== handlerUpdate && handlerUpdate) {
-      message.success('Updated successfully!');
+      message.success('Updated successfully!')
     }
   }
 
   onAvatarUploaded(data: any) {
-    const { updateCurrentUserAvatar: updateAvatar } = this.props;
-    message.success('Avatar has been updated!');
-    updateAvatar(data.base64);
+    const { updateCurrentUserAvatar: updateAvatar } = this.props
+    message.success('Avatar has been updated!')
+    updateAvatar(data.base64)
   }
 
   submit(data: any) {
-    const { updateUser: handlerUpdateUser } = this.props;
-    handlerUpdateUser(data);
+    const { updateUser: handlerUpdateUser } = this.props
+    handlerUpdateUser(data)
     // TODO - show alert success for update?
     // or move to sagas
   }
 
   async updatePassword(data: any) {
     try {
-      this.setState({ pwUpdating: true });
-      await authService.updatePassword(data.password);
-      message.success('Password has been updated!');
+      this.setState({ pwUpdating: true })
+      await authService.updatePassword(data.password)
+      message.success('Password has been updated!')
     } catch (e) {
-      message.error('An error occurred, please try again!');
+      message.error('An error occurred, please try again!')
     } finally {
-      this.setState({ pwUpdating: false });
+      this.setState({ pwUpdating: false })
     }
   }
 
   render() {
-    const { currentUser, updating, countries } = this.props;
-    const { pwUpdating } = this.state;
+    const { currentUser, updating, countries } = this.props
+    const { pwUpdating } = this.state
     const uploadHeaders = {
       authorization: authService.getToken()
-    };
+    }
     return (
       <>
         <Head>
@@ -99,7 +104,7 @@ class AccountSettings extends PureComponent<IProps> {
           </Tabs>
         </Page>
       </>
-    );
+    )
   }
 }
 
@@ -107,6 +112,6 @@ const mapStates = (state: any) => ({
   currentUser: state.user.current,
   updating: state.user.updating,
   updateSuccess: state.user.updateSuccess
-});
-const mapDispatch = { updateUser, updateCurrentUserAvatar };
-export default connect(mapStates, mapDispatch)(AccountSettings);
+})
+const mapDispatch = { updateUser, updateCurrentUserAvatar }
+export default connect(mapStates, mapDispatch)(AccountSettings)

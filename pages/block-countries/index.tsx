@@ -1,88 +1,88 @@
-import Head from 'next/head';
-import { PureComponent } from 'react';
+import Head from 'next/head'
+import { PureComponent } from 'react'
 import {
   message, Switch, Table, Layout, Input, Spin
-} from 'antd';
-import Page from '@components/common/layout/page';
-import { utilsService, blockCountryService } from '@services/index';
-import { BreadcrumbComponent } from '@components/common';
+} from 'antd'
+import Page from '@components/common/layout/page'
+import { utilsService, blockCountryService } from '@services/index'
+import { BreadcrumbComponent } from '@components/common'
 
 interface IProps {}
 
 class BlockCountries extends PureComponent<IProps> {
-  countries: any;
+  countries: any
 
   state = {
     searching: false,
     submiting: false,
     countries: [] as any,
     blockCountries: [] as any
-  };
-
-  async componentDidMount() {
-    this.searchCountry();
   }
 
-  handleFilterCountry = async (q) => {
+  async componentDidMount() {
+    this.searchCountry()
+  }
+
+  handleFilterCountry = async (q:any) => {
     this.setState({
-      countries: this.countries.filter((c) => {
-        const regex = new RegExp(q.toLowerCase().replace(/[^a-zA-Z0-9]/g, ''), 'i');
-        return regex.test(c.name);
+      countries: this.countries.filter((c:any) => {
+        const regex = new RegExp(q.toLowerCase().replace(/[^a-zA-Z0-9]/g, ''), 'i')
+        return regex.test(c.name)
       })
-    });
+    })
   }
 
   async handleChange(value: boolean, countryCode: string) {
     if (value) {
       try {
-        await this.setState({ submiting: true });
-        await blockCountryService.create(countryCode);
+        await this.setState({ submiting: true })
+        await blockCountryService.create(countryCode)
       } catch (error) {
-        message.error('error');
+        message.error('error')
       } finally {
-        this.setState({ submiting: false });
+        this.setState({ submiting: false })
       }
     }
     if (!value) {
       try {
-        await this.setState({ submiting: true });
-        await blockCountryService.delete(countryCode);
+        await this.setState({ submiting: true })
+        await blockCountryService.delete(countryCode)
       } catch (error) {
-        message.error('error');
+        message.error('error')
       } finally {
-        this.setState({ submiting: false });
+        this.setState({ submiting: false })
       }
     }
   }
 
   async searchCountry() {
     try {
-      await this.setState({ searching: true });
+      await this.setState({ searching: true })
       const [countries, blockCountries] = await Promise.all([
         utilsService.countriesList(),
         blockCountryService.search()
-      ]);
+      ])
       await this.setState({
         searching: false,
         countries: countries?.data,
         blockCountries: blockCountries?.data
-      });
-      this.countries = countries?.data;
+      })
+      this.countries = countries?.data
     } catch (e) {
-      message.error('An error occurred, please try again!');
-      this.setState({ searching: false });
+      message.error('An error occurred, please try again!')
+      this.setState({ searching: false })
     }
   }
 
   render() {
     const {
       countries, searching, blockCountries, submiting
-    } = this.state;
+    } = this.state
     const columns = [
       {
         title: 'Country',
         key: 'name',
-        render: (record) => (
+        render: (record:any) => (
           <span>
             <img src={record.flag} width="50px" alt="flag" />
             &nbsp;
@@ -99,15 +99,15 @@ class BlockCountries extends PureComponent<IProps> {
         title: 'Block',
         dataIndex: 'code',
         key: 'check',
-        render: (code) => (
+        render: (code:any) => (
           <Switch
             disabled={submiting}
-            defaultChecked={!!(blockCountries.length > 0 && blockCountries.find((c) => c.countryCode === code))}
+            defaultChecked={!!(blockCountries.length > 0 && blockCountries.find((c:any) => c.countryCode === code))}
             onChange={(val) => this.handleChange(val, code)}
           />
         )
       }
-    ];
+    ]
     return (
       <Layout>
         <Head>
@@ -122,10 +122,10 @@ class BlockCountries extends PureComponent<IProps> {
               <div className="table-responsive">
                 <Table
                   pagination={false}
-                  dataSource={countries.map((c, index) => {
-                    const d = c;
-                    d.key = index;
-                    return d;
+                  dataSource={countries.map((c:any, index:number) => {
+                    const d = c
+                    d.key = index
+                    return d
                   })}
                   columns={columns}
                 />
@@ -134,8 +134,8 @@ class BlockCountries extends PureComponent<IProps> {
           </div>
         </Page>
       </Layout>
-    );
+    )
   }
 }
 
-export default BlockCountries;
+export default BlockCountries

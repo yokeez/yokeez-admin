@@ -1,7 +1,7 @@
-let globalConfig = {} as any;
+let globalConfig = {} as any
 
 export const setGlobalConfig = (config: any) => {
-  globalConfig = config;
-};
+  globalConfig = config
+}
 
-export const getGlobalConfig = () => globalConfig;
+export const getGlobalConfig = () => globalConfig
