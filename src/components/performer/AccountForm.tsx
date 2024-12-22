@@ -8,9 +8,9 @@ import {
   Switch,
   Row,
   Col,
-  Upload,
-  Checkbox,
-  Progress,
+  // Upload,
+  // Checkbox,
+  // Progress,
   Modal,
   DatePicker
 } from 'antd'
@@ -21,13 +21,13 @@ import {
   IPhoneCodes,
   IBody
 } from 'src/interfaces'
-import { UploadOutlined } from '@ant-design/icons'
+// import { UploadOutlined } from '@ant-design/icons'
 import { AvatarUpload } from '@components/user/avatar-upload'
 import { CoverUpload } from '@components/user/cover-upload'
 import {
   authService,
-  performerService,
-  getGlobalConfig
+  performerService
+  // getGlobalConfig
 } from '@services/index'
 import Router from 'next/router'
 import moment from 'moment'
@@ -65,14 +65,14 @@ interface IProps {
   bodyInfo: IBody
 }
 
-const genders = [{text: 'Male', value: 'male'}, {text: 'Female', value: 'female'}]
+const genders = [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }]
 
 export class AccountForm extends PureComponent<IProps> {
   state = {
     isUploadingVideo: false,
-    uploadVideoPercentage: 0,
+    // uploadVideoPercentage: 0,
     previewVideoUrl: '',
-    previewVideoName: '',
+    // previewVideoName: '',
     isShowPreview: false,
     coverUrl: ''
   }
@@ -81,43 +81,42 @@ export class AccountForm extends PureComponent<IProps> {
     const { performer } = this.props
     this.setState({
       previewVideoUrl: performer?.welcomeVideoPath,
-      previewVideoName: performer?.welcomeVideoName,
+      // previewVideoName: performer?.welcomeVideoName,
       coverUrl: performer?.cover || ''
     })
   }
 
-  handleVideoChange = (info: any) => {
-    info.file
-      && info.file.percent
-      && this.setState({ uploadVideoPercentage: info.file.percent })
-    if (info.file.status === 'uploading') {
-      this.setState({ isUploadingVideo: true })
-      return
-    }
-    if (info.file.status === 'done') {
-      message.success('Intro video was uploaded')
-      this.setState({
-        isUploadingVideo: false,
-        previewVideoUrl: info?.file?.response?.data?.url,
-        previewVideoName: info?.file?.response?.data?.name
-      })
-    }
-  }
+  // handleVideoChange = (info: any) => {
+  //   info.file
+  //     && info.file.percent
+  //     && this.setState({ uploadVideoPercentage: info.file.percent })
+  //   if (info.file.status === 'uploading') {
+  //     this.setState({ isUploadingVideo: true })
+  //     return
+  //   }
+  //   if (info.file.status === 'done') {
+  //     message.success('Intro video was uploaded')
+  //     this.setState({
+  //       isUploadingVideo: false,
+  //       previewVideoUrl: info?.file?.response?.data?.url,
+  //       previewVideoName: info?.file?.response?.data?.name
+  //     })
+  //   }
+  // }
 
-  beforeUploadVideo = (file:any) => {
-    const isValid = file.size / 1024 / 1024
-      < (getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200)
-    if (!isValid) {
-      message.error(
-        `File is too large please provide an file ${
-          getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200
-        }MB or below`
-      )
-      return false
-    }
-    this.setState({ previewVideoName: file.name })
-    return true
-  }
+  // beforeUploadVideo = (file: any) => {
+  //   const isValid = file.size / 1024 / 1024
+  //     < (getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200)
+  //   if (!isValid) {
+  //     message.error(
+  //       `File is too large please provide an file ${getGlobalConfig().NEXT_PUBLIC_MAX_SIZE_TEASER || 200
+  //       }MB or below`
+  //     )
+  //     return false
+  //   }
+  //   this.setState({ previewVideoName: file.name })
+  //   return true
+  // }
 
   render() {
     const {
@@ -129,9 +128,9 @@ export class AccountForm extends PureComponent<IProps> {
       onBeforeUpload
     } = this.props
     const {
-      uploadVideoPercentage,
+      // uploadVideoPercentage,
       isUploadingVideo,
-      previewVideoName,
+      // previewVideoName,
       previewVideoUrl,
       isShowPreview,
       coverUrl
@@ -182,7 +181,7 @@ export class AccountForm extends PureComponent<IProps> {
                   headers={uploadHeaders}
                   uploadUrl={performer ? performerService.getAvatarUploadUrl(performer?._id) : ''}
                   onUploaded={() => onUploaded && onUploaded('avatar')}
-                  onBeforeUpload={(f:any) => onBeforeUpload && onBeforeUpload(f, 'avatar')}
+                  onBeforeUpload={(f: any) => onBeforeUpload && onBeforeUpload(f, 'avatar')}
                   image={performer?.avatar || ''}
                 />
               </div>
@@ -192,8 +191,8 @@ export class AccountForm extends PureComponent<IProps> {
                   image={performer?.cover || ''}
                   headers={uploadHeaders}
                   uploadUrl={performer ? performerService.getCoverUploadUrl(performer?._id) : ''}
-                  onBeforeUpload={(f:any) => onBeforeUpload && onBeforeUpload(f, 'cover')}
-                  onUploaded={({ base64 }:any) => {
+                  onBeforeUpload={(f: any) => onBeforeUpload && onBeforeUpload(f, 'cover')}
+                  onUploaded={({ base64 }: any) => {
                     this.setState({ coverUrl: base64 })
                     onUploaded && onUploaded('cover')
                   }}

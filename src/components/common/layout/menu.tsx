@@ -23,12 +23,12 @@ export class SiderMenu extends PureComponent<IProps> {
     this.setState({ openKeys })
   }
 
-  onOpenChange = (openKeys:any) => {
+  onOpenChange = (openKeys: any) => {
     const { menus } = this.props
-    const rootSubmenuKeys = menus.filter((_:any) => !_.menuParentId).map((_:any) => _.id)
+    const rootSubmenuKeys = menus.filter((_: any) => !_.menuParentId).map((_: any) => _.id)
 
     const latestOpenKey = openKeys.find(
-      (key:any) => openKeys.indexOf(key) === -1
+      (key: any) => openKeys.indexOf(key) === -1
     )
 
     let newOpenKeys = openKeys
@@ -44,9 +44,9 @@ export class SiderMenu extends PureComponent<IProps> {
     const pathname = process.browser ? Router.pathname : ''
     const withoutQuery = pathname.split('?')[0]
     let found = false
-    let results:any = []
+    let results: any = []
     // TODO - optimize me if needed or more level
-    menus.forEach((menu:any) => {
+    menus.forEach((menu: any) => {
       if (found) return
       const menuRoute = menu.route ? menu.route.split('?')[0] : ''
       if (menu.route === pathname || menuRoute === withoutQuery) {
@@ -55,7 +55,7 @@ export class SiderMenu extends PureComponent<IProps> {
         return
       }
       if (menu.children) {
-        menu.children.forEach((cmenu:any) => {
+        menu.children.forEach((cmenu: any) => {
           if (found) return
           const menuRoutes = cmenu.route ? cmenu.route.split('?')[0] : ''
           if (cmenu.route === pathname || menuRoutes === withoutQuery) {
@@ -68,7 +68,7 @@ export class SiderMenu extends PureComponent<IProps> {
     return results
   }
 
-  generateMenus = (data:any) => data.map((item:any) => {
+  generateMenus = (data: any) => data.map((item: any) => {
     if (item.children) {
       return (
         <Menu.SubMenu
@@ -78,7 +78,7 @@ export class SiderMenu extends PureComponent<IProps> {
               {item.icon}
               <span>{item.name}</span>
             </>
-            )}
+          )}
         >
           {this.generateMenus(item.children)}
         </Menu.SubMenu>
@@ -94,12 +94,12 @@ export class SiderMenu extends PureComponent<IProps> {
     )
   })
 
-  flatten(menus:any, flattenMenus:any = []) {
-    menus.forEach((m:any) => {
+  flatten(menus: any, flattenMenus: any = []) {
+    menus.forEach((m: any) => {
       if (m.children) {
         this.flatten(m.children, flattenMenus)
       }
-      const tmp:any = { ...m }
+      const tmp: any = { ...m }
       delete tmp.children
       flattenMenus.push(tmp)
     })
@@ -122,7 +122,7 @@ export class SiderMenu extends PureComponent<IProps> {
         // selectedKeys={this.state.selectedKeys}
         openKeys={openKeys}
         onOpenChange={this.onOpenChange.bind(this)}
-        style={{height: '100%'}}
+        style={{ height: '100%' }}
         // onClick={
         //   isMobile
         //     ? () => {

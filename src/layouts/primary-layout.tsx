@@ -8,7 +8,7 @@ import Sider from '@components/common/layout/sider'
 import { IUIConfig } from 'src/interfaces/ui-config'
 import {
   PieChartOutlined,
-  ContainerOutlined,
+  // ContainerOutlined,
   UserOutlined,
   WomanOutlined,
   StopOutlined,

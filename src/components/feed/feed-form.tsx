@@ -5,7 +5,7 @@ import {
   Input, Form, InputNumber, Radio, Progress, Modal
 } from 'antd'
 import {
-  BarChartOutlined, PictureOutlined, VideoCameraAddOutlined,
+  BarChartOutlined, PictureOutlined,
   PlayCircleOutlined, DeleteOutlined
 } from '@ant-design/icons'
 import UploadList from '@components/file/list-media'
@@ -38,11 +38,11 @@ const validateMessages = {
 export default class FormFeed extends PureComponent<IProps> {
   formRef: any
 
-  pollIds:any = []
+  pollIds: any = []
 
-  thumbnailId:any = null
+  thumbnailId: any = null
 
-  teaserId:any = null
+  teaserId: any = null
 
   state = {
     type: 'text',
@@ -92,7 +92,7 @@ export default class FormFeed extends PureComponent<IProps> {
     }
   }
 
-  onUploading(file:any, resp: any) {
+  onUploading(file: any, resp: any) {
     // eslint-disable-next-line no-param-reassign
     file.percent = resp.percentage
     // eslint-disable-next-line no-param-reassign
@@ -109,7 +109,7 @@ export default class FormFeed extends PureComponent<IProps> {
     }
   }
 
-  async onChangePoll(index:any, e:any) {
+  async onChangePoll(index: any, e: any) {
     const { value } = e.target
     this.setState((prevState: any) => {
       const newItems = [...prevState.pollList]
@@ -118,7 +118,7 @@ export default class FormFeed extends PureComponent<IProps> {
     })
   }
 
-  async onsubmit(feed:any, values:any) {
+  async onsubmit(feed: any, values: any) {
     const { type } = this.state
     try {
       !feed ? await feedService.create({ ...values, type }) : await feedService.update(feed._id, { ...values, type: feed.type })
@@ -130,7 +130,7 @@ export default class FormFeed extends PureComponent<IProps> {
     }
   }
 
-  async onChangePollDuration(numberDays:any) {
+  async onChangePollDuration(numberDays: any) {
     const date = !numberDays ? moment().endOf('day').add(99, 'years') : moment().endOf('day').add(numberDays, 'days')
     this.setState({ openPollDuration: false, expiredPollAt: date, expirePollTime: numberDays })
   }
@@ -147,15 +147,15 @@ export default class FormFeed extends PureComponent<IProps> {
     })
   }
 
-  async remove(file:any) {
+  async remove(file: any) {
     const { fileList, fileIds } = this.state
     this.setState({
-      fileList: fileList.filter((f:any) => (f._id ? f._id !== file._id : f.uid !== file.uid)),
+      fileList: fileList.filter((f: any) => (f._id ? f._id !== file._id : f.uid !== file.uid)),
       fileIds: fileIds.filter((id) => id !== file?._id)
     })
   }
 
-  async beforeUpload(file:any, listFile:any) {
+  async beforeUpload(file: any, listFile: any) {
     const config = getGlobalConfig()
     const { fileList, fileIds } = this.state
     if (file.type.includes('image')) {
@@ -173,7 +173,7 @@ export default class FormFeed extends PureComponent<IProps> {
       }
     }
     if (listFile.indexOf(file) === (listFile.length - 1)) {
-      const files = await Promise.all(listFile.map((f:any) => {
+      const files = await Promise.all(listFile.map((f: any) => {
         const newFile = f
         if (newFile.type.includes('video')) return f
         const reader = new FileReader()
@@ -185,14 +185,14 @@ export default class FormFeed extends PureComponent<IProps> {
         fileList: file.type.includes('video') ? files : [...fileList, ...files],
         uploading: true
       })
-      const newFileIds:any = file.type.includes('video') ? [] : [...fileIds]
+      const newFileIds: any = file.type.includes('video') ? [] : [...fileIds]
       // eslint-disable-next-line no-restricted-syntax
       for (const fileItem of listFile) {
         try {
           // eslint-disable-next-line no-continue
           if (['uploading', 'done'].includes(fileItem.status) || fileItem._id) continue
           fileItem.status = 'uploading'
-          const resp:any = (fileItem.type.indexOf('image') > -1 ? await feedService.uploadPhoto(
+          const resp: any = (fileItem.type.indexOf('image') > -1 ? await feedService.uploadPhoto(
             fileItem,
             {},
             this.onUploading.bind(this, fileItem)
@@ -212,7 +212,7 @@ export default class FormFeed extends PureComponent<IProps> {
     return true
   }
 
-  async beforeUploadThumbnail(file:any) {
+  async beforeUploadThumbnail(file: any) {
     if (!file) {
       return
     }
@@ -239,36 +239,36 @@ export default class FormFeed extends PureComponent<IProps> {
     }
   }
 
-  async beforeUploadteaser(file:any) {
-    if (!file) {
-      return
-    }
-    const config = getGlobalConfig()
-    const valid = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_TEASER || 200)
-    if (!valid) {
-      message.error(`Teaser must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_TEASER || 200}MB`)
-      return
-    }
-    this.setState({ teaser: file })
-    try {
-      const resp = await feedService.uploadTeaser(
-        file,
-        {},
-        this.onUploading.bind(this, file)
-      ) as any
-      this.teaserId = resp.data._id
-    } catch (e) {
-      message.error(`teaser file ${file.name} error!`)
-    } finally {
-      this.setState({ uploading: false })
-    }
-  }
+  // async beforeUploadteaser(file:any) {
+  //   if (!file) {
+  //     return
+  //   }
+  //   const config = getGlobalConfig()
+  //   const valid = file.size / 1024 / 1024 < (config.NEXT_PUBLIC_MAX_SIZE_TEASER || 200)
+  //   if (!valid) {
+  //     message.error(`Teaser must be smaller than ${config.NEXT_PUBLIC_MAX_SIZE_TEASER || 200}MB`)
+  //     return
+  //   }
+  //   this.setState({ teaser: file })
+  //   try {
+  //     const resp = await feedService.uploadTeaser(
+  //       file,
+  //       {},
+  //       this.onUploading.bind(this, file)
+  //     ) as any
+  //     this.teaserId = resp.data._id
+  //   } catch (e) {
+  //     message.error(`teaser file ${file.name} error!`)
+  //   } finally {
+  //     this.setState({ uploading: false })
+  //   }
+  // }
 
   async submit(payload: any) {
     const { feed } = this.props
     const {
       pollList, addPoll, intendedFor, expiredPollAt, fileIds, type
-    }:any = this.state
+    }: any = this.state
     const formValues = payload
     if (!formValues.text || !formValues.text.trim()) {
       return message.error('Please add a description')
@@ -319,7 +319,7 @@ export default class FormFeed extends PureComponent<IProps> {
     const {
       uploading, fileList, pollList, type, teaser, intendedFor,
       addPoll, openPollDuration, expirePollTime, thumbnail, isShowPreviewTeaser
-    }:any = this.state
+    }: any = this.state
     return (
       <div className="feed-form">
         <Form
@@ -344,7 +344,7 @@ export default class FormFeed extends PureComponent<IProps> {
             <SelectPerformerDropdown
               showAll
               defaultValue={feed && (feed?.fromSourceId || '')}
-              onSelect={(val:any) => this.setFormVal('fromSourceId', val)}
+              onSelect={(val: any) => this.setFormVal('fromSourceId', val)}
             />
           </Form.Item>
           <Form.Item name="type" label="Select post type" rules={[{ required: true }]}>
@@ -358,13 +358,13 @@ export default class FormFeed extends PureComponent<IProps> {
             <TextArea className="feed-input" rows={3} placeholder="Add a description" allowClear />
           </Form.Item>
           {['video', 'photo'].includes(type) && (
-          <Form.Item>
-            <Radio.Group value={intendedFor} onChange={(e) => this.setState({ intendedFor: e.target.value })}>
-              <Radio key="subscriber" value="subscriber">Only for Subscribers</Radio>
-              <Radio key="sale" value="sale">Pay per View</Radio>
-              <Radio key="follower" value="follower">Free for Everyone</Radio>
-            </Radio.Group>
-          </Form.Item>
+            <Form.Item>
+              <Radio.Group value={intendedFor} onChange={(e) => this.setState({ intendedFor: e.target.value })}>
+                <Radio key="subscriber" value="subscriber">Only for Subscribers</Radio>
+                <Radio key="sale" value="sale">Pay per View</Radio>
+                <Radio key="follower" value="follower">Free for Everyone</Radio>
+              </Radio.Group>
+            </Form.Item>
           )}
           {intendedFor === 'sale' && (
             <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please add a price' }]}>
@@ -372,12 +372,12 @@ export default class FormFeed extends PureComponent<IProps> {
             </Form.Item>
           )}
           {thumbnail && (
-          <Form.Item label="Thumbnail">
-            <div style={{ position: 'relative', display: 'inline-block' }}>
-              <Button type="primary" onClick={() => this.handleDeleteFile('thumbnail')} style={{ position: 'absolute', top: 2, right: 2 }}><DeleteOutlined /></Button>
-              <Image alt="thumbnail" src={thumbnail?.url} width="200px" />
-            </div>
-          </Form.Item>
+            <Form.Item label="Thumbnail">
+              <div style={{ position: 'relative', display: 'inline-block' }}>
+                <Button type="primary" onClick={() => this.handleDeleteFile('thumbnail')} style={{ position: 'absolute', top: 2, right: 2 }}><DeleteOutlined /></Button>
+                <Image alt="thumbnail" src={thumbnail?.url} width="200px" />
+              </div>
+            </Form.Item>
           )}
           {teaser && (
             <Form.Item label="Teaser">
@@ -450,32 +450,32 @@ export default class FormFeed extends PureComponent<IProps> {
                   {/* eslint-disable-next-line no-nested-ternary */}
                   <Input disabled={!!feed?._id || !pollList.length} className="poll-input" placeholder="Poll 2" value={pollList && pollList.length > 1 && pollList[1]._id ? pollList[1].description : pollList[1] ? pollList[1] : ''} onChange={this.onChangePoll.bind(this, 1)} />
 
-                  {pollList.map((poll:any, index:any) => {
+                  {pollList.map((poll: any, index: any) => {
                     if (index === 0 || index === 1) return null
                     // eslint-disable-next-line react/no-array-index-key
                     return <Input disabled={!!feed?._id} key={`poll_${index}`} placeholder={`Poll ${index + 1}`} value={(poll._id ? poll.description : poll) || ''} className="poll-input" onChange={this.onChangePoll.bind(this, index)} />
                   })}
                   {!feed && pollList.length > 1 && (
-                  <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <a aria-hidden onClick={() => this.setState({ pollList: pollList.concat(['']) })}>Add another option</a>
-                    <a aria-hidden onClick={this.onClearPolls.bind(this)}>
-                      Clear polls
-                    </a>
-                  </p>
+                    <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <a aria-hidden onClick={() => this.setState({ pollList: pollList.concat(['']) })}>Add another option</a>
+                      <a aria-hidden onClick={this.onClearPolls.bind(this)}>
+                        Clear polls
+                      </a>
+                    </p>
                   )}
                 </div>
               </Form.Item>
             )}
           {['photo', 'video'].includes(type) && (
-          <Form.Item label={type === 'video' ? 'Video file' : 'Photo files'}>
-            <UploadList
-              type={feed?.type || type}
-              files={fileList}
-              remove={this.remove.bind(this)}
-              onAddMore={this.beforeUpload.bind(this)}
-              uploading={uploading}
-            />
-          </Form.Item>
+            <Form.Item label={type === 'video' ? 'Video file' : 'Photo files'}>
+              <UploadList
+                type={feed?.type || type}
+                files={fileList}
+                remove={this.remove.bind(this)}
+                onAddMore={this.beforeUpload.bind(this)}
+                uploading={uploading}
+              />
+            </Form.Item>
           )}
           <div style={{ margin: '15px 0' }}>
             {['video'].includes(feed?.type || type) && [
@@ -532,14 +532,14 @@ export default class FormFeed extends PureComponent<IProps> {
               {!feed ? 'POST' : 'UPDATE'}
             </Button>
             {feed && (
-            <Button
-              style={{ marginRight: '20px' }}
-              loading={uploading}
-              disabled={uploading}
-              onClick={() => onDelete?.(feed._id)}
-            >
-              Delete
-            </Button>
+              <Button
+                style={{ marginRight: '20px' }}
+                loading={uploading}
+                disabled={uploading}
+                onClick={() => onDelete?.(feed._id)}
+              >
+                Delete
+              </Button>
             )}
             <Button
               onClick={() => Router.back()}
