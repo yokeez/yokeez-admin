@@ -13,7 +13,7 @@ interface IProps {
 
 export function UpdatePaswordForm({ onFinish, updating = false }: IProps | any) {
   return (
-    <Form name="nest-messages" onFinish={() => onFinish()} {...layout}>
+    <Form name="nest-messages" onFinish={(value) => onFinish(value)} {...layout}>
       <Form.Item
         name="password"
         label="Password"
