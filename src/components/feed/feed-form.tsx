@@ -120,8 +120,13 @@ export default class FormFeed extends PureComponent<IProps> {
 
   async onsubmit(feed: any, values: any) {
     const { type } = this.state
+    let tiersAccess: any = []
+    if (type !== 'text') {
+      tiersAccess = ['tier1']
+    }
+
     try {
-      !feed ? await feedService.create({ ...values, type }) : await feedService.update(feed._id, { ...values, type: feed.type })
+      !feed ? await feedService.create({ ...values, tiersAccess: tiersAccess, type }) : await feedService.update(feed._id, { ...values, type: feed.type })
       message.success(`${!feed ? 'Posted' : 'Updated'} successfully!`)
       Router.replace('/feed')
     } catch {
