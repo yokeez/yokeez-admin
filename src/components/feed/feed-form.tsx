@@ -126,7 +126,7 @@ export default class FormFeed extends PureComponent<IProps> {
     }
 
     try {
-      !feed ? await feedService.create({ ...values, tiersAccess: tiersAccess, type }) : await feedService.update(feed._id, { ...values, type: feed.type })
+      !feed ? await feedService.create({ ...values, tiersAccess, type }) : await feedService.update(feed._id, { ...values, tiersAccess, type: feed.type })
       message.success(`${!feed ? 'Posted' : 'Updated'} successfully!`)
       Router.replace('/feed')
     } catch {
