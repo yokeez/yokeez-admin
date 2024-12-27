@@ -1,8 +1,12 @@
 import { APIRequest } from './api-request'
 
 export class ReportService extends APIRequest {
-  search(data:any) {
+  search(data: any) {
     return this.get(this.buildUrl('/reports', data))
+  }
+
+  delete(id: string) {
+    return this.del(`/report/${id}`)
   }
 }
 

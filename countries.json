@@ -1,0 +1,1087 @@
+[
+    {
+        "name": "Afghanistan",
+        "code": "AF",
+        "flag": "https://api.iamsharukh.com/flags/af.svg"
+    },
+    {
+        "name": "Åland Islands",
+        "code": "AX",
+        "flag": "https://api.iamsharukh.com/flags/ax.svg"
+    },
+    {
+        "name": "Albania",
+        "code": "AL",
+        "flag": "https://api.iamsharukh.com/flags/al.svg"
+    },
+    {
+        "name": "Algeria",
+        "code": "DZ",
+        "flag": "https://api.iamsharukh.com/flags/dz.svg"
+    },
+    {
+        "name": "American Samoa",
+        "code": "AS",
+        "flag": "https://api.iamsharukh.com/flags/as.svg"
+    },
+    {
+        "name": "Andorra",
+        "code": "AD",
+        "flag": "https://api.iamsharukh.com/flags/ad.svg"
+    },
+    {
+        "name": "Angola",
+        "code": "AO",
+        "flag": "https://api.iamsharukh.com/flags/ao.svg"
+    },
+    {
+        "name": "Anguilla",
+        "code": "AI",
+        "flag": "https://api.iamsharukh.com/flags/ai.svg"
+    },
+    {
+        "name": "Antigua and Barbuda",
+        "code": "AG",
+        "flag": "https://api.iamsharukh.com/flags/ag.svg"
+    },
+    {
+        "name": "Argentina",
+        "code": "AR",
+        "flag": "https://api.iamsharukh.com/flags/ar.svg"
+    },
+    {
+        "name": "Armenia",
+        "code": "AM",
+        "flag": "https://api.iamsharukh.com/flags/am.svg"
+    },
+    {
+        "name": "Aruba",
+        "code": "AW",
+        "flag": "https://api.iamsharukh.com/flags/aw.svg"
+    },
+    {
+        "name": "Australia",
+        "code": "AU",
+        "flag": "https://api.iamsharukh.com/flags/au.svg"
+    },
+    {
+        "name": "Austria",
+        "code": "AT",
+        "flag": "https://api.iamsharukh.com/flags/at.svg"
+    },
+    {
+        "name": "Azerbaijan",
+        "code": "AZ",
+        "flag": "https://api.iamsharukh.com/flags/az.svg"
+    },
+    {
+        "name": "Bahamas",
+        "code": "BS",
+        "flag": "https://api.iamsharukh.com/flags/bs.svg"
+    },
+    {
+        "name": "Bahrain",
+        "code": "BH",
+        "flag": "https://api.iamsharukh.com/flags/bh.svg"
+    },
+    {
+        "name": "Bangladesh",
+        "code": "BD",
+        "flag": "https://api.iamsharukh.com/flags/bd.svg"
+    },
+    {
+        "name": "Barbados",
+        "code": "BB",
+        "flag": "https://api.iamsharukh.com/flags/bb.svg"
+    },
+    {
+        "name": "Belarus",
+        "code": "BY",
+        "flag": "https://api.iamsharukh.com/flags/by.svg"
+    },
+    {
+        "name": "Belgium",
+        "code": "BE",
+        "flag": "https://api.iamsharukh.com/flags/be.svg"
+    },
+    {
+        "name": "Belize",
+        "code": "BZ",
+        "flag": "https://api.iamsharukh.com/flags/bz.svg"
+    },
+    {
+        "name": "Benin",
+        "code": "BJ",
+        "flag": "https://api.iamsharukh.com/flags/bj.svg"
+    },
+    {
+        "name": "Bermuda",
+        "code": "BM",
+        "flag": "https://api.iamsharukh.com/flags/bm.svg"
+    },
+    {
+        "name": "Bhutan",
+        "code": "BT",
+        "flag": "https://api.iamsharukh.com/flags/bt.svg"
+    },
+    {
+        "name": "Bolivia (Plurinational State of)",
+        "code": "BO",
+        "flag": "https://api.iamsharukh.com/flags/bo.svg"
+    },
+    {
+        "name": "Bonaire, Sint Eustatius and Saba",
+        "code": "BQ",
+        "flag": "https://api.iamsharukh.com/flags/bq.svg"
+    },
+    {
+        "name": "Bosnia and Herzegovina",
+        "code": "BA",
+        "flag": "https://api.iamsharukh.com/flags/ba.svg"
+    },
+    {
+        "name": "Botswana",
+        "code": "BW",
+        "flag": "https://api.iamsharukh.com/flags/bw.svg"
+    },
+    {
+        "name": "Bouvet Island",
+        "code": "BV",
+        "flag": "https://api.iamsharukh.com/flags/bv.svg"
+    },
+    {
+        "name": "Brazil",
+        "code": "BR",
+        "flag": "https://api.iamsharukh.com/flags/br.svg"
+    },
+    {
+        "name": "British Indian Ocean Territory",
+        "code": "IO",
+        "flag": "https://api.iamsharukh.com/flags/io.svg"
+    },
+    {
+        "name": "United States Minor Outlying Islands",
+        "code": "UM",
+        "flag": "https://api.iamsharukh.com/flags/um.svg"
+    },
+    {
+        "name": "Virgin Islands (British)",
+        "code": "VG",
+        "flag": "https://api.iamsharukh.com/flags/vg.svg"
+    },
+    {
+        "name": "Virgin Islands (U.S.)",
+        "code": "VI",
+        "flag": "https://api.iamsharukh.com/flags/vi.svg"
+    },
+    {
+        "name": "Brunei Darussalam",
+        "code": "BN",
+        "flag": "https://api.iamsharukh.com/flags/bn.svg"
+    },
+    {
+        "name": "Bulgaria",
+        "code": "BG",
+        "flag": "https://api.iamsharukh.com/flags/bg.svg"
+    },
+    {
+        "name": "Burkina Faso",
+        "code": "BF",
+        "flag": "https://api.iamsharukh.com/flags/bf.svg"
+    },
+    {
+        "name": "Burundi",
+        "code": "BI",
+        "flag": "https://api.iamsharukh.com/flags/bi.svg"
+    },
+    {
+        "name": "Cambodia",
+        "code": "KH",
+        "flag": "https://api.iamsharukh.com/flags/kh.svg"
+    },
+    {
+        "name": "Cameroon",
+        "code": "CM",
+        "flag": "https://api.iamsharukh.com/flags/cm.svg"
+    },
+    {
+        "name": "Canada",
+        "code": "CA",
+        "flag": "https://api.iamsharukh.com/flags/ca.svg"
+    },
+    {
+        "name": "Cabo Verde",
+        "code": "CV",
+        "flag": "https://api.iamsharukh.com/flags/cv.svg"
+    },
+    {
+        "name": "Cayman Islands",
+        "code": "KY",
+        "flag": "https://api.iamsharukh.com/flags/ky.svg"
+    },
+    {
+        "name": "Central African Republic",
+        "code": "CF",
+        "flag": "https://api.iamsharukh.com/flags/cf.svg"
+    },
+    {
+        "name": "Chad",
+        "code": "TD",
+        "flag": "https://api.iamsharukh.com/flags/td.svg"
+    },
+    {
+        "name": "Chile",
+        "code": "CL",
+        "flag": "https://api.iamsharukh.com/flags/cl.svg"
+    },
+    {
+        "name": "China",
+        "code": "CN",
+        "flag": "https://api.iamsharukh.com/flags/cn.svg"
+    },
+    {
+        "name": "Christmas Island",
+        "code": "CX",
+        "flag": "https://api.iamsharukh.com/flags/cx.svg"
+    },
+    {
+        "name": "Cocos (Keeling) Islands",
+        "code": "CC",
+        "flag": "https://api.iamsharukh.com/flags/cc.svg"
+    },
+    {
+        "name": "Colombia",
+        "code": "CO",
+        "flag": "https://api.iamsharukh.com/flags/co.svg"
+    },
+    {
+        "name": "Comoros",
+        "code": "KM",
+        "flag": "https://api.iamsharukh.com/flags/km.svg"
+    },
+    {
+        "name": "Congo",
+        "code": "CG",
+        "flag": "https://api.iamsharukh.com/flags/cg.svg"
+    },
+    {
+        "name": "Congo (Democratic Republic of the)",
+        "code": "CD",
+        "flag": "https://api.iamsharukh.com/flags/cd.svg"
+    },
+    {
+        "name": "Cook Islands",
+        "code": "CK",
+        "flag": "https://api.iamsharukh.com/flags/ck.svg"
+    },
+    {
+        "name": "Costa Rica",
+        "code": "CR",
+        "flag": "https://api.iamsharukh.com/flags/cr.svg"
+    },
+    {
+        "name": "Croatia",
+        "code": "HR",
+        "flag": "https://api.iamsharukh.com/flags/hr.svg"
+    },
+    {
+        "name": "Cuba",
+        "code": "CU",
+        "flag": "https://api.iamsharukh.com/flags/cu.svg"
+    },
+    {
+        "name": "Curaçao",
+        "code": "CW",
+        "flag": "https://api.iamsharukh.com/flags/cw.svg"
+    },
+    {
+        "name": "Cyprus",
+        "code": "CY",
+        "flag": "https://api.iamsharukh.com/flags/cy.svg"
+    },
+    {
+        "name": "Czech Republic",
+        "code": "CZ",
+        "flag": "https://api.iamsharukh.com/flags/cz.svg"
+    },
+    {
+        "name": "Denmark",
+        "code": "DK",
+        "flag": "https://api.iamsharukh.com/flags/dk.svg"
+    },
+    {
+        "name": "Djibouti",
+        "code": "DJ",
+        "flag": "https://api.iamsharukh.com/flags/dj.svg"
+    },
+    {
+        "name": "Dominica",
+        "code": "DM",
+        "flag": "https://api.iamsharukh.com/flags/dm.svg"
+    },
+    {
+        "name": "Dominican Republic",
+        "code": "DO",
+        "flag": "https://api.iamsharukh.com/flags/do.svg"
+    },
+    {
+        "name": "Ecuador",
+        "code": "EC",
+        "flag": "https://api.iamsharukh.com/flags/ec.svg"
+    },
+    {
+        "name": "Egypt",
+        "code": "EG",
+        "flag": "https://api.iamsharukh.com/flags/eg.svg"
+    },
+    {
+        "name": "El Salvador",
+        "code": "SV",
+        "flag": "https://api.iamsharukh.com/flags/sv.svg"
+    },
+    {
+        "name": "Equatorial Guinea",
+        "code": "GQ",
+        "flag": "https://api.iamsharukh.com/flags/gq.svg"
+    },
+    {
+        "name": "Eritrea",
+        "code": "ER",
+        "flag": "https://api.iamsharukh.com/flags/er.svg"
+    },
+    {
+        "name": "Estonia",
+        "code": "EE",
+        "flag": "https://api.iamsharukh.com/flags/ee.svg"
+    },
+    {
+        "name": "Ethiopia",
+        "code": "ET",
+        "flag": "https://api.iamsharukh.com/flags/et.svg"
+    },
+    {
+        "name": "Falkland Islands (Malvinas)",
+        "code": "FK",
+        "flag": "https://api.iamsharukh.com/flags/fk.svg"
+    },
+    {
+        "name": "Faroe Islands",
+        "code": "FO",
+        "flag": "https://api.iamsharukh.com/flags/fo.svg"
+    },
+    {
+        "name": "Fiji",
+        "code": "FJ",
+        "flag": "https://api.iamsharukh.com/flags/fj.svg"
+    },
+    {
+        "name": "Finland",
+        "code": "FI",
+        "flag": "https://api.iamsharukh.com/flags/fi.svg"
+    },
+    {
+        "name": "France",
+        "code": "FR",
+        "flag": "https://api.iamsharukh.com/flags/fr.svg"
+    },
+    {
+        "name": "French Guiana",
+        "code": "GF",
+        "flag": "https://api.iamsharukh.com/flags/gf.svg"
+    },
+    {
+        "name": "French Polynesia",
+        "code": "PF",
+        "flag": "https://api.iamsharukh.com/flags/pf.svg"
+    },
+    {
+        "name": "French Southern Territories",
+        "code": "TF",
+        "flag": "https://api.iamsharukh.com/flags/tf.svg"
+    },
+    {
+        "name": "Gabon",
+        "code": "GA",
+        "flag": "https://api.iamsharukh.com/flags/ga.svg"
+    },
+    {
+        "name": "Gambia",
+        "code": "GM",
+        "flag": "https://api.iamsharukh.com/flags/gm.svg"
+    },
+    {
+        "name": "Georgia",
+        "code": "GE",
+        "flag": "https://api.iamsharukh.com/flags/ge.svg"
+    },
+    {
+        "name": "Germany",
+        "code": "DE",
+        "flag": "https://api.iamsharukh.com/flags/de.svg"
+    },
+    {
+        "name": "Ghana",
+        "code": "GH",
+        "flag": "https://api.iamsharukh.com/flags/gh.svg"
+    },
+    {
+        "name": "Gibraltar",
+        "code": "GI",
+        "flag": "https://api.iamsharukh.com/flags/gi.svg"
+    },
+    {
+        "name": "Greece",
+        "code": "GR",
+        "flag": "https://api.iamsharukh.com/flags/gr.svg"
+    },
+    {
+        "name": "Greenland",
+        "code": "GL",
+        "flag": "https://api.iamsharukh.com/flags/gl.svg"
+    },
+    {
+        "name": "Grenada",
+        "code": "GD",
+        "flag": "https://api.iamsharukh.com/flags/gd.svg"
+    },
+    {
+        "name": "Guadeloupe",
+        "code": "GP",
+        "flag": "https://api.iamsharukh.com/flags/gp.svg"
+    },
+    {
+        "name": "Guam",
+        "code": "GU",
+        "flag": "https://api.iamsharukh.com/flags/gu.svg"
+    },
+    {
+        "name": "Guatemala",
+        "code": "GT",
+        "flag": "https://api.iamsharukh.com/flags/gt.svg"
+    },
+    {
+        "name": "Guernsey",
+        "code": "GG",
+        "flag": "https://api.iamsharukh.com/flags/gg.svg"
+    },
+    {
+        "name": "Guinea",
+        "code": "GN",
+        "flag": "https://api.iamsharukh.com/flags/gn.svg"
+    },
+    {
+        "name": "Guinea-Bissau",
+        "code": "GW",
+        "flag": "https://api.iamsharukh.com/flags/gw.svg"
+    },
+    {
+        "name": "Guyana",
+        "code": "GY",
+        "flag": "https://api.iamsharukh.com/flags/gy.svg"
+    },
+    {
+        "name": "Haiti",
+        "code": "HT",
+        "flag": "https://api.iamsharukh.com/flags/ht.svg"
+    },
+    {
+        "name": "Heard Island and McDonald Islands",
+        "code": "HM",
+        "flag": "https://api.iamsharukh.com/flags/hm.svg"
+    },
+    {
+        "name": "Holy See",
+        "code": "VA",
+        "flag": "https://api.iamsharukh.com/flags/va.svg"
+    },
+    {
+        "name": "Honduras",
+        "code": "HN",
+        "flag": "https://api.iamsharukh.com/flags/hn.svg"
+    },
+    {
+        "name": "Hong Kong",
+        "code": "HK",
+        "flag": "https://api.iamsharukh.com/flags/hk.svg"
+    },
+    {
+        "name": "Hungary",
+        "code": "HU",
+        "flag": "https://api.iamsharukh.com/flags/hu.svg"
+    },
+    {
+        "name": "Iceland",
+        "code": "IS",
+        "flag": "https://api.iamsharukh.com/flags/is.svg"
+    },
+    {
+        "name": "India",
+        "code": "IN",
+        "flag": "https://api.iamsharukh.com/flags/in.svg"
+    },
+    {
+        "name": "Indonesia",
+        "code": "ID",
+        "flag": "https://api.iamsharukh.com/flags/id.svg"
+    },
+    {
+        "name": "Côte d'Ivoire",
+        "code": "CI",
+        "flag": "https://api.iamsharukh.com/flags/ci.svg"
+    },
+    {
+        "name": "Iran (Islamic Republic of)",
+        "code": "IR",
+        "flag": "https://api.iamsharukh.com/flags/ir.svg"
+    },
+    {
+        "name": "Iraq",
+        "code": "IQ",
+        "flag": "https://api.iamsharukh.com/flags/iq.svg"
+    },
+    {
+        "name": "Ireland",
+        "code": "IE",
+        "flag": "https://api.iamsharukh.com/flags/ie.svg"
+    },
+    {
+        "name": "Isle of Man",
+        "code": "IM",
+        "flag": "https://api.iamsharukh.com/flags/im.svg"
+    },
+    {
+        "name": "Israel",
+        "code": "IL",
+        "flag": "https://api.iamsharukh.com/flags/il.svg"
+    },
+    {
+        "name": "Italy",
+        "code": "IT",
+        "flag": "https://api.iamsharukh.com/flags/it.svg"
+    },
+    {
+        "name": "Jamaica",
+        "code": "JM",
+        "flag": "https://api.iamsharukh.com/flags/jm.svg"
+    },
+    {
+        "name": "Japan",
+        "code": "JP",
+        "flag": "https://api.iamsharukh.com/flags/jp.svg"
+    },
+    {
+        "name": "Jersey",
+        "code": "JE",
+        "flag": "https://api.iamsharukh.com/flags/je.svg"
+    },
+    {
+        "name": "Jordan",
+        "code": "JO",
+        "flag": "https://api.iamsharukh.com/flags/jo.svg"
+    },
+    {
+        "name": "Kazakhstan",
+        "code": "KZ",
+        "flag": "https://api.iamsharukh.com/flags/kz.svg"
+    },
+    {
+        "name": "Kenya",
+        "code": "KE",
+        "flag": "https://api.iamsharukh.com/flags/ke.svg"
+    },
+    {
+        "name": "Kiribati",
+        "code": "KI",
+        "flag": "https://api.iamsharukh.com/flags/ki.svg"
+    },
+    {
+        "name": "Kuwait",
+        "code": "KW",
+        "flag": "https://api.iamsharukh.com/flags/kw.svg"
+    },
+    {
+        "name": "Kyrgyzstan",
+        "code": "KG",
+        "flag": "https://api.iamsharukh.com/flags/kg.svg"
+    },
+    {
+        "name": "Lao People's Democratic Republic",
+        "code": "LA",
+        "flag": "https://api.iamsharukh.com/flags/la.svg"
+    },
+    {
+        "name": "Latvia",
+        "code": "LV",
+        "flag": "https://api.iamsharukh.com/flags/lv.svg"
+    },
+    {
+        "name": "Lebanon",
+        "code": "LB",
+        "flag": "https://api.iamsharukh.com/flags/lb.svg"
+    },
+    {
+        "name": "Lesotho",
+        "code": "LS",
+        "flag": "https://api.iamsharukh.com/flags/ls.svg"
+    },
+    {
+        "name": "Liberia",
+        "code": "LR",
+        "flag": "https://api.iamsharukh.com/flags/lr.svg"
+    },
+    {
+        "name": "Libya",
+        "code": "LY",
+        "flag": "https://api.iamsharukh.com/flags/ly.svg"
+    },
+    {
+        "name": "Liechtenstein",
+        "code": "LI",
+        "flag": "https://api.iamsharukh.com/flags/li.svg"
+    },
+    {
+        "name": "Lithuania",
+        "code": "LT",
+        "flag": "https://api.iamsharukh.com/flags/lt.svg"
+    },
+    {
+        "name": "Luxembourg",
+        "code": "LU",
+        "flag": "https://api.iamsharukh.com/flags/lu.svg"
+    },
+    {
+        "name": "Macao",
+        "code": "MO",
+        "flag": "https://api.iamsharukh.com/flags/mo.svg"
+    },
+    {
+        "name": "Macedonia (the former Yugoslav Republic of)",
+        "code": "MK",
+        "flag": "https://api.iamsharukh.com/flags/mk.svg"
+    },
+    {
+        "name": "Madagascar",
+        "code": "MG",
+        "flag": "https://api.iamsharukh.com/flags/mg.svg"
+    },
+    {
+        "name": "Malawi",
+        "code": "MW",
+        "flag": "https://api.iamsharukh.com/flags/mw.svg"
+    },
+    {
+        "name": "Malaysia",
+        "code": "MY",
+        "flag": "https://api.iamsharukh.com/flags/my.svg"
+    },
+    {
+        "name": "Maldives",
+        "code": "MV",
+        "flag": "https://api.iamsharukh.com/flags/mv.svg"
+    },
+    {
+        "name": "Mali",
+        "code": "ML",
+        "flag": "https://api.iamsharukh.com/flags/ml.svg"
+    },
+    {
+        "name": "Malta",
+        "code": "MT",
+        "flag": "https://api.iamsharukh.com/flags/mt.svg"
+    },
+    {
+        "name": "Marshall Islands",
+        "code": "MH",
+        "flag": "https://api.iamsharukh.com/flags/mh.svg"
+    },
+    {
+        "name": "Martinique",
+        "code": "MQ",
+        "flag": "https://api.iamsharukh.com/flags/mq.svg"
+    },
+    {
+        "name": "Mauritania",
+        "code": "MR",
+        "flag": "https://api.iamsharukh.com/flags/mr.svg"
+    },
+    {
+        "name": "Mauritius",
+        "code": "MU",
+        "flag": "https://api.iamsharukh.com/flags/mu.svg"
+    },
+    {
+        "name": "Mayotte",
+        "code": "YT",
+        "flag": "https://api.iamsharukh.com/flags/yt.svg"
+    },
+    {
+        "name": "Mexico",
+        "code": "MX",
+        "flag": "https://api.iamsharukh.com/flags/mx.svg"
+    },
+    {
+        "name": "Micronesia (Federated States of)",
+        "code": "FM",
+        "flag": "https://api.iamsharukh.com/flags/fm.svg"
+    },
+    {
+        "name": "Moldova (Republic of)",
+        "code": "MD",
+        "flag": "https://api.iamsharukh.com/flags/md.svg"
+    },
+    {
+        "name": "Monaco",
+        "code": "MC",
+        "flag": "https://api.iamsharukh.com/flags/mc.svg"
+    },
+    {
+        "name": "Mongolia",
+        "code": "MN",
+        "flag": "https://api.iamsharukh.com/flags/mn.svg"
+    },
+    {
+        "name": "Montenegro",
+        "code": "ME",
+        "flag": "https://api.iamsharukh.com/flags/me.svg"
+    },
+    {
+        "name": "Montserrat",
+        "code": "MS",
+        "flag": "https://api.iamsharukh.com/flags/ms.svg"
+    },
+    {
+        "name": "Morocco",
+        "code": "MA",
+        "flag": "https://api.iamsharukh.com/flags/ma.svg"
+    },
+    {
+        "name": "Mozambique",
+        "code": "MZ",
+        "flag": "https://api.iamsharukh.com/flags/mz.svg"
+    },
+    {
+        "name": "Myanmar",
+        "code": "MM",
+        "flag": "https://api.iamsharukh.com/flags/mm.svg"
+    },
+    {
+        "name": "Namibia",
+        "code": "NA",
+        "flag": "https://api.iamsharukh.com/flags/na.svg"
+    },
+    {
+        "name": "Nauru",
+        "code": "NR",
+        "flag": "https://api.iamsharukh.com/flags/nr.svg"
+    },
+    {
+        "name": "Nepal",
+        "code": "NP",
+        "flag": "https://api.iamsharukh.com/flags/np.svg"
+    },
+    {
+        "name": "Netherlands",
+        "code": "NL",
+        "flag": "https://api.iamsharukh.com/flags/nl.svg"
+    },
+    {
+        "name": "New Caledonia",
+        "code": "NC",
+        "flag": "https://api.iamsharukh.com/flags/nc.svg"
+    },
+    {
+        "name": "New Zealand",
+        "code": "NZ",
+        "flag": "https://api.iamsharukh.com/flags/nz.svg"
+    },
+    {
+        "name": "Nicaragua",
+        "code": "NI",
+        "flag": "https://api.iamsharukh.com/flags/ni.svg"
+    },
+    {
+        "name": "Niger",
+        "code": "NE",
+        "flag": "https://api.iamsharukh.com/flags/ne.svg"
+    },
+    {
+        "name": "Nigeria",
+        "code": "NG",
+        "flag": "https://api.iamsharukh.com/flags/ng.svg"
+    },
+    {
+        "name": "Niue",
+        "code": "NU",
+        "flag": "https://api.iamsharukh.com/flags/nu.svg"
+    },
+    {
+        "name": "Norfolk Island",
+        "code": "NF",
+        "flag": "https://api.iamsharukh.com/flags/nf.svg"
+    },
+    {
+        "name": "Korea (Democratic People's Republic of)",
+        "code": "KP",
+        "flag": "https://api.iamsharukh.com/flags/kp.svg"
+    },
+    {
+        "name": "Northern Mariana Islands",
+        "code": "MP",
+        "flag": "https://api.iamsharukh.com/flags/mp.svg"
+    },
+    {
+        "name": "Norway",
+        "code": "NO",
+        "flag": "https://api.iamsharukh.com/flags/no.svg"
+    },
+    {
+        "name": "Oman",
+        "code": "OM",
+        "flag": "https://api.iamsharukh.com/flags/om.svg"
+    },
+    {
+        "name": "Pakistan",
+        "code": "PK",
+        "flag": "https://api.iamsharukh.com/flags/pk.svg"
+    },
+    {
+        "name": "Palau",
+        "code": "PW",
+        "flag": "https://api.iamsharukh.com/flags/pw.svg"
+    },
+    {
+        "name": "Palestine, State of",
+        "code": "PS",
+        "flag": "https://api.iamsharukh.com/flags/ps.svg"
+    },
+    {
+        "name": "Panama",
+        "code": "PA",
+        "flag": "https://api.iamsharukh.com/flags/pa.svg"
+    },
+    {
+        "name": "Papua New Guinea",
+        "code": "PG",
+        "flag": "https://api.iamsharukh.com/flags/pg.svg"
+    },
+    {
+        "name": "Paraguay",
+        "code": "PY",
+        "flag": "https://api.iamsharukh.com/flags/py.svg"
+    },
+    {
+        "name": "Peru",
+        "code": "PE",
+        "flag": "https://api.iamsharukh.com/flags/pe.svg"
+    },
+    {
+        "name": "Philippines",
+        "code": "PH",
+        "flag": "https://api.iamsharukh.com/flags/ph.svg"
+    },
+    {
+        "name": "Pitcairn",
+        "code": "PN",
+        "flag": "https://api.iamsharukh.com/flags/pn.svg"
+    },
+    {
+        "name": "Poland",
+        "code": "PL",
+        "flag": "https://api.iamsharukh.com/flags/pl.svg"
+    },
+    {
+        "name": "Portugal",
+        "code": "PT",
+        "flag": "https://api.iamsharukh.com/flags/pt.svg"
+    },
+    {
+        "name": "Puerto Rico",
+        "code": "PR",
+        "flag": "https://api.iamsharukh.com/flags/pr.svg"
+    },
+    {
+        "name": "Qatar",
+        "code": "QA",
+        "flag": "https://api.iamsharukh.com/flags/qa.svg"
+    },
+    {
+        "name": "Republic of Kosovo",
+        "code": "XK",
+        "flag": "https://api.iamsharukh.com/flags/xk.svg"
+    },
+    {
+        "name": "Réunion",
+        "code": "RE",
+        "flag": "https://api.iamsharukh.com/flags/re.svg"
+    },
+    {
+        "name": "Romania",
+        "code": "RO",
+        "flag": "https://api.iamsharukh.com/flags/ro.svg"
+    },
+    {
+        "name": "Russian Federation",
+        "code": "RU",
+        "flag": "https://api.iamsharukh.com/flags/ru.svg"
+    },
+    {
+        "name": "Rwanda",
+        "code": "RW",
+        "flag": "https://api.iamsharukh.com/flags/rw.svg"
+    },
+    {
+        "name": "Saint Barthélemy",
+        "code": "BL",
+        "flag": "https://api.iamsharukh.com/flags/bl.svg"
+    },
+    {
+        "name": "Saint Helena, Ascension and Tristan da Cunha",
+        "code": "SH",
+        "flag": "https://api.iamsharukh.com/flags/sh.svg"
+    },
+    {
+        "name": "Saint Kitts and Nevis",
+        "code": "KN",
+        "flag": "https://api.iamsharukh.com/flags/kn.svg"
+    },
+    {
+        "name": "Saint Lucia",
+        "code": "LC",
+        "flag": "https://api.iamsharukh.com/flags/lc.svg"
+    },
+    {
+        "name": "Saint Martin (French part)",
+        "code": "MF",
+        "flag": "https://api.iamsharukh.com/flags/mf.svg"
+    },
+    {
+        "name": "Saint Pierre and Miquelon",
+        "code": "PM",
+        "flag": "https://api.iamsharukh.com/flags/pm.svg"
+    },
+    {
+        "name": "Saint Vincent and the Grenadines",
+        "code": "VC",
+        "flag": "https://api.iamsharukh.com/flags/vc.svg"
+    },
+    {
+        "name": "Samoa",
+        "code": "WS",
+        "flag": "https://api.iamsharukh.com/flags/ws.svg"
+    },
+    {
+        "name": "San Marino",
+        "code": "SM",
+        "flag": "https://api.iamsharukh.com/flags/sm.svg"
+    },
+    {
+        "name": "Sao Tome and Principe",
+        "code": "ST",
+        "flag": "https://api.iamsharukh.com/flags/st.svg"
+    },
+    {
+        "name": "Saudi Arabia",
+        "code": "SA",
+        "flag": "https://api.iamsharukh.com/flags/sa.svg"
+    },
+    {
+        "name": "Senegal",
+        "code": "SN",
+        "flag": "https://api.iamsharukh.com/flags/sn.svg"
+    },
+    {
+        "name": "Serbia",
+        "code": "RS",
+        "flag": "https://api.iamsharukh.com/flags/rs.svg"
+    },
+    {
+        "name": "Seychelles",
+        "code": "SC",
+        "flag": "https://api.iamsharukh.com/flags/sc.svg"
+    },
+    {
+        "name": "Sierra Leone",
+        "code": "SL",
+        "flag": "https://api.iamsharukh.com/flags/sl.svg"
+    },
+    {
+        "name": "Singapore",
+        "code": "SG",
+        "flag": "https://api.iamsharukh.com/flags/sg.svg"
+    },
+    {
+        "name": "Sint Maarten (Dutch part)",
+        "code": "SX",
+        "flag": "https://api.iamsharukh.com/flags/sx.svg"
+    },
+    {
+        "name": "Slovakia",
+        "code": "SK",
+        "flag": "https://api.iamsharukh.com/flags/sk.svg"
+    },
+    {
+        "name": "Slovenia",
+        "code": "SI",
+        "flag": "https://api.iamsharukh.com/flags/si.svg"
+    },
+    {
+        "name": "Solomon Islands",
+        "code": "SB",
+        "flag": "https://api.iamsharukh.com/flags/sb.svg"
+    },
+    {
+        "name": "Somalia",
+        "code": "SO",
+        "flag": "https://api.iamsharukh.com/flags/so.svg"
+    },
+    {
+        "name": "South Africa",
+        "code": "ZA",
+        "flag": "https://api.iamsharukh.com/flags/za.svg"
+    },
+    {
+        "name": "South Georgia and the South Sandwich Islands",
+        "code": "GS",
+        "flag": "https://api.iamsharukh.com/flags/gs.svg"
+    },
+    {
+        "name": "Korea (Republic of)",
+        "code": "KR",
+        "flag": "https://api.iamsharukh.com/flags/kr.svg"
+    },
+    {
+        "name": "South Sudan",
+        "code": "SS",
+        "flag": "https://api.iamsharukh.com/flags/ss.svg"
+    },
+    {
+        "name": "Spain",
+        "code": "ES",
+        "flag": "https://api.iamsharukh.com/flags/es.svg"
+    },
+    {
+        "name": "Sri Lanka",
+        "code": "LK",
+        "flag": "https://api.iamsharukh.com/flags/lk.svg"
+    },
+    {
+        "name": "Sudan",
+        "code": "SD",
+        "flag": "https://api.iamsharukh.com/flags/sd.svg"
+    },
+    {
+        "name": "Suriname",
+        "code": "SR",
+        "flag": "https://api.iamsharukh.com/flags/sr.svg"
+    },
+    {
+        "name": "Svalbard and Jan Mayen",
+        "code": "SJ",
+        "flag": "https://api.iamsharukh.com/flags/sj.svg"
+    },
+    {
+        "name": "Swaziland",
+        "code": "SZ",
+        "flag": "https://api.iamsharukh.com/flags/sz.svg"
+    }
+]

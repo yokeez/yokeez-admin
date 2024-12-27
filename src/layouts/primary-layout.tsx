@@ -63,7 +63,7 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
     Router.events.on('routeChangeComplete', async () => this.setState({ routerChange: false }))
   }
 
-  onCollapseChange = (collapsed:any) => {
+  onCollapseChange = (collapsed: any) => {
     const { updateUIValue: handleUpdateUI } = this.props
     handleUpdateUI({ collapsed })
   }
@@ -383,12 +383,12 @@ class PrimaryLayout extends PureComponent<DefaultProps> {
             name: 'All subscriptions',
             id: 'subscription',
             route: '/subscription'
-          },
-          {
-            name: 'Create new',
-            id: 'create-subscription',
-            route: '/subscription/create'
           }
+          // {
+          //   name: 'Create new',
+          //   id: 'create-subscription',
+          //   route: '/subscription/create'
+          // }
         ]
       },
       // {

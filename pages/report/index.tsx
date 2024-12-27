@@ -20,7 +20,7 @@ export default class Index extends PureComponent {
     this.getData()
   }
 
-  async handleTabChange(data:any) {
+  async handleTabChange(data: any) {
     await this.setState({ offset: data.current - 1 })
     this.getData()
   }
@@ -39,10 +39,23 @@ export default class Index extends PureComponent {
         reportList: resp.data.data,
         totalReport: resp.data.total
       })
-    } catch (error:any) {
+    } catch (error: any) {
       message.error(error?.message || 'An error occured. Please try again.')
     } finally {
       this.setState({ loading: false })
+    }
+  }
+
+  async deleteReport(id: string) {
+    if (!window.confirm('Are you sure you want to remove it?')) {
+      return
+    }
+    try {
+      await reportService.delete(id)
+      message.success('Report deleted successfully')
+    } catch (e) {
+      const err: any = (await Promise.resolve(e)) || {}
+      message.error(err.message || 'An error occurred, please try again!')
     }
   }
 
@@ -66,6 +79,7 @@ export default class Index extends PureComponent {
                 onChange={this.handleTabChange.bind(this)}
                 pageSize={limit}
                 submiting={submiting}
+                onDelete={this.deleteReport}
               />
             </div>
           </Page>

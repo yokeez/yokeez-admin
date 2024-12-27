@@ -1,8 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import { formatDate } from '@lib/date'
-import {
-  Button, Collapse, Table
-} from 'antd'
+import { Collapse, Table } from 'antd'
+import { DeleteOutlined } from '@ant-design/icons'
 
 interface IProps {
   items: any[];
@@ -11,6 +10,7 @@ interface IProps {
   searching: boolean;
   submiting: boolean;
   onChange: Function;
+  onDelete: Function;
 }
 
 const reportTableList = ({
@@ -18,14 +18,15 @@ const reportTableList = ({
   total,
   pageSize,
   searching,
-  onChange
+  onChange,
+  onDelete
 }: IProps) => {
   const columns = [
     {
       title: 'User',
       dataIndex: 'sourceInfo',
       key: 'sourceInfo',
-      render: (user:any) => (
+      render: (user: any) => (
         <span>
           {user?.name || user?.username || 'N/A'}
         </span>
@@ -35,25 +36,16 @@ const reportTableList = ({
       title: 'Creator',
       dataIndex: 'performerInfo',
       key: 'performerInfo',
-      render: (performer:any) => (
+      render: (performer: any) => (
         <span>
           {performer?.name || performer?.username || 'N/A'}
         </span>
       )
     },
-
-    // {
-    //   title: 'Object',
-    //   dataIndex: 'target',
-    //   key: 'target',
-    //   render: (target) => (
-    //     <Tag color="blue" style={{ textTransform: 'capitalize' }}>{target}</Tag>
-    //   )
-    // },
     {
       title: 'Reason',
       key: 'description',
-      render: (record:any) => (
+      render: (record: any) => (
         <Collapse ghost accordion expandIconPosition="right">
           <Collapse.Panel
             header={record?.title || record?.description}
@@ -74,10 +66,15 @@ const reportTableList = ({
     {
       title: 'Action',
       key: '_id',
-      render: (report:any) => (
-        <Button type="link">
-          <a href={`/feed/update?id=${report.targetId}`}>View</a>
-        </Button>
+      render: (report: any) => (
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => onDelete(report.key)}
+        >
+          <DeleteOutlined />
+          Delete
+        </button>
       )
     }
   ]
@@ -99,4 +96,5 @@ const reportTableList = ({
     />
   )
 }
+
 export default reportTableList

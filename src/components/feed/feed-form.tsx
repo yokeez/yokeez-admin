@@ -62,14 +62,15 @@ export default class FormFeed extends PureComponent<IProps> {
 
   componentDidMount() {
     if (!this.formRef) this.formRef = createRef()
-    const { feed } = this.props
+    const { feed }: any = this.props
+
     if (feed) {
       this.setState({
         type: feed.type,
         fileList: feed.files ? feed.files : [],
         fileIds: feed.fileIds ? feed.fileIds : [],
         // eslint-disable-next-line no-nested-ternary
-        intendedFor: !feed.isSale ? 'subscriber' : feed.isSale && feed.price ? 'sale' : 'follower',
+        intendedFor: !feed.isSale && feed?.tiersAccess.length > 0 ? 'subscriber' : feed.isSale ? 'sale' : 'follower',
         addPoll: !!feed.pollIds?.length,
         pollList: feed.polls,
         thumbnail: feed.thumbnail,
@@ -119,9 +120,9 @@ export default class FormFeed extends PureComponent<IProps> {
   }
 
   async onsubmit(feed: any, values: any) {
-    const { type } = this.state
+    const { type, intendedFor } = this.state
     let tiersAccess: any = []
-    if (type !== 'text') {
+    if (intendedFor !== 'follower') {
       tiersAccess = ['tier1']
     }
 
@@ -283,7 +284,7 @@ export default class FormFeed extends PureComponent<IProps> {
     }
     formValues.teaserId = this.teaserId
     formValues.thumbnailId = this.thumbnailId
-    formValues.isSale = intendedFor !== 'subscriber'
+    formValues.isSale = intendedFor === 'sale'
     formValues.fileIds = fileIds
     if (['video', 'photo'].includes(feed?.type || type) && !fileIds.length) {
       return message.error(`Please add ${feed?.type || type} file`)

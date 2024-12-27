@@ -11,6 +11,7 @@ import { utilsService } from '@services/utils.service'
 import { getResponseError } from '@lib/utils'
 import { AccountForm } from '@components/performer/AccountForm'
 import { BreadcrumbComponent } from '@components/common'
+import countries from '../../countries.json'
 
 interface IProps {
   countries: ICountry[];
@@ -21,14 +22,12 @@ interface IProps {
 
 class PerformerCreate extends PureComponent<IProps> {
   static async getInitialProps() {
-    const [countries, languages, phoneCodes, bodyInfo] = await Promise.all([
-      utilsService.countriesList(),
+    const [languages, phoneCodes, bodyInfo] = await Promise.all([
       utilsService.languagesList(),
       utilsService.phoneCodesList(),
       utilsService.bodyInfo()
     ])
     return {
-      countries: countries?.data || [],
       languages: languages?.data || [],
       phoneCodes: phoneCodes?.data || [],
       bodyInfo: bodyInfo?.data
@@ -43,7 +42,7 @@ class PerformerCreate extends PureComponent<IProps> {
 
   _cover: File | any
 
-  onBeforeUpload = async (file:any, field = 'avatar') => {
+  onBeforeUpload = async (file: any, field = 'avatar') => {
     if (field === 'avatar') {
       this._avatar = file
     }
@@ -86,8 +85,9 @@ class PerformerCreate extends PureComponent<IProps> {
   render() {
     const { creating } = this.state
     const {
-      countries, languages, bodyInfo, phoneCodes
+      languages, bodyInfo, phoneCodes
     } = this.props
+
     return (
       <Layout>
         <Head>
