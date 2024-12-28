@@ -46,13 +46,14 @@ export default class Index extends PureComponent {
     }
   }
 
-  async deleteReport(id: string) {
+  deleteReport = async (id: string) => {
     if (!window.confirm('Are you sure you want to remove it?')) {
       return
     }
     try {
       await reportService.delete(id)
       message.success('Report deleted successfully')
+      this.getData()
     } catch (e) {
       const err: any = (await Promise.resolve(e)) || {}
       message.error(err.message || 'An error occurred, please try again!')

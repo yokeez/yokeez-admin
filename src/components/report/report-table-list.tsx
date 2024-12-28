@@ -69,7 +69,7 @@ const reportTableList = ({
       render: (report: any) => (
         <button
           type="button"
-          className="delete-button"
+          style={{ backgroundColor: 'white', border: '0px', cursor: 'pointer' }}
           onClick={() => onDelete(report.key)}
         >
           <DeleteOutlined />

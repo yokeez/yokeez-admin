@@ -6,7 +6,7 @@ export class ReportService extends APIRequest {
   }
 
   delete(id: string) {
-    return this.del(`/report/${id}`)
+    return this.del(`/reports/${id}`)
   }
 }
 
