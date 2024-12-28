@@ -323,13 +323,13 @@ class Settings extends PureComponent {
               <Menu.Item key="general">General</Menu.Item>
               <Menu.Item key="email">Email</Menu.Item>
               <Menu.Item key="mailer">SMTP</Menu.Item>
-              <Menu.Item key="custom">SEO</Menu.Item>
-              <Menu.Item key="commission">Commission</Menu.Item>
+              {/* <Menu.Item key="custom">SEO</Menu.Item>
+              <Menu.Item key="commission">Commission</Menu.Item> */}
               {/* <Menu.Item key="s3">S3</Menu.Item> */}
-              <Menu.Item key="agora">Agora Live</Menu.Item>
+              {/* <Menu.Item key="agora">Agora Live</Menu.Item>
               <Menu.Item key="paymentGateways">Payment Gateways</Menu.Item>
               <Menu.Item key="socials">Socials Login</Menu.Item>
-              <Menu.Item key="analytics">GG Analytics</Menu.Item>
+              <Menu.Item key="analytics">GG Analytics</Menu.Item> */}
             </Menu>
           </div>
 

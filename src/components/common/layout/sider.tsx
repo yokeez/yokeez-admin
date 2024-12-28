@@ -19,7 +19,7 @@ interface ISiderProps {
 class Sider extends PureComponent<ISiderProps> {
   render() {
     const {
-      collapsed, theme, isMobile, logo, siteName, onThemeChange, menus
+      collapsed, theme, isMobile, onThemeChange, menus
     } = this.props
     return (
       <Layout.Sider
@@ -35,7 +35,7 @@ class Sider extends PureComponent<ISiderProps> {
         <div className="brand">
           <Link href="/">
             <div className="logo">
-              {logo ? <img alt="logo" src={logo} /> : <h1>{siteName}</h1>}
+              <img alt="happer" src="/header-logo.svg" />
             </div>
           </Link>
         </div>

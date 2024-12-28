@@ -150,8 +150,8 @@ export class TableListFeed extends PureComponent<IProps> {
                 )
               },
               {
-                key: 'delete',
-                name: 'Delete',
+                key: 'pin',
+                name: 'Pin',
                 children: (
                   <span>
                     {record.isPinned ? <PushpinFilled /> : <PushpinOutlined />}
