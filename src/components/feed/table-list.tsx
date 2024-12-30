@@ -6,10 +6,10 @@ import {
   PushpinFilled,
   PushpinOutlined
 } from '@ant-design/icons'
-import { formatDate } from '@lib/date'
 import Link from 'next/link'
 import { DropdownAction } from '@components/common/dropdown-action'
 import { IFeed } from 'src/interfaces'
+import moment from 'moment-timezone'
 
 interface IProps {
   dataSource: [];
@@ -123,7 +123,8 @@ export class TableListFeed extends PureComponent<IProps> {
         dataIndex: 'updatedAt',
         sorter: true,
         render(date: Date) {
-          return <span>{formatDate(date)}</span>
+          const formattedDate = moment.utc(date).format('DD/MM/YYYY HH:mm')
+          return <span>{formattedDate}</span>
         }
       },
       {

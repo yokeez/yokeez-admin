@@ -1,7 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import { formatDate } from '@lib/date'
 import { Collapse, Table } from 'antd'
-import { DeleteOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DropdownAction } from '@components/common'
+import Link from 'next/link'
 
 interface IProps {
   items: any[];
@@ -65,18 +67,58 @@ const reportTableList = ({
     },
     {
       title: 'Action',
-      key: '_id',
-      render: (report: any) => (
-        <button
-          type="button"
-          style={{ backgroundColor: 'white', border: '0px', cursor: 'pointer' }}
-          onClick={() => onDelete(report.key)}
-        >
-          <DeleteOutlined />
-          Delete
-        </button>
-      )
+      dataIndex: '_id',
+      render(id: string, record: any) {
+        return (
+          <DropdownAction
+            menuOptions={[
+              {
+                key: 'update',
+                name: 'Update',
+                children: (
+                  <Link
+                    href={{
+                      pathname: '/feed/update?id=',
+                      query: { id: record?.feed?.slug }
+                    }}
+                    as={`/feed/update?id=${record?.feed?.slug}`}
+                  >
+                    <EditOutlined />
+                    {' '}
+                    Update
+                  </Link>
+                )
+              },
+              {
+                key: 'delete',
+                name: 'Delete',
+                children: (
+                  <a aria-hidden onClick={() => onDelete(record.key)}>
+                    <DeleteOutlined />
+                    {' '}
+                    Delete
+                  </a>
+                )
+              }
+            ]}
+          />
+        )
+      }
     }
+    // {
+    //   title: 'Action',
+    //   key: '_id',
+    //   render: (report: any) => (
+    //     <button
+    //       type="button"
+    //       style={{ backgroundColor: 'white', border: '0px', cursor: 'pointer' }}
+    //       onClick={() => onDelete(report.key)}
+    //     >
+    //       <DeleteOutlined />
+    //       Delete
+    //     </button>
+    //   )
+    // }
   ]
 
   const dataSource = items.map((p) => ({ ...p, key: p._id }))

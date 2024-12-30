@@ -19,7 +19,7 @@ interface IProps {
 class Feeds extends PureComponent<IProps> {
   type = ''
 
-  static async getInitialProps({ ctx }:any) {
+  static async getInitialProps({ ctx }: any) {
     return ctx.query
   }
 
@@ -43,7 +43,7 @@ class Feeds extends PureComponent<IProps> {
     this.search()
   }
 
-  async componentDidUpdate(prevProps:any) {
+  async componentDidUpdate(prevProps: any) {
     const { performerId, router } = this.props
     if (prevProps.router.query.type !== router.query.type) {
       const { filter } = this.state
@@ -55,7 +55,7 @@ class Feeds extends PureComponent<IProps> {
     }
   }
 
-  handleTableChange = async (pagi:any, filters:any, sorter:any) => {
+  handleTableChange = async (pagi: any, filters: any, sorter: any) => {
     const { pagination } = this.state
     const pager = { ...pagination }
     pager.current = pagi.current
@@ -71,7 +71,7 @@ class Feeds extends PureComponent<IProps> {
     this.search(pager.current)
   }
 
-  async handleFilter(values:any) {
+  async handleFilter(values: any) {
     const { filter } = this.state
     await this.setState({ filter: { ...filter, ...values } })
     this.search()
@@ -116,7 +116,7 @@ class Feeds extends PureComponent<IProps> {
       message.success('Post deleted successfully')
       this.search(pagination.current)
     } catch (e) {
-      const err:any = (await Promise.resolve(e)) || {}
+      const err: any = (await Promise.resolve(e)) || {}
       message.error(err.message || 'An error occurred, please try again!')
     }
   }
@@ -133,7 +133,7 @@ class Feeds extends PureComponent<IProps> {
       message.success(`${feed.isPinned ? 'Unpinned' : 'Pinned'} post successfully`)
       this.search(pagination.current)
     } catch (e) {
-      const err:any = (await Promise.resolve(e)) || {}
+      const err: any = (await Promise.resolve(e)) || {}
       message.error(err.message || 'An error occurred, please try again!')
     }
   }
