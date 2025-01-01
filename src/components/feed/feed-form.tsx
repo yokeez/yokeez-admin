@@ -127,7 +127,7 @@ export default class FormFeed extends PureComponent<IProps> {
     }
 
     try {
-      !feed ? await feedService.create({ ...values, tiersAccess, type }) : await feedService.update(feed._id, { ...values, tiersAccess, type: feed.type })
+      !feed ? await feedService.create({ ...values, tiersAccess, type }) : await feedService.update(feed._id, { ...values, tiersAccess, type })
       message.success(`${!feed ? 'Posted' : 'Updated'} successfully!`)
       Router.replace('/feed')
     } catch {
@@ -273,7 +273,7 @@ export default class FormFeed extends PureComponent<IProps> {
   async submit(payload: any) {
     const { feed } = this.props
     const {
-      pollList, addPoll, intendedFor, expiredPollAt, fileIds, type
+      pollList, addPoll, intendedFor, expiredPollAt, fileIds, type, fileList
     }: any = this.state
     const formValues = payload
     if (!formValues.text || !formValues.text.trim()) {
@@ -286,8 +286,13 @@ export default class FormFeed extends PureComponent<IProps> {
     formValues.thumbnailId = this.thumbnailId
     formValues.isSale = intendedFor === 'sale'
     formValues.fileIds = fileIds
-    if (['video', 'photo'].includes(feed?.type || type) && !fileIds.length) {
-      return message.error(`Please add ${feed?.type || type} file`)
+
+    const getFieldTypes = fileList?.filter((v: any) => !v?.type.includes(type) || (type === 'photo' ? !v?.type.includes('image') : false))
+    if (getFieldTypes?.length > 0) {
+      return message.error(`Please add ${type} file either select correct type according to file format`)
+    }
+    if (['video', 'photo'].includes(type) && !fileIds.length) {
+      return message.error(`Please add ${type} file`)
     }
     await this.setState({ uploading: true })
     if (addPoll && pollList.length < 2) {
@@ -312,7 +317,7 @@ export default class FormFeed extends PureComponent<IProps> {
       }
       formValues.pollIds = this.pollIds
       formValues.pollExpiredAt = expiredPollAt
-      this.onsubmit(feed, formValues)
+      // this.onsubmit(feed, formValues)
     } else {
       this.onsubmit(feed, formValues)
     }
@@ -326,6 +331,7 @@ export default class FormFeed extends PureComponent<IProps> {
       uploading, fileList, pollList, type, teaser, intendedFor,
       addPoll, openPollDuration, expirePollTime, thumbnail, isShowPreviewTeaser
     }: any = this.state
+
     return (
       <div className="feed-form">
         <Form
@@ -475,7 +481,7 @@ export default class FormFeed extends PureComponent<IProps> {
           {['photo', 'video'].includes(type) && (
             <Form.Item label={type === 'video' ? 'Video file' : 'Photo files'}>
               <UploadList
-                type={feed?.type || type}
+                type={type}
                 files={fileList}
                 remove={this.remove.bind(this)}
                 onAddMore={this.beforeUpload.bind(this)}
@@ -484,7 +490,7 @@ export default class FormFeed extends PureComponent<IProps> {
             </Form.Item>
           )}
           <div style={{ margin: '15px 0' }}>
-            {['video'].includes(feed?.type || type) && [
+            {['video'].includes(type) && [
               <Upload
                 key="upload_thumb"
                 customRequest={() => true}
@@ -532,7 +538,7 @@ export default class FormFeed extends PureComponent<IProps> {
               type="primary"
               htmlType="submit"
               style={{ marginRight: '20px' }}
-              loading={uploading}
+              // loading={uploading}
               disabled={uploading}
             >
               {!feed ? 'POST' : 'UPDATE'}
