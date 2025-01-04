@@ -273,7 +273,7 @@ export default class FormFeed extends PureComponent<IProps> {
   async submit(payload: any) {
     const { feed } = this.props
     const {
-      pollList, addPoll, intendedFor, expiredPollAt, fileIds, type, fileList
+      pollList, addPoll, intendedFor, expiredPollAt, fileIds, type, fileList, thumbnail
     }: any = this.state
     const formValues = payload
     if (!formValues.text || !formValues.text.trim()) {
@@ -287,9 +287,20 @@ export default class FormFeed extends PureComponent<IProps> {
     formValues.isSale = intendedFor === 'sale'
     formValues.fileIds = fileIds
 
-    const getFieldTypes = fileList?.filter((v: any) => !v?.type.includes(type) || (type === 'photo' ? !v?.type.includes('image') : false))
+    const getFieldTypes = fileList?.filter((v: any) => {
+      if (type === 'photo') {
+        return !v?.type.includes('image')
+      }
+      if (type === 'video') {
+        return !v?.type.includes('video')
+      }
+      return true
+    })
+    if (type !== 'video' && thumbnail) {
+      return message.error('Please remove thumbnail')
+    }
     if (getFieldTypes?.length > 0) {
-      return message.error(`Please add ${type} file either select correct type according to file format`)
+      return message.error('Please add files of the selected type or remove files that do not match the selected format.')
     }
     if (['video', 'photo'].includes(type) && !fileIds.length) {
       return message.error(`Please add ${type} file`)
@@ -307,6 +318,7 @@ export default class FormFeed extends PureComponent<IProps> {
             description: poll,
             expiredAt: expiredPollAt
           })
+
           if (resp && resp.data) {
             this.pollIds = [...this.pollIds, resp.data._id]
           }
@@ -317,7 +329,7 @@ export default class FormFeed extends PureComponent<IProps> {
       }
       formValues.pollIds = this.pollIds
       formValues.pollExpiredAt = expiredPollAt
-      // this.onsubmit(feed, formValues)
+      this.onsubmit(feed, formValues)
     } else {
       this.onsubmit(feed, formValues)
     }
@@ -386,7 +398,18 @@ export default class FormFeed extends PureComponent<IProps> {
           {thumbnail && (
             <Form.Item label="Thumbnail">
               <div style={{ position: 'relative', display: 'inline-block' }}>
-                <Button type="primary" onClick={() => this.handleDeleteFile('thumbnail')} style={{ position: 'absolute', top: 2, right: 2 }}><DeleteOutlined /></Button>
+                <Button
+                  type="primary"
+                  onClick={() => this.handleDeleteFile('thumbnail')}
+                  style={{
+                    position: 'absolute',
+                    zIndex: 1,
+                    top: 2,
+                    right: 2
+                  }}
+                >
+                  <DeleteOutlined />
+                </Button>
                 <Image alt="thumbnail" src={thumbnail?.url} width="200px" />
               </div>
             </Form.Item>
