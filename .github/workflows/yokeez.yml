@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
           
       - name: Installing Dependencies
-        run: npm install --force
+        run: npm i --legacy-peers-deps
 
       - name: Setup Environment File
         run: |
