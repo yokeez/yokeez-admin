@@ -36,3 +36,9 @@ jobs:
         run: |
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
+      
+      - name: Building Application
+        run: npm run build
+
+      - name: Proccess Manager
+        run: pm2 restart yokeez
