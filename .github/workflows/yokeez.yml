@@ -1,0 +1,41 @@
+name: Yokeez Admin CI/CD
+
+on:
+  push:
+    branches: ["staging"]
+  pull_request:
+    branches: ["staging"]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Clean workspace
+        run: |
+          if [ -d "${{ github.workspace }}" ]; then
+            sudo chmod -R 777 ${{ github.workspace }} || true
+            rm -rf ${{ github.workspace }}/* || true
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          
+      - name: Installing Dependencies
+        run: npm install --force
+
+      - name: Setup Environment File
+        run: |
+          touch .env
+          echo "${{ secrets.PROD_ENV_FILE }}" > .env
+
+      - name: Build Application
+        run: npm run build
